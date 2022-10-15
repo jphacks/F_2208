@@ -30,6 +30,12 @@ $ cd F_2208
 $ cd frontend
 ```
 
+## frontend ブランチへ checkout(移動)する
+
+```bash
+$ git checkout frontend
+```
+
 基本的にこのディレクトリにいてください。
 
 ## 開発に必要なパッケージをインストールする
