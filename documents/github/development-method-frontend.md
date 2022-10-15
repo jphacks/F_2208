@@ -47,7 +47,7 @@ $ npm install
 ## プレビュー環境を実行する
 
 ```bash
-$ npm start
+$ npm run dev
 ```
 
 終了する場合は、`⌘+C` を入力する。
