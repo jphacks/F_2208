@@ -30,14 +30,14 @@
 ・フロントエンド<br>
  	Webアプリ<br>
    LReact<br>
-		  LMaterial UI
-		  L（Tailwind CSS）
-	 スマホアプリ
-		 LReact Native + Expo
-		 Lreact-native-elements
-・バックエンド
- 	LPHP(Laravel)
-	 Lデータベース(MySQL)
+		  LMaterial UI<br>
+		  L（Tailwind CSS）<br>
+	 スマホアプリ<br>
+		 LReact Native + Expo<br>
+		 Lreact-native-elements<br>
+・バックエンド<br>
+ 	LPHP(Laravel)<br>
+	 Lデータベース(MySQL)<br>
 
 #### API・データ
 * 
