@@ -25,6 +25,20 @@
 
 ## 開発技術
 ### 活用した技術
+・ローカルストレージ
+	 Lギフトコードをローカルに持たせておく
+・フロントエンド
+ 	Webアプリ
+   LReact
+		  LMaterial UI
+		  L（Tailwind CSS）
+	 スマホアプリ
+		 LReact Native + Expo
+		 Lreact-native-elements
+・バックエンド
+ 	LPHP(Laravel)
+	 Lデータベース(MySQL)
+
 #### API・データ
 * 
 * 
