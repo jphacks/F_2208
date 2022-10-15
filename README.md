@@ -25,11 +25,11 @@
 
 ## 開発技術
 ### 活用した技術
-・ローカルストレージ
+・ローカルストレージ<br>
 	 Lギフトコードをローカルに持たせておく
-・フロントエンド
- 	Webアプリ
-   LReact
+・フロントエンド<br>
+ 	Webアプリ<br>
+   LReact<br>
 		  LMaterial UI
 		  L（Tailwind CSS）
 	 スマホアプリ
