@@ -59,7 +59,7 @@ $ cp .env.example .env
 ```
 
 ```bash
-$ ./vendor/bin/sail artisan key:generate
+$ ./vendor/bin/sail up
 ```
 
 ## プレビュー環境を実行する
@@ -67,7 +67,7 @@ $ ./vendor/bin/sail artisan key:generate
 このコマンドを実行する前に、 Docker が起動しているか確認してください。
 
 ```bash
-$ ./vendor/bin/sail up
+$ vendor/bin/sail artisan key:generate
 ```
 
 [Sail へのパスを通す](https://omkz.net/laravel-sail/#index_id3)を参考に、パスを通せば以下のように簡略化することもできる。
