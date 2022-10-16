@@ -14,18 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->biginteger('id');
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avater')->nullable();
-            $table->integer('level')->default($value=1);
-            $table->biginteger('total_exp')->default($value=0);
-            $table->biginteger('balance_exp')->default($value=0);
-            $table->timestamp('created_at')->timestamps();
-            $table->timestamp('updated_at')->timestamps();
-            $table->timestamp('deleted_at')->softDeletes($column = 'deleted_at');
+            $table->integer('level')->default(1);
+            $table->biginteger('total_exp')->default(0);
+            $table->biginteger('balance_exp')->default(0);
+            $table->timestamps('created_at');
+            $table->timestamps('updated_at');
+            $table->softDeletes('deleted_at');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('order_user_id')->references('id')->on('users')->nullable();
             
