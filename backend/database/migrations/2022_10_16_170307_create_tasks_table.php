@@ -21,8 +21,10 @@ return new class extends Migration
             $table->timestamp('time_limit')->nullable();
             $table->tinyinteger('severity')->default(0);
             $table->tinyinteger('status')->default(1);
+            $table->unsignedBiginteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('order_user_id')->references('id')->on('users')->nullable();
+            $table->unsignedBiginteger('order_user_id')->nullable();
+            $table->foreign('order_user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
