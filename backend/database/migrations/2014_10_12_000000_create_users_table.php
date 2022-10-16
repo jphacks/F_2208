@@ -14,13 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->biginteger('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('avater')->nullable();
+            $table->integer('level')->default($value=1);
+            $table->biginteger('total_exp')->default($value=0);
+            $table->biginteger('balance_exp')->default($value=0);
+            $table->timestamp('created_at')->timestamps();
+            $table->timestamp('updated_at')->timestamps();
+            $table->timestamp('deleted_at')->softDeletes($column = 'deleted_at');
         });
     }
 
