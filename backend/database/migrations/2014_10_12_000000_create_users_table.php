@@ -23,11 +23,8 @@ return new class extends Migration
             $table->integer('level')->default(1);
             $table->biginteger('total_exp')->default(0);
             $table->biginteger('balance_exp')->default(0);
-            $table->timestamps('created_at');
-            $table->timestamps('updated_at');
-            $table->softDeletes('deleted_at');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('order_user_id')->references('id')->on('users')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
             
         });
     }
