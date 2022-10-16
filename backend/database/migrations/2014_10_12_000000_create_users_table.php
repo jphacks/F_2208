@@ -26,6 +26,9 @@ return new class extends Migration
             $table->timestamp('created_at')->timestamps();
             $table->timestamp('updated_at')->timestamps();
             $table->timestamp('deleted_at')->softDeletes($column = 'deleted_at');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('order_user_id')->references('id')->on('users')->nullable();
+            
         });
     }
 
