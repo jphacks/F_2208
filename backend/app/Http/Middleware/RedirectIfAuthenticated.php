@@ -7,8 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
-{
+class RedirectIfAuthenticated {
     /**
      * Handle an incoming request.
      *
@@ -17,12 +16,15 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
-    {
+    public function handle(Request $request, Closure $next, ...$guards) {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                if ($request->expectsJson()) {
+                    // クライアントからJSONレスポンスを要求されている場合、リダイレクトさせず、JSON形式メッセージをレスポンスする。
+                    return response()->json(['message' => 'Already authenticated.'], 200);
+                }
                 return redirect(RouteServiceProvider::HOME);
             }
         }
