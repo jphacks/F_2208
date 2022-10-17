@@ -21,6 +21,6 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
     public function orderuser() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'order_user_id', 'id');
     }
 }
