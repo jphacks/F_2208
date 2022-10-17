@@ -21,6 +21,10 @@ class User extends Authenticatable {
         'name',
         'email',
         'password',
+        'avater',
+        'level',
+        'total_exp',
+        'balance_exp',
     ];
 
     /**
@@ -41,4 +45,16 @@ class User extends Authenticatable {
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tasks() {
+        return $this->hasMany(Task::class);
+    }
+
+    public function orderedTasks() {
+        return $this->hasMany(Task::class, 'order_user_id', 'id');
+    }
+
+    public function friends() {
+        return $this->hasMany(Task::class);
+    }
 }
