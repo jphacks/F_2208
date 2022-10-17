@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import auth from "./api/auth";
 import { fetchUser } from "./api/user";
+import Header from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Tasks from "./pages/Tasks";
@@ -31,6 +32,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <userContext.Provider value={user}>
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route index element={<Top />} />
             <Route path="/dashboard" exact element={<Dashboard />} />
