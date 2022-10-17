@@ -18,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('tasks', TaskController::class);
+
+Route::post('/index', [TaskController::class, 'index']);
+Route::post('/store', [TaskController::class, 'store']);
+Route::post('/show', [TaskController::class, 'show']);
+Route::post('/update', [TaskController::class, 'update']);
+Route::post('/destroy', [TaskController::class, 'destroy']);

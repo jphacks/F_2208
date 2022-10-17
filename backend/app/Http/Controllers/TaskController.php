@@ -26,7 +26,7 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //
     }
@@ -36,12 +36,16 @@ class TaskController extends Controller
      * @param  \App\Http\Requests\StoreTaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTaskRequest $request, Task $task)
+    public function store(StoreTaskRequest $request)
     {
         //
         $task = new Task();
         $task->title = $request->input('title');
         $task->description = $request->input('description');
+        $task->exp = $request->input('exp');
+        $task->time_limit = $request->input('time_limit');
+        $task->severity = $request->input('severity');
+        $task->status = $request->input('status');
         $task->created_at = now();
         $task->updated_at = now();
         $task->save();
@@ -54,10 +58,10 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Task $task)
+    public function show(Task $task)
     {
         //
-        return response()->json($task);
+        $task = Task::find();
     }
 
     /**
@@ -80,7 +84,6 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, Task $task)
     {
         //
-        $task = Task::find($id);
         $task->title = $request->input('title');
         $task->description = $request->input('description');
         $task->exp = $request->input('exp');
