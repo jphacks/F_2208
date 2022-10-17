@@ -18,6 +18,7 @@ class TaskController extends Controller
         //
         $user = $request->user();
         $tasks = Task::where('user_id', $user->id)::get();
+        return response()->json($tasks);
     }
 
     /**
@@ -25,21 +26,10 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Task $task)
+    public function create(Request $request)
     {
         //
-        $task = new Task();
-        $task->title = $request->input('title');
-        $task->content = $request->input('description');
-        $task->content = $request->input('exp');
-        $task->content = $request->input('time_limit');
-        $task->content = $request->input('severity');
-        $task->created_at = now();
-        $task->updated_at = now();
-        $task->save();
-        return response()->json(Task::all());
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -49,12 +39,13 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request, Task $task)
     {
         //
-        $task = Task::create($request->all());
-        return response()->json([
-            'status' => true,
-            'message' => "Task Created successfully!",
-            'task' => $Task
-        ], 200);
+        $task = new Task();
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->created_at = now();
+        $task->updated_at = now();
+        $task->save();
+        return response()->json(Post::all());
     }
 
     /**
@@ -66,7 +57,6 @@ class TaskController extends Controller
     public function show($id, Task $task)
     {
         //
-        $task = Task::find($id);
         return response()->json($task);
     }
 
@@ -79,14 +69,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         //
-        $task->title = $request->input('title');
-        $task->content = $request->input('description');
-        $task->content = $request->input('exp');
-        $task->content = $request->input('time_limit');
-        $task->content = $request->input('severity');
-        $task->save();
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -94,16 +77,16 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTaskRequest $request, $id, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         //
         $task = Task::find($id);
         $task->title = $request->input('title');
-        $task->content = $request->input('description');
-        $task->content = $request->input('exp');
-        $task->content = $request->input('time_limit');
-        $task->content = $request->input('severity');
-        $task->content = $request->input('satus');
+        $task->description = $request->input('description');
+        $task->exp = $request->input('exp');
+        $task->time_limit = $request->input('time_limit');
+        $task->severity = $request->input('severity');
+        $task->status = $request->input('status');
         $task->updated_at = now();
         $task->save();
         return response()->json($task);
