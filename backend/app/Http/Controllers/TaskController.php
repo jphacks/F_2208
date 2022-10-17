@@ -49,7 +49,7 @@ class TaskController extends Controller
         $task->created_at = now();
         $task->updated_at = now();
         $task->save();
-        return response()->json(Post::all());
+        return response()->json(Task::all());
     }
 
     /**
@@ -61,7 +61,7 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         //
-        $task = Task::find();
+        return response()->json($task);
     }
 
     /**
@@ -90,6 +90,8 @@ class TaskController extends Controller
         $task->time_limit = $request->input('time_limit');
         $task->severity = $request->input('severity');
         $task->status = $request->input('status');
+        $task->user_id = $request->input('user_id');
+        $task->order_user_id = $request->input('order_user_id');
         $task->updated_at = now();
         $task->save();
         return response()->json($task);
