@@ -17,10 +17,10 @@ class Task extends Model
         'status',
     ];
 
-    public function usertask() {
+    public function User() {
         return $this->belongsTo(User::class);
     }
-    public function orderuser() {
+    public function Orderuser() {
         return $this->belongsTo(User::class,'order_user_id', 'id');
     }
 }
