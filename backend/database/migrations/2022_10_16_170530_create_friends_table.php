@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('friends', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id');
+            $table->primary('id');
             $table->unsignedBiginteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer("intimacy");
