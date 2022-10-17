@@ -16,6 +16,8 @@ class TaskController extends Controller
     public function index()
     {
         //
+        $user = $request->user();
+        $tasks = Task::where('user_id', $user->id)::get();
     }
 
     /**
@@ -23,9 +25,19 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, Task $task)
     {
         //
+        $task = new Task();
+        $task->title = $request->input('title');
+        $task->content = $request->input('description');
+        $task->content = $request->input('exp');
+        $task->content = $request->input('time_limit');
+        $task->content = $request->input('severity');
+        $task->created_at = now();
+        $task->updated_at = now();
+        $task->save();
+        return response()->json(Task::all());
     }
 
     /**
@@ -34,9 +46,15 @@ class TaskController extends Controller
      * @param  \App\Http\Requests\StoreTaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTaskRequest $request)
+    public function store(StoreTaskRequest $request, Task $task)
     {
         //
+        $task = Task::create($request->all());
+        return response()->json([
+            'status' => true,
+            'message' => "Task Created successfully!",
+            'task' => $Task
+        ], 200);
     }
 
     /**
@@ -45,9 +63,11 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id, Task $task)
     {
         //
+        $task = Task::find($id);
+        return response()->json($task);
     }
 
     /**
@@ -59,6 +79,12 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         //
+        $task->title = $request->input('title');
+        $task->content = $request->input('description');
+        $task->content = $request->input('exp');
+        $task->content = $request->input('time_limit');
+        $task->content = $request->input('severity');
+        $task->save();
     }
 
     /**
@@ -68,9 +94,19 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(UpdateTaskRequest $request, $id, Task $task)
     {
         //
+        $task = Task::find($id);
+        $task->title = $request->input('title');
+        $task->content = $request->input('description');
+        $task->content = $request->input('exp');
+        $task->content = $request->input('time_limit');
+        $task->content = $request->input('severity');
+        $task->content = $request->input('satus');
+        $task->updated_at = now();
+        $task->save();
+        return response()->json($task);
     }
 
     /**
@@ -82,5 +118,10 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         //
+        $task->delete();
+        return response()->json([
+            'status' => true,
+            'message' => "Task Deleted successfully!",
+        ], 200);
     }
 }
