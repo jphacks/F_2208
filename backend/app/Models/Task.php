@@ -13,14 +13,17 @@ class Task extends Model
         'title',
         'description',
         'exp',
+        'time_limit',
         'severity',
         'status',
+        'user_id',
+        'order_user_id',
     ];
 
-    public function User() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
-    public function Orderuser() {
+    public function orderUser() {
         return $this->belongsTo(User::class,'order_user_id', 'id');
     }
 }
