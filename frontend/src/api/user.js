@@ -14,9 +14,16 @@ export const fetchUser = async () => {
     });
 }
 
-export const updateUser = async () => {
+export const updateUser = async (name, email, avatar, level, total_exp, balance_exp) => {
   return await axios
-    .put("/api/user")
+    .put("/api/user", {
+      name,
+      email,
+      avatar,
+      level,
+      total_exp,
+      balance_exp,
+    })
     .then((res) => {
       console.log("[user]更新成功")
       return res;
