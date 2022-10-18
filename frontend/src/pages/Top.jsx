@@ -61,6 +61,7 @@ const Top = () => {
             onSubmit={onSubmitLoginForm}
             handleSubmit={handleSubmitLoginForm}
             control={controlLoginForm}
+          />
         )}
         <div>または</div>
         <Button color="inherit" variant="outlined" onClick={handleClick}>
