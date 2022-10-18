@@ -106,15 +106,11 @@ class FriendController extends Controller
         return response('Deletion completed.');
     }
 
-    public function searchEmail(Request $request, Friend $friend)
+    public function searchEmail(Request $request)
     {
-        $keyword = $request->input('keyword','');
-        $query = User::query();
-        if(!empty($keyword))
-        {
-            $query->Where('email','like','%'.$keyword.'%');
-        }
-        $friend = $query->orderBy('email','desc')->get();
-        return response()->json($friend);
+        $email = $request->email;
+
+        $friends = User::find()->friends()->where('email', 'like', '%'.$email.'%')->get();
+        return response()->json($friends);
     }
 }
