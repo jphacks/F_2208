@@ -18,7 +18,7 @@ class FriendController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $freinds = Frind::where('user_id', $user->id)->get();
+        $freinds = Friend::where('user_id', $user->id)->get();
         return response()->json($freinds);
     }
 
