@@ -18,7 +18,7 @@ class FriendController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $freinds = Friend::where('user_id', $user->id)->get();
+        $freinds = Friend::where('id', $user->id)->get();
         return response()->json($freinds);
     }
 
@@ -41,6 +41,7 @@ class FriendController extends Controller
     public function store(StoreFriendRequest $request)
     {
         $friend = new Friend();
+        $friend->id = $request->input('id');
         $friend->user_id = $request->input('user_id');
         $friend->intimacy = $request->input('intimacy');
         $friend->favorite = $request->input('favorite');
@@ -83,12 +84,10 @@ class FriendController extends Controller
      */
     public function update(UpdateFriendRequest $request, Friend $friend)
     {
-        $friend->user_id = $request->input('user_id');
         $friend->intimacy = $request->input('intimacy');
         $friend->favorite = $request->input('favorite');
         $friend->sent_exp = $request->input('sent_exp');
         $friend->received_exp = $request->input('received_exp');
-        $friend->created_at = now();
         $friend->updated_at = now();
         $friend->save();
         return response()->json($friend);
