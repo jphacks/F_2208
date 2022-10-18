@@ -1,0 +1,13 @@
+frontend:
+- frontend/**/*
+backend:
+- backend/**/*
+api:
+- frontend/src/api/**/*
+- backend/app/Http/Controllers/**/*
+install:
+- frontend/package.json
+- frontend/package-lock.json
+- backend/package.json
+- backend/composer.json
+- backend/composer.lock
