@@ -8,6 +8,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { Container } from "@mui/material";
+import { css } from '@emotion/react'
+import PigImage from "../assets/img/pig.png";
+
 
 const Top = () => {
   // ログインor新規登録表示切り替え用
@@ -45,6 +48,23 @@ const Top = () => {
   };
 
   return (
+    <div css={css`
+    width:6000px;
+    height:750px;
+    background-image: url(${PigImage});
+    background-repeat:no-repeat; 
+    background-position:center;
+    background-size:contain;
+    background-color:rgba(255,255,255,0.6);
+    background-blend-mode:lighten;
+    background-size: 100%; 
+    @media{}
+    max-width:800px;
+    position:center;
+    width: 100%;
+    margin: 0 auto;
+    `}>
+    <div >
     <Container maxWidth="sm">
       <div>
         {showRegisterForm ? (
@@ -63,12 +83,32 @@ const Top = () => {
             control={controlLoginForm}
           />
         )}
-        <div>または</div>
-        <Button color="inherit" variant="outlined" onClick={handleClick}>
+        <div css={css`
+            width: 33%;
+            margin: 0 auto;
+            
+            padding-top:30px;
+            padding-bottom:30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}>または</div>
+        <Button css={css`
+            width: 40%;
+            margin: 0 auto;
+           
+            background-color:white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+          `}  color="inherit" variant="outlined" onClick={handleClick}>
           {!showRegisterForm ? "新規登録" : "ログイン"}
         </Button>
-      </div>
+        </div>
     </Container>
+    </div>
+    </div>
   );
 };
 
