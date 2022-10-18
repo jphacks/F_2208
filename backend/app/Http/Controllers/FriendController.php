@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFriendRequest;
 use App\Http\Requests\UpdateFriendRequest;
 use App\Models\Friend;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -103,5 +104,17 @@ class FriendController extends Controller
     {
         $friend->delete();
         return response('Deletion completed.');
+    }
+
+    public function searchEmail(Request $request, Friend $friend)
+    {
+        $keyword = $request->input('keyword','');
+        $query = User::query();
+        if(!empty($keyword))
+        {
+            $query->Where('email','like','%'.$keyword.'%');
+        }
+        $friend = $query->orderBy('email','desc')->get();
+        return response()->json($friend);
     }
 }
