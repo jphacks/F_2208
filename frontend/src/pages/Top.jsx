@@ -81,6 +81,7 @@ const Top = () => {
             onSubmit={onSubmitLoginForm}
             handleSubmit={handleSubmitLoginForm}
             control={controlLoginForm}
+            watch={watchLoginForm}
           />
         )}
         <div css={css`
