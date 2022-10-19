@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { RegisterForm } from "../components/RegisterForm";
 import { LoginForm } from "../components/LoginForm";
 import { useForm } from "react-hook-form";
@@ -9,8 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { Container } from "@mui/material";
 import { css } from "@emotion/react";
 import PigImage from "../assets/img/pig.png";
+import { userContext } from "../contexts/userContext";
+import { fetchUser } from "../api/user";
 
 const Top = () => {
+  const user = useContext(userContext);
   // ログインor新規登録表示切り替え用
   const [showRegisterForm, setShowRegisterForm] = useState(0);
   const {
@@ -40,6 +43,8 @@ const Top = () => {
     );
 
     if (res.status === 200) {
+      const res = await fetchUser();
+      user.setUser(res.data);
       navigate("/dashboard");
     }
   };
@@ -47,6 +52,8 @@ const Top = () => {
     const res = await login(inputData.email, inputData.password);
 
     if (res.status === 200) {
+      const res = await fetchUser();
+      user.setUser(res.data);
       navigate("/dashboard");
     }
   };
