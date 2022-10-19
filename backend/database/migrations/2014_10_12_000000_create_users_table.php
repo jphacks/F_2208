@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->integer('level')->default(1);
-            $table->biginteger('total_exp')->default(0);
-            $table->biginteger('balance_exp')->default(0);
+            $table->bigInteger('total_exp')->default(0);
+            $table->bigInteger('balance_exp')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
