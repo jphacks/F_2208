@@ -42,7 +42,7 @@ const Top = () => {
       inputData.password_confirmation
     );
 
-    if (res.status === 200) {
+    if (res.status === 201) {
       const res = await fetchUser();
       user.setUser(res.data);
       navigate("/dashboard");
