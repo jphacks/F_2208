@@ -8,6 +8,8 @@ import grassImage from "../assets/img/grass.png";
 import { userContext } from "../contexts/userContext";
 import SpeechBubbleTop from "../components/SpeechBubbleTop";
 import Pig from "../components/Pig";
+import ExpBar from "../components/ExpBar";
+import UserStatus from "../components/UserStatus";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -41,6 +43,13 @@ const Profile = () => {
           ぼくの中には{user.total_exp}ポイント入っているっぴ！
           {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
         </SpeechBubbleTop>
+        <Box
+          css={css`
+            margin-top: 30px;
+          `}
+        >
+          <UserStatus />
+        </Box>
       </Container>
     );
   }
