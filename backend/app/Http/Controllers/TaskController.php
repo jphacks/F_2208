@@ -15,7 +15,29 @@ class TaskController extends Controller {
      */
     public function index(Request $request) {
         $user = $request->user();
-        $tasks = Task::where('user_id', $user->id)->get();
+        $sort = $request->get('sort');
+        switch ($sort) {
+            case 'time_limit_asc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('time_limit_asc','asc')->get();
+                break;
+            case 'time_limit_desc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('time_limit_desc','desc')->get();
+                break;
+            case 'created_at_asc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('created_at_asc','asc')->get();
+                break;
+            case 'created_at_desc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('created_at_desc','desc')->get();
+                break;
+            case 'severity_asc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('severity_asc','asc')->get();
+                break;
+            case 'severity_desc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('severity_desc','desc')->get();
+                break;
+            default:
+                $tasks = Task::where('user_id', $user->id)->all()->get();
+        } 
         return response()->json($tasks);
     }
 
@@ -90,7 +112,6 @@ class TaskController extends Controller {
         $task->save();
         return response()->json($task);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -100,5 +121,5 @@ class TaskController extends Controller {
     public function destroy(Task $task) {
         $task->delete();
         return response('Deletion completed.');
-    }
+    }         
 }
