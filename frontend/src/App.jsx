@@ -11,6 +11,7 @@ import Top from "./pages/Top";
 import User from "./pages/User";
 import UserSettings from "./pages/UserSettings";
 import { css } from "@emotion/react";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
@@ -36,9 +37,9 @@ const App = () => {
           <Header />
           <main
             css={css`
-              margin-top: 70px;
+              margin-top: 80px;
               @media screen and (min-width: 600px) {
-                margin-top: 80px;
+                margin-top: 68px;
               }
             `}
           >

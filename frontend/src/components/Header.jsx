@@ -26,22 +26,22 @@ const Header = () => {
   const menuItems = [
     {
       title: "プロフィール",
-      link: user && `users/${user.id}`,
+      link: user && `/users/${user.id}`,
       icon: <PersonIcon />,
     },
     {
       title: "フレンド",
-      link: `friends`,
+      link: `/friends`,
       icon: <GroupIcon />,
     },
     {
       title: "ポイント交換",
-      link: `points`,
+      link: `/points`,
       icon: <RedeemIcon />,
     },
     {
       title: "設定",
-      link: `settings`,
+      link: `/settings`,
       icon: <SettingsIcon />,
     },
     {
@@ -82,7 +82,7 @@ const Header = () => {
           `}
         >
           <Link
-            to="/"
+            to="/dashboard"
             css={css`
               text-decoration: none;
               color: inherit;
@@ -95,6 +95,7 @@ const Header = () => {
         <div
           css={css`
             display: flex;
+            gap: 0.4em;
           `}
         >
           <div
@@ -106,16 +107,16 @@ const Header = () => {
               gap: 0.2em;
             `}
           >
-            {user?.level && (
+            {user?.level != null && (
               <div
                 css={css`
                   font-size: 0.7em;
                 `}
               >
-                `Lv.${user.level}`
+                Lv.{user.level}
               </div>
             )}
-            {user?.total_exp && (
+            {user?.total_exp != null && (
               <div
                 css={css`
                   width: 30px;
@@ -125,7 +126,7 @@ const Header = () => {
                     content: "";
                     display: block;
                     /* 1Lvあたり200Exp必要の場合の計算式 */
-                    width: ${Math.ceil(((350 % 200) / 200) * 30)}px;
+                    width: ${Math.ceil(((user.total_exp % 200) / 200) * 30)}px;
                     height: 4px;
                     background-color: #e83743;
                   }

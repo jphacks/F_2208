@@ -4,18 +4,26 @@ import { LoginForm } from "../components/LoginForm";
 import { useForm } from "react-hook-form";
 import register from "../api/register";
 import login from "../api/login";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { Container } from "@mui/material";
+import { css } from "@emotion/react";
+import PigImage from "../assets/img/pig.png";
 
 const Top = () => {
   // ログインor新規登録表示切り替え用
   const [showRegisterForm, setShowRegisterForm] = useState(0);
-  const { register: registerLoginForm, handleSubmit: handleSubmitLoginForm } =
-    useForm();
+  const {
+    register: registerLoginForm,
+    handleSubmit: handleSubmitLoginForm,
+    control: controlLoginForm,
+    watch: watchLoginForm,
+  } = useForm();
   const {
     register: registerRegisterForm,
     handleSubmit: handleSubmitRegisterForm,
+    control: controlRegisterForm,
+    watch: watchRegisterForm,
   } = useForm();
   const navigate = useNavigate();
 
@@ -44,27 +52,86 @@ const Top = () => {
   };
 
   return (
-    <Box>
+    <div
+      css={css`
+        height: 750px;
+        background-image: url(${PigImage});
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        background-color: rgba(255, 255, 255, 0.6);
+        background-blend-mode: lighten;
+        background-size: 180%;
+        @media screen and (min-width: 768px) {
+          background-size: 100%;
+        }
+        @media screen and (min-width: 1024px) {
+          max-width: 1600px;
+        }
+        position: center;
+        width: 100%;
+        height: calc(100vh - 80px);
+        margin: 0 auto;
+      `}
+    >
       <div>
-        {showRegisterForm ? (
-          <RegisterForm
-            register={registerRegisterForm}
-            onSubmit={onSubmitRegisterForm}
-            handleSubmit={handleSubmitRegisterForm}
-          />
-        ) : (
-          <LoginForm
-            register={registerLoginForm}
-            onSubmit={onSubmitLoginForm}
-            handleSubmit={handleSubmitLoginForm}
-          />
-        )}
-        <div>または</div>
-        <Button color="inherit" variant="outlined" onClick={handleClick}>
-          {!showRegisterForm ? "新規登録" : "ログイン"}
-        </Button>
+        <Container
+          css={css`
+            max-width: 90%;
+          `}
+        >
+          <div>
+            {showRegisterForm ? (
+              <RegisterForm
+                register={registerRegisterForm}
+                onSubmit={onSubmitRegisterForm}
+                handleSubmit={handleSubmitRegisterForm}
+                control={controlRegisterForm}
+                watch={watchRegisterForm}
+              />
+            ) : (
+              <LoginForm
+                register={registerLoginForm}
+                onSubmit={onSubmitLoginForm}
+                handleSubmit={handleSubmitLoginForm}
+                control={controlLoginForm}
+                watch={watchLoginForm}
+              />
+            )}
+            <div
+              css={css`
+                width: 33%;
+                margin: 0 auto;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              `}
+            >
+              または
+            </div>
+            <Button
+              css={css`
+                width: 40%;
+                margin: 0 auto;
+                background-color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 10px;
+                padding-bottom: 10px;
+              `}
+              color="inherit"
+              variant="outlined"
+              onClick={handleClick}
+            >
+              {!showRegisterForm ? "新規登録" : "ログイン"}
+            </Button>
+          </div>
+        </Container>
       </div>
-    </Box>
+    </div>
   );
 };
 
