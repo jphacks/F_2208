@@ -15,7 +15,23 @@ class TaskController extends Controller {
      */
     public function index(Request $request) {
         $user = $request->user();
-        $tasks = Task::where('user_id', $user->id)->get();
+        $sort = $request->get('sort');
+        switch ($sort) {
+            case 'time_limit':
+                $tasks = Task::where('user_id', $user->id)->orderBy('time_limit_asc','asc')->get();
+                break;
+            case 'created_at_asc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('created_at_asc','asc')->get();
+                break;
+            case 'created_at_desc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('created_at_desc','desc')->get();
+                break;
+            case 'time_limit':
+                $tasks = Task::where('user_id', $user->id)->orderBy('severity_desc','desc')->get();
+                break;
+            default:
+                $tasks = Task::where('user_id', $user->id)->all()->get();
+        } 
         return response()->json($tasks);
     }
 
@@ -99,27 +115,5 @@ class TaskController extends Controller {
     public function destroy(Task $task) {
         $task->delete();
         return response('Deletion completed.');
-    }
-
-    public function list(Request $request) {
-        $sort = $request->get('sort');
-        if ($sort) {
-            if ($sort === 'time_limit') {
-                $tasks = Task::orderBy('time_limit','asc')->get();
-            }
-            else if ($sort === 'created_at_asc') {
-                $tasks = Task::orderBy('created_at','asc')->get();
-            }
-            else if ($sort === 'created_at_desc') {
-                $tasks = Task::orderBy('created_at','desc')->get();
-            }
-            else if ($sort === 'severity') {
-                $tasks = Task::orderBy('severity','desc')->get();
-            }
-        } 
-        else {
-            $tasks = Task::all();
-        }
-        return response()->json($tasks);
-    }
+    }         
 }

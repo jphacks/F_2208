@@ -27,5 +27,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 Route::get('/reset-password/{token}', ResetPasswordController::class)
     ->name('password.reset');
-Route::get('/sort-task', [TaskController::class, 'list'])
-    ->name('task.sort');
