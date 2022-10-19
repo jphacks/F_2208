@@ -82,7 +82,7 @@ const Header = () => {
           `}
         >
           <Link
-            to="/dashboard"
+            to={user != undefined ? "/dashboard" : "/"}
             css={css`
               text-decoration: none;
               color: inherit;
