@@ -31,8 +31,16 @@ const Profile = () => {
         <Typography variant="h5" component="h2" align="center">
           {user.name}
         </Typography>
-        <Pig pigImage={pigImage} grassImage={grassImage} jump={true} />
-        <SpeechBubbleTop />
+        <Pig
+          pigImage={pigImage}
+          grassImage={grassImage}
+          jump={true}
+          onClick={() => alert(user.name)}
+        />
+        <SpeechBubbleTop>
+          ぼくの中には{user.total_exp}ポイント入っているっぴ！
+          {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
+        </SpeechBubbleTop>
       </Container>
     );
   }

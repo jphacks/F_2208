@@ -1,7 +1,12 @@
 import { Box } from "@mui/material";
 import { css } from "@emotion/react";
 
-const Pig = ({ pigImage, grassImage = null, jump = false }) => {
+const Pig = ({
+  pigImage,
+  grassImage = null,
+  jump = false,
+  onClick = () => {},
+}) => {
   return (
     <Box
       css={css`
@@ -48,6 +53,7 @@ const Pig = ({ pigImage, grassImage = null, jump = false }) => {
               }
             }`}
           `}
+          onClick={onClick}
         />
       </Box>
     </Box>

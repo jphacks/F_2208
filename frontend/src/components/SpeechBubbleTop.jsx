@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { Box, Typography } from "@mui/material";
 
-const SpeechBubbleTop = () => {
+const SpeechBubbleTop = ({ children }) => {
   return (
     <Box
       css={css`
@@ -51,9 +51,7 @@ const SpeechBubbleTop = () => {
           }
         `}
       >
-        <Typography>
-          ぼくの中には2280ポイントも入っているっぴ！がんばったっぴね
-        </Typography>
+        <Typography>{children}</Typography>
       </div>
     </Box>
   );
