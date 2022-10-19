@@ -34,13 +34,8 @@ const UserMenu = () => {
       icon: <GroupIcon />,
     },
     {
-      title: "ポイント交換",
-      link: `/points`,
-      icon: <RedeemIcon />,
-    },
-    {
       title: "設定",
-      link: `/settings`,
+      link: user && `/users/settings`,
       icon: <SettingsIcon />,
     },
     {

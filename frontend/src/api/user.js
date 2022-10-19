@@ -14,15 +14,37 @@ export const fetchUser = async () => {
     });
 }
 
-export const updateUser = async () => {
+export const updateUser = async (name, email, password) => {
   return await axios
-    .put("/api/user")
+    .put("/api/user", {
+      name,
+      email,
+      password,
+    })
     .then((res) => {
       console.log("[user]更新成功")
       return res;
     })
     .catch((error) => {
       console.log("[user]更新失敗")
+      console.log(error);
+      return error;
+    })
+}
+
+export const updateUserPassword = async (current_password, password, password_confirmation) => {
+  return await axios
+    .put("/api/user/password", {
+      current_password,
+      password,
+      password_confirmation
+    })
+    .then((res) => {
+      console.log("[userPassword]更新成功")
+      return res;
+    })
+    .catch((error) => {
+      console.log("[userPassword]更新失敗")
       console.log(error);
       return error;
     })

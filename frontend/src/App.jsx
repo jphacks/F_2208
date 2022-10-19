@@ -48,10 +48,7 @@ const App = () => {
               <Route index element={<Top />} />
               <Route path="/dashboard" exact element={<Dashboard />} />
               <Route path="/users/:userId" element={<Profile />} />
-              <Route
-                path="/users/:userId/settings"
-                element={<UserSettings />}
-              />
+              <Route path="/users/settings" element={<UserSettings />} />
               <Route path="/tasks" element={<Tasks />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
