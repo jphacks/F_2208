@@ -1,8 +1,8 @@
 import axios from "../libs/axios";
 
-const login = (email, password) => {
-  axios.get("/sanctum/csrf-cookie").then(() => {
-    axios
+const login = async (email, password) => {
+  return await axios.get("/sanctum/csrf-cookie").then(async () => {
+    return await axios
       .post("/api/login", {
         email,
         password,

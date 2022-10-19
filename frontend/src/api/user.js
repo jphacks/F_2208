@@ -35,6 +35,24 @@ export const updateUser = async (name, email, avatar, level, total_exp, balance_
     })
 }
 
+export const updateUserPassword = async (current_password, password, password_confirmation) => {
+  return await axios
+    .put("/api/user/password", {
+      current_password,
+      password,
+      password_confirmation
+    })
+    .then((res) => {
+      console.log("[userPassword]更新成功")
+      return res;
+    })
+    .catch((error) => {
+      console.log("[userPassword]更新失敗")
+      console.log(error);
+      return error;
+    })
+}
+
 export const deleteUser = async () => {
   return await axios
     .delete("/api/user")
