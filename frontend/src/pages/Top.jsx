@@ -23,18 +23,24 @@ const Top = () => {
     setShowRegisterForm(!showRegisterForm);
   };
   // react-hook-formのイベント
-  const onSubmitRegisterForm = (inputData) => {
-    register(
+  const onSubmitRegisterForm = async (inputData) => {
+    const res = await register(
       inputData.name,
       inputData.email,
       inputData.password,
       inputData.password_confirmation
     );
-    navigate("dashboard");
+
+    if (res.status === 200) {
+      navigate("/dashboard");
+    }
   };
-  const onSubmitLoginForm = (inputData) => {
-    login(inputData.email, inputData.password);
-    navigate("dashboard");
+  const onSubmitLoginForm = async (inputData) => {
+    const res = await login(inputData.email, inputData.password);
+
+    if (res.status === 200) {
+      navigate("/dashboard");
+    }
   };
 
   return (
