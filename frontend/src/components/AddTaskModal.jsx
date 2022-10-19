@@ -7,6 +7,7 @@ import {
   Stack,
   Slider,
   FormGroup,
+  IconButton,
 } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -15,6 +16,7 @@ import { createTask } from "../api/task";
 import { useForm } from "react-hook-form";
 import ja from "date-fns/locale/ja";
 import { css } from "@emotion/react";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -27,6 +29,11 @@ const style = {
   boxShadow: 24,
   borderRadius: 2,
   p: 4,
+};
+
+const closeButtonStyle = {
+  height: 0,
+  textAlign: "right",
 };
 
 export const AddTaskModal = ({ open, handleClose }) => {
@@ -65,7 +72,12 @@ export const AddTaskModal = ({ open, handleClose }) => {
         onClose={handleClose}
       >
         <Box sx={style}>
-          <div>タスクを追加する</div>
+          <Box sx={closeButtonStyle}>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <div>タスクの追加</div>
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup onSubmit={handleSubmit(onSubmit)}>
