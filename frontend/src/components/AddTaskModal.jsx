@@ -1,21 +1,31 @@
 import { useState } from "react";
-import { Box, Button, Modal, TextField, Stack, Slider, FormGroup } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Stack,
+  Slider,
+  FormGroup,
+} from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 import { createTask } from "../api/task";
 import { useForm } from "react-hook-form";
-import ja from 'date-fns/locale/ja'
+import ja from "date-fns/locale/ja";
+import { css } from "@emotion/react";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 300,
+  // maxWidth: "80%",
+  bgcolor: "background.paper",
   boxShadow: 24,
+  borderRadius: 2,
   p: 4,
 };
 
@@ -24,19 +34,27 @@ export const AddTaskModal = ({ open, handleClose }) => {
   const { register, handleSubmit } = useForm();
 
   // modalカレンダー
-  const [date, setDate] = useState(
-    dayjs(new Date())
-  );
+  const [date, setDate] = useState(dayjs(new Date()));
   const handleChange = (newDate) => {
     setDate(newDate);
   };
   // モーダル優先度
   const valuePriority = (priority) => {
     return `${priority}`;
-  }
+  };
 
   // const onSubmit = (inputData) => console.log(inputData.title, inputData.description, inputData.exp, inputData.time_limit, inputData.severity, 1, inputData.user_id, 1);
-  const onSubmit = (inputData) => createTask(inputData.title, inputData.description, inputData.exp, `${inputData.time_limit}:00`, inputData.severity, 1, inputData.user_id, 1);
+  const onSubmit = (inputData) =>
+    createTask(
+      inputData.title,
+      inputData.description,
+      inputData.exp,
+      `${inputData.time_limit}:00`,
+      inputData.severity,
+      1,
+      inputData.user_id,
+      1
+    );
 
   return (
     <Box>
@@ -51,11 +69,30 @@ export const AddTaskModal = ({ open, handleClose }) => {
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup onSubmit={handleSubmit(onSubmit)}>
-              <TextField id="newTaskTitle" label="タスク名" variant="outlined" fullWidth name="title" {...register('title')} />
+              <TextField
+                id="newTaskTitle"
+                label="タスク名"
+                variant="outlined"
+                fullWidth
+                name="title"
+                {...register("title")}
+              />
               <br />
-              <TextField id="newDescription" label="説明" variant="outlined" fullWidth multiline rows={3} name="description" {...register('description')} />
+              <TextField
+                id="newDescription"
+                label="説明"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={3}
+                name="description"
+                {...register("description")}
+              />
               <br />
-              <LocalizationProvider dateAdapter={AdapterDayjs}  adapterLocale={ja}>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={ja}
+              >
                 <Stack spacing={3}>
                   <DateTimePicker
                     label="期限選択"
@@ -65,7 +102,7 @@ export const AddTaskModal = ({ open, handleClose }) => {
                     inputFormat="YYYY-MM-DD hh:mm"
                     renderInput={(params) => <TextField {...params} />}
                     name="time_limit"
-                    {...register('time_limit')}
+                    {...register("time_limit")}
                   />
                 </Stack>
               </LocalizationProvider>
@@ -79,14 +116,31 @@ export const AddTaskModal = ({ open, handleClose }) => {
                 marks
                 min={1}
                 max={3}
-                name="severity" {...register('severity')}
+                name="severity"
+                {...register("severity")}
               />
               <br />
-              <TextField id="newReward" label="報酬" variant="outlined" defaultValue="100" fullWidth name="exp" {...register('exp')} />
+              <TextField
+                id="newReward"
+                label="報酬"
+                variant="outlined"
+                defaultValue="100"
+                fullWidth
+                name="exp"
+                {...register("exp")}
+              />
               <br />
-              <TextField id="newAssign" label="割当先ユーザー (メールアドレス)" variant="outlined" defaultValue="1" fullWidth name="user_id" {...register('user_id')} />
+              <TextField
+                id="newAssign"
+                label="割当先ユーザー (メールアドレス)"
+                variant="outlined"
+                defaultValue="1"
+                fullWidth
+                name="user_id"
+                {...register("user_id")}
+              />
               <br />
-              <Button variant="contained" color="primary" type="submit" >
+              <Button variant="contained" color="primary" type="submit">
                 追加する
               </Button>
             </FormGroup>
@@ -95,4 +149,4 @@ export const AddTaskModal = ({ open, handleClose }) => {
       </Modal>
     </Box>
   );
-}
+};

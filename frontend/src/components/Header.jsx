@@ -26,22 +26,22 @@ const Header = () => {
   const menuItems = [
     {
       title: "プロフィール",
-      link: user && `users/${user.id}`,
+      link: user && `/users/${user.id}`,
       icon: <PersonIcon />,
     },
     {
       title: "フレンド",
-      link: `friends`,
+      link: `/friends`,
       icon: <GroupIcon />,
     },
     {
       title: "ポイント交換",
-      link: `points`,
+      link: `/points`,
       icon: <RedeemIcon />,
     },
     {
       title: "設定",
-      link: `settings`,
+      link: `/settings`,
       icon: <SettingsIcon />,
     },
     {
@@ -82,7 +82,7 @@ const Header = () => {
           `}
         >
           <Link
-            to="/"
+            to="/dashboard"
             css={css`
               text-decoration: none;
               color: inherit;

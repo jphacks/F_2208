@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
-import { css } from '@emotion/react'
+import { css } from "@emotion/react";
 
 export const LoginForm = ({
   register,
@@ -15,9 +15,13 @@ export const LoginForm = ({
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 css={css`
-              margin:0 auto;
-              `}>ログイン</h1>
+        <h1
+          css={css`
+            margin: 0 auto;
+          `}
+        >
+          ログイン
+        </h1>
         <Stack spacing={5}>
           <Controller
             name="email"
@@ -28,12 +32,12 @@ export const LoginForm = ({
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: "メールアドレスの形式が正しくありません",
               },
-              
             }}
             render={({ field, fieldState }) => (
-              <TextField css={css`
-              background-color:white;
-              `}
+              <TextField
+                css={css`
+                  background-color: white;
+                `}
                 {...field}
                 type="text"
                 label="メールアドレス"
@@ -43,7 +47,7 @@ export const LoginForm = ({
               />
             )}
           />
-          <Controller 
+          <Controller
             name="password"
             control={control}
             rules={{
@@ -56,9 +60,10 @@ export const LoginForm = ({
               },
             }}
             render={({ field, fieldState }) => (
-              <TextField css={css`
-              background-color:white;
-            `}
+              <TextField
+                css={css`
+                  background-color: white;
+                `}
                 {...field}
                 type="password"
                 label="パスワード"
@@ -69,21 +74,22 @@ export const LoginForm = ({
             )}
           />
         </Stack>
-        <Button css={css`
-
-              width: 40%;
-              margin: 50px auto 0px auto;
-              padding-top:10px;
-              padding-bottom:10px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              `}
-              variant="contained" type="submit">
+        <Button
+          css={css`
+            width: 40%;
+            margin: 50px auto 0px auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+          variant="contained"
+          type="submit"
+        >
           ログイン
         </Button>
       </form>
     </Box>
   );
 };
-
