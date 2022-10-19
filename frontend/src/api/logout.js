@@ -1,7 +1,7 @@
 import axios from "../libs/axios";
 
-const logout = () => {
-  axios
+const logout = async () => {
+  return await axios
     .post("/api/logout")
     .then((res) => {
       console.log("ログアウト成功");
