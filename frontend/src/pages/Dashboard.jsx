@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../api/auth";
 import { AddTaskModal } from "../components/Task/AddTaskModal";
+import Layout from "../components/Layout";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -18,12 +19,12 @@ const Dashboard = () => {
     setOpen(false);
   };
   return (
-    <>
+    <Layout>
       <Button variant="contained" color="primary" onClick={handleClick}>
         AddTaskModal
       </Button>
       <AddTaskModal open={open} handleClose={handleClose} />
-    </>
+    </Layout>
   );
 };
 

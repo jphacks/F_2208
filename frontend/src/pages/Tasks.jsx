@@ -11,6 +11,7 @@ import {
 } from "../api/task";
 import { AddTaskModal } from "../components/Task/AddTaskModal";
 import { ShowTasks } from "../components/Task/ShowTasks";
+import Layout from "../components/Layout";
 
 const Tasks = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const Tasks = () => {
     setOpen(false);
   };
   return (
-    <>
+    <Layout>
       {/* {!!tasks &&
         Object.entries(tasks).map(([key, value]) => (
           <Typography key={value.title}>{value.title}</Typography>
@@ -62,7 +63,7 @@ const Tasks = () => {
         AddTaskModal
       </Button>
       <AddTaskModal open={open} handleClose={handleClose} />
-    </>
+    </Layout>
   );
 };
 
