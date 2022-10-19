@@ -57,9 +57,7 @@ const UpdatePasswordForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="現在のパスワード"
@@ -83,9 +81,7 @@ const UpdatePasswordForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="新しいパスワード"
@@ -109,9 +105,7 @@ const UpdatePasswordForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="新しいパスワードの再入力"

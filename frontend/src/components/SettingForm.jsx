@@ -50,9 +50,7 @@ const SettingForm = () => {
             defaultValue={user.name}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
                 label="ニックーネーム"
@@ -75,9 +73,7 @@ const SettingForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
                 label="メールアドレス"
