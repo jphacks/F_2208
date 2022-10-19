@@ -23,12 +23,12 @@ class UpdateTaskRequest extends FormRequest {
         return [
             'title' => 'required|string',
             'description' => 'nullable|string',
-            'exp' => 'required|integer',
+            'exp' => 'integer',
             'time_limit' => 'nullable|date',
-            'severity' => 'required|integer',
-            'status' => 'required|integer',
-            'user_id' => 'required|integer|unique:users',
-            'order_user_id' => 'nullable|integer|unique:users',
+            'severity' => 'integer',
+            'status' => 'integer',
+            'user_id' => 'integer',
+            'order_user_id' => 'nullable|integer',
         ];
     }
 }

@@ -24,10 +24,10 @@ class UpdateFriendRequest extends FormRequest
     public function rules()
     {
         return [
-            'intimacy' => 'required|integer',
-            'favorite' => 'required|boolean',
-            'sent_exp' => 'required|integer',
-            'received_exp' => 'required|integer',
+            'intimacy' => 'integer',
+            'favorite' => 'boolean',
+            'sent_exp' => 'integer',
+            'received_exp' => 'integer',
         ];
     }
 }

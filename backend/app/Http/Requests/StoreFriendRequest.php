@@ -24,12 +24,12 @@ class StoreFriendRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer|unique:users',
-            'user_id' => 'required|integer|unique:users',
-            'intimacy' => 'required|integer',
-            'favorite' => 'required|boolean',
-            'sent_exp' => 'required|integer',
-            'received_exp' => 'required|integer',
+            'id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'intimacy' => 'integer',
+            'favorite' => 'boolean',
+            'sent_exp' => 'rinteger',
+            'received_exp' => 'integer',
         ];
     }
 }
