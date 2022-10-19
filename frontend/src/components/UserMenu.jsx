@@ -16,6 +16,7 @@ import RedeemIcon from "@mui/icons-material/Redeem";
 import GroupIcon from "@mui/icons-material/Group";
 import logout from "../api/logout";
 import PigImage from "../assets/img/pig.png";
+import ExpBar from "./ExpBar";
 
 const UserMenu = () => {
   const { user } = useContext(userContext);
@@ -86,22 +87,7 @@ const UserMenu = () => {
             >
               Lv.{user.level}
             </div>
-
-            <div
-              css={css`
-                width: 30px;
-                height: 4px;
-                background-color: #dedede;
-                &::after {
-                  content: "";
-                  display: block;
-                  /* 1Lvあたり200Exp必要の場合の計算式 */
-                  width: ${Math.ceil(((user.total_exp % 200) / 200) * 30)}px;
-                  height: 4px;
-                  background-color: #e83743;
-                }
-              `}
-            ></div>
+            <ExpBar exp={user.total_exp} width="30px" />
           </div>
           <IconButton
             size="large"
