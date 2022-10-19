@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put("/user", [UserController::class, 'update'])->name("user.update");
     Route::delete("/user", [UserController::class, 'destroy'])->name("user.destroy");
     Route::apiResource('tasks', TaskController::class);
+    Route::apiResource('friends', FriendController::class);
 });
 Route::get('/reset-password/{token}', ResetPasswordController::class)
     ->name('password.reset');

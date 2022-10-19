@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
-            $table->primary('id');
+            $table->primary(['id', 'user_id']);
             $table->unsignedBiginteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer("intimacy");

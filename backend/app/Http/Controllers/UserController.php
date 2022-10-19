@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -46,14 +44,17 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request) {
-        try {
-            // 自身のみ更新できる
-            $user = $request->user();
-            $user->fill($request->all())->save();
-            return response($user);
-        } catch (Exception $e) {
-            return response($e->getMessage(), $e->getCode());
-        }
+        // 自身のみ更新できる
+        $user = $request->user();
+        $user->name = $request->input("name");
+        $user->email = $request->input("email");
+        $user->avatar = $request->input("avatar");
+        $user->level = $request->input("level");
+        $user->total_exp = $request->input("total_exp");
+        $user->balance_exp = $request->input("balance_exp");
+        $user->updated_at = now();
+        $user->save();
+        return response()->json($user);
     }
 
     /**
@@ -63,13 +64,9 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request) {
-        try {
-            // 自身のみ削除できる
-            $user = $request->user();
-            $user->delete();
-            return response('Deletion completed.');
-        } catch (Exception $e) {
-            return response($e->getMessage(), $e->getCode());
-        }
+        // 自身のみ削除できる
+        $user = $request->user();
+        $user->delete();
+        return response('Deletion completed.');
     }
 }
