@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -43,7 +44,7 @@ class UserController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request) {
+    public function update(UpdateUserRequest $request) {
         // 自身のみ更新できる
         $user = $request->user();
         $user->name = $request->input("name") ?? $user->level;
