@@ -21,6 +21,7 @@ class StoreTaskRequest extends FormRequest {
      */
     public function rules() {
         return [ 
+            'id'=>'required',
             'title' => 'required|string',
             'description' => 'nullable|string',
             'exp' => 'integer',
