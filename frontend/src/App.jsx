@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import auth from "./api/auth";
@@ -12,13 +12,14 @@ import User from "./pages/User";
 import UserSettings from "./pages/UserSettings";
 import { css } from "@emotion/react";
 import "./App.css";
+import { useUser } from "./contexts/userContext";
+import { userContext } from "./contexts/userContext";
 
 const queryClient = new QueryClient();
 
-export const userContext = createContext();
-
 const App = () => {
-  const [user, setUser] = useState();
+  const user = useUser();
+
   useEffect(() => {
     (async () => {
       const res = await fetchUser();
@@ -26,7 +27,7 @@ const App = () => {
       if (pathname !== "/") {
         auth(res.data);
       }
-      setUser(res.data);
+      user.setUser(res.data);
     })();
   }, []);
 

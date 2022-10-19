@@ -12,16 +12,16 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import RedeemIcon from "@mui/icons-material/Redeem";
 import GroupIcon from "@mui/icons-material/Group";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
-import { userContext } from "../App";
 import logout from "../api/logout";
 import PigImage from "../assets/img/pig.png";
+import { userContext } from "../contexts/userContext";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const user = useContext(userContext);
+  const { user, setUser } = useContext(userContext);
 
   const menuItems = [
     {
@@ -92,22 +92,22 @@ const Header = () => {
           </Link>
         </Typography>
 
-        <div
-          css={css`
-            display: flex;
-            gap: 0.4em;
-          `}
-        >
+        {user != undefined && (
           <div
             css={css`
               display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              gap: 0.2em;
+              gap: 0.4em;
             `}
           >
-            {user?.level != null && (
+            <div
+              css={css`
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0.2em;
+              `}
+            >
               <div
                 css={css`
                   font-size: 0.7em;
@@ -115,8 +115,7 @@ const Header = () => {
               >
                 Lv.{user.level}
               </div>
-            )}
-            {user?.total_exp != null && (
+
               <div
                 css={css`
                   width: 30px;
@@ -132,75 +131,75 @@ const Header = () => {
                   }
                 `}
               ></div>
-            )}
-          </div>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="header-menu"
-            aria-haspopup="true"
-            color="inherit"
-            onClick={handleMenu}
-            css={css`
-              width: 50px;
-              height: 50px;
-            `}
-          >
-            <img
-              src={PigImage}
+            </div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="header-menu"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleMenu}
               css={css`
                 width: 50px;
                 height: 50px;
-                border-radius: 99999px;
-                object-fit: cover;
               `}
-            />
-          </IconButton>
-          <Menu
-            id="header-menu"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            css={css`
-              margin-top: 45px;
-            `}
-          >
-            <MenuList>
-              {menuItems.map(({ title, link, icon, onClick }) => (
-                <Link
-                  to={link}
-                  onClick={onClick || handleChange}
-                  css={css`
-                    text-decoration: none;
-                    color: inherit;
-                  `}
-                >
-                  <MenuItem key={title}>
-                    <div
-                      css={css`
-                        display: flex;
-                        align-items: center;
-                        gap: 0.3em;
-                      `}
-                    >
-                      {icon}
-                      <Typography>{title}</Typography>
-                    </div>
-                  </MenuItem>
-                </Link>
-              ))}
-            </MenuList>
-          </Menu>
-        </div>
+            >
+              <img
+                src={PigImage}
+                css={css`
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 99999px;
+                  object-fit: cover;
+                `}
+              />
+            </IconButton>
+            <Menu
+              id="header-menu"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              css={css`
+                margin-top: 45px;
+              `}
+            >
+              <MenuList>
+                {menuItems.map(({ title, link, icon, onClick }) => (
+                  <Link
+                    to={link}
+                    onClick={onClick || handleChange}
+                    css={css`
+                      text-decoration: none;
+                      color: inherit;
+                    `}
+                  >
+                    <MenuItem key={title}>
+                      <div
+                        css={css`
+                          display: flex;
+                          align-items: center;
+                          gap: 0.3em;
+                        `}
+                      >
+                        {icon}
+                        <Typography>{title}</Typography>
+                      </div>
+                    </MenuItem>
+                  </Link>
+                ))}
+              </MenuList>
+            </Menu>
+          </div>
+        )}
       </Toolbar>
     </AppBar>
   );
