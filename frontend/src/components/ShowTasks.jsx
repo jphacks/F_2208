@@ -12,7 +12,7 @@ import { userContext } from '../contexts/userContext';
 import { useContext, useEffect, useState } from 'react';
 import { AddTaskModal } from './AddTaskModal';
 
-export const ShowTasks = () => {
+export const ShowTasks = ({ limited }) => {
   const { user } = useContext(userContext);
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState();
@@ -52,22 +52,18 @@ export const ShowTasks = () => {
     return (<>
       <List sx={{ width: '100%', maxWidth: 1000, bgcolor: 'background.paper' }}>
         {Object.entries(tasks).map(([key, task]) => {
-          const labelId = `list-label-${task.id}`;
 
           return (
 
             <ListItem
               key={task.id}
-              secondaryAction={
-                <IconButton edge="end" aria-label="delete" onClick={() => { deleteTask(task.id);handleChange(); }} >
-                  <DeleteIcon />
-                </IconButton>
-              }
               disablePadding
             >
-              <ListItemText primary={`タスク: ${task.title}`}
+              {limited && key < 5 ?<ListItemText primary={`タスク: ${task.title}`}
                 secondary={
-                  <>
+                  <><IconButton edge="end" aria-label="delete" onClick={() => { deleteTask(task.id);handleChange(); }} >
+                  <DeleteIcon />
+                </IconButton>
                     <Typography
                       sx={{ display: 'inline' }}
                       component="span"
@@ -84,7 +80,7 @@ export const ShowTasks = () => {
                   fontWeight: 'medium',
                   variant: 'body2',
                 }}
-              />
+              /> : ""}
             </ListItem>
           );
         })}

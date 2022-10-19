@@ -1,8 +1,7 @@
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../api/auth";
-import { AddTaskModal } from "../components/AddTaskModal";
+import { ShowTasks } from "../components/ShowTasks";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -10,17 +9,14 @@ const Dashboard = () => {
     auth(navigate);
   }, []);
 
-  const [open, setOpen] = useState(false);
-  const handleClick = () => {
-    setOpen(true);
-  }
-  const handleClose = () => {
-    setOpen(false);
-  }
-  return (<>
-  <Button variant="contained" color="primary" onClick={handleClick}>AddTaskModal</Button>
-  <AddTaskModal open={open} handleClose={handleClose}/>
-  </>);
+
+  return (
+    <>
+
+      <ShowTasks limited={true} />
+
+    </>);
 };
+
 
 export default Dashboard;

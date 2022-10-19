@@ -13,7 +13,7 @@ const Tasks = () => {
   return (
     <>
 
-      <ShowTasks />
+      <ShowTasks limited={false} />
 
     </>);
 };
