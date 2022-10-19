@@ -109,7 +109,7 @@ class FriendController extends Controller
     public function searchEmail(Request $request)
     {
         $email = $request->email;
-
+        
         $friends = User::find()->friends()->where('email', 'like', '%'.$email.'%')->get();
         return response()->json($friends);
     }
