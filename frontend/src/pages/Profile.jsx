@@ -10,6 +10,7 @@ import SpeechBubbleTop from "../components/SpeechBubbleTop";
 import Pig from "../components/Pig";
 import ExpBar from "../components/ExpBar";
 import UserStatus from "../components/UserStatus";
+import Layout from "../components/Layout";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -22,37 +23,34 @@ const Profile = () => {
     navigate("/dashboard");
   }
 
-  if (user) {
-    return (
-      <Container
-        maxWidth="lg"
-        css={css`
-          padding-top: 30px;
-        `}
-      >
-        <Typography variant="h5" component="h2" align="center">
-          {user.name}
-        </Typography>
-        <Pig
-          pigImage={pigImage}
-          grassImage={grassImage}
-          jump={true}
-          onClick={() => alert(user.name)}
-        />
-        <SpeechBubbleTop>
-          ぼくの中には{user.total_exp}ポイント入っているっぴ！
-          {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
-        </SpeechBubbleTop>
-        <Box
-          css={css`
-            margin-top: 30px;
-          `}
-        >
-          <UserStatus />
-        </Box>
-      </Container>
-    );
-  }
+  return (
+    <Layout>
+      {user && (
+        <Container maxWidth="lg">
+          <Typography variant="h5" component="h2" align="center">
+            {user.name}
+          </Typography>
+          <Pig
+            pigImage={pigImage}
+            grassImage={grassImage}
+            jump={true}
+            onClick={() => alert(user.name)}
+          />
+          <SpeechBubbleTop>
+            ぼくの中には{user.total_exp}ポイント入っているっぴ！
+            {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
+          </SpeechBubbleTop>
+          <Box
+            css={css`
+              margin-top: 30px;
+            `}
+          >
+            <UserStatus />
+          </Box>
+        </Container>
+      )}
+    </Layout>
+  );
 };
 
 export default Profile;
