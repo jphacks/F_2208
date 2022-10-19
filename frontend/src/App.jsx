@@ -8,12 +8,12 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Tasks from "./pages/Tasks";
 import Top from "./pages/Top";
-import User from "./pages/User";
 import UserSettings from "./pages/UserSettings";
 import { css } from "@emotion/react";
 import "./App.css";
 import { useUser } from "./contexts/userContext";
 import { userContext } from "./contexts/userContext";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -47,7 +47,7 @@ const App = () => {
             <Routes>
               <Route index element={<Top />} />
               <Route path="/dashboard" exact element={<Dashboard />} />
-              <Route path="/users/:userId" element={<User />} />
+              <Route path="/users/:userId" element={<Profile />} />
               <Route
                 path="/users/:userId/settings"
                 element={<UserSettings />}
