@@ -6,32 +6,34 @@ import { userContext } from "../contexts/userContext";
 import SettingForm from "../components/SettingForm";
 import DeleteForm from "../components/DeleteForm";
 import UpdatePasswordForm from "../components/UpdatePasswordForm";
+import Layout from "../components/Layout";
 
 const UserSettings = () => {
   const { user } = useContext(userContext);
 
-  if (user) {
-    return (
-      <Container
-        maxWidth="md"
-        css={css`
-          padding-top: 30px;
-          margin-bottom: 100px;
-        `}
-      >
-        <Typography variant="h4" element="h1" align="center">
-          設定
-        </Typography>
-        <Stack spacing={2}>
-          <SettingForm />
-          <Divider />
-          <UpdatePasswordForm />
-          <Divider />
-          <DeleteForm />
-        </Stack>
-      </Container>
-    );
-  }
+  return (
+    <Layout>
+      {user && (
+        <Container
+          maxWidth="md"
+          css={css`
+            margin-bottom: 100px;
+          `}
+        >
+          <Typography variant="h4" element="h1" align="center">
+            設定
+          </Typography>
+          <Stack spacing={2}>
+            <SettingForm />
+            <Divider />
+            <UpdatePasswordForm />
+            <Divider />
+            <DeleteForm />
+          </Stack>
+        </Container>
+      )}
+    </Layout>
+  );
 };
 
 export default UserSettings;
