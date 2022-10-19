@@ -14,9 +14,9 @@ export const fetchFriends = async () => {
     });
 }
 
-export const fetchFriend = async (id) => {
+export const fetchFriend = async (user_id) => {
   return await axios
-    .get(`/api/friends/${id}`)
+    .get(`/api/friends/${user_id}`)
     .then((res) => {
       console.log("[friend]取得成功");
       return res;
@@ -28,17 +28,14 @@ export const fetchFriend = async (id) => {
     });
 }
 
-export const createFriend = async (title, description, exp, time_limit, severity, status, user_id, order_user_id) => {
+export const createFriend = async (user_id, intimacy, favorite, sent_exp, received_exp) => {
   return await axios
     .post(`/api/friends`, {
-      title,
-      description,
-      exp,
-      time_limit,
-      severity,
-      status,
       user_id,
-      order_user_id
+      intimacy,
+      favorite,
+      sent_exp,
+      received_exp,
     })
     .then((res) => {
       console.log("[friend]作成成功");
@@ -51,17 +48,13 @@ export const createFriend = async (title, description, exp, time_limit, severity
     });
 }
 
-export const updateFriend = async (id, title, description, exp, time_limit, severity, status, user_id, order_user_id) => {
+export const updateFriend = async (intimacy, favorite, sent_exp, received_exp) => {
   return await axios
-    .put(`/api/friends/${id}`, {
-      title,
-      description,
-      exp,
-      time_limit,
-      severity,
-      status,
-      user_id,
-      order_user_id
+    .put(`/api/friends/${user_id}`, {
+      intimacy,
+      favorite,
+      sent_exp,
+      received_exp,
     })
     .then((res) => {
       console.log("[friend]更新成功");
@@ -74,9 +67,9 @@ export const updateFriend = async (id, title, description, exp, time_limit, seve
     });
 }
 
-export const deleteFriend = async (id) => {
+export const deleteFriend = async (user_id) => {
   return await axios
-    .delete(`/api/friends/${id}`)
+    .delete(`/api/friends/${user_id}`)
     .then((res) => {
       console.log("[friend]削除成功")
       return res;
