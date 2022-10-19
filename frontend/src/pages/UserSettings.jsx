@@ -3,9 +3,9 @@ import { Divider, Stack, Typography } from "@mui/material";
 import { css } from "@emotion/react";
 import { Container } from "@mui/system";
 import { userContext } from "../contexts/userContext";
-import SettingForm from "../components/SettingForm";
-import DeleteForm from "../components/DeleteForm";
-import UpdatePasswordForm from "../components/UpdatePasswordForm";
+import SettingForm from "../components/Forms/SettingForm";
+import UpdatePasswordForm from "../components/Forms/UpdatePasswordForm";
+import DeleteForm from "../components/Forms/DeleteForm";
 
 const UserSettings = () => {
   const { user } = useContext(userContext);

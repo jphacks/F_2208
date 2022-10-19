@@ -4,9 +4,9 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
 import { css } from "@emotion/react";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 import { useForm } from "react-hook-form";
-import { updateUserPassword } from "../api/user";
+import { updateUserPassword } from "../../api/user";
 
 const UpdatePasswordForm = () => {
   const { handleSubmit, control, watch } = useForm();

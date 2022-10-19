@@ -4,9 +4,9 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
 import { css } from "@emotion/react";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 import { useForm } from "react-hook-form";
-import { fetchUser, updateUser } from "../api/user";
+import { fetchUser, updateUser } from "../../api/user";
 
 const SettingForm = () => {
   const { user, setUser } = useContext(userContext);

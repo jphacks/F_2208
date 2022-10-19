@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { RegisterForm } from "../components/RegisterForm";
-import { LoginForm } from "../components/LoginForm";
+import { RegisterForm } from "../components/Forms/RegisterForm";
+import { LoginForm } from "../components/Forms/LoginForm";
 import { useForm } from "react-hook-form";
 import register from "../api/register";
 import login from "../api/login";
