@@ -90,7 +90,6 @@ class TaskController extends Controller {
         $task->save();
         return response()->json($task);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -100,5 +99,27 @@ class TaskController extends Controller {
     public function destroy(Task $task) {
         $task->delete();
         return response('Deletion completed.');
+    }
+
+    public function list(Request $request) {
+        $sort = $request->get('sort');
+        if ($sort) {
+            if ($sort === 'time_limit') {
+                $tasks = Task::orderBy('time_limit','asc')->get();
+            }
+            else if ($sort === 'created_at_asc') {
+                $tasks = Task::orderBy('created_at','asc')->get();
+            }
+            else if ($sort === 'created_at_desc') {
+                $tasks = Task::orderBy('created_at','desc')->get();
+            }
+            else if ($sort === 'severity') {
+                $tasks = Task::orderBy('severity','desc')->get();
+            }
+        } 
+        else {
+            $tasks = Task::all();
+        }
+        return response()->json($tasks);
     }
 }
