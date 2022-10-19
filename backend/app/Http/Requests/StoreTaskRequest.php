@@ -20,8 +20,16 @@ class StoreTaskRequest extends FormRequest {
      * @return array<string, mixed>
      */
     public function rules() {
-        return [
-            //
+        return [ 
+            'id'=>'required',
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+            'exp' => 'integer',
+            'time_limit' => 'nullable|date',
+            'severity' => 'integer',
+            'status' => 'integer',
+            'user_id' => 'integer',
+            'order_user_id' => 'nullable|integer',
         ];
     }
 }

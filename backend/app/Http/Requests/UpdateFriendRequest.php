@@ -13,7 +13,7 @@ class UpdateFriendRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateFriendRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'intimacy' => 'integer',
+            'favorite' => 'boolean',
+            'sent_exp' => 'integer',
+            'received_exp' => 'integer',
         ];
     }
 }

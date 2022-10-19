@@ -13,7 +13,7 @@ class StoreFriendRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class StoreFriendRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'intimacy' => 'integer',
+            'favorite' => 'boolean',
+            'sent_exp' => 'rinteger',
+            'received_exp' => 'integer',
         ];
     }
 }
