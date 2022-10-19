@@ -17,8 +17,11 @@ class TaskController extends Controller {
         $user = $request->user();
         $sort = $request->get('sort');
         switch ($sort) {
-            case 'time_limit':
+            case 'time_limit_asc':
                 $tasks = Task::where('user_id', $user->id)->orderBy('time_limit_asc','asc')->get();
+                break;
+            case 'time_limit_desc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('time_limit_desc','desc')->get();
                 break;
             case 'created_at_asc':
                 $tasks = Task::where('user_id', $user->id)->orderBy('created_at_asc','asc')->get();
@@ -26,7 +29,10 @@ class TaskController extends Controller {
             case 'created_at_desc':
                 $tasks = Task::where('user_id', $user->id)->orderBy('created_at_desc','desc')->get();
                 break;
-            case 'time_limit':
+            case 'severity_asc':
+                $tasks = Task::where('user_id', $user->id)->orderBy('severity_asc','asc')->get();
+                break;
+            case 'severity_desc':
                 $tasks = Task::where('user_id', $user->id)->orderBy('severity_desc','desc')->get();
                 break;
             default:
