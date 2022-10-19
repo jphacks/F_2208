@@ -1,5 +1,7 @@
+import { default as NotFoundComponent } from "../components/NotFound.jsx";
+
 const NotFound = () => {
-  return <>Not Found Page</>;
+  return <NotFoundComponent />;
 };
 
 export default NotFound;
