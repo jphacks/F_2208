@@ -21,7 +21,14 @@ class UpdateTaskRequest extends FormRequest {
      */
     public function rules() {
         return [
-            //
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+            'exp' => 'required|integer',
+            'time_limit' => 'nullable|date',
+            'severity' => 'required|integer',
+            'status' => 'required|integer',
+            'user_id' => 'required|integer|unique:users',
+            'order_user_id' => 'nullable|integer|unique:users',
         ];
     }
 }
