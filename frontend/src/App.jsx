@@ -20,11 +20,14 @@ const queryClient = new QueryClient();
 const App = () => {
   const user = useUser();
 
+  // 認証ありページ
+  const guards = ["/dashboard", "/users", "/users/settings", "/tasks"];
+
   useEffect(() => {
     (async () => {
       const res = await fetchUser();
       const pathname = window.location.pathname;
-      if (pathname !== "/") {
+      if (guards.includes(pathname)) {
         auth(res.data);
       }
       user.setUser(res.data);
