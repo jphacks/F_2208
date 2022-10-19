@@ -10,6 +10,7 @@ import SpeechBubbleTop from "../components/User/SpeechBubbleTop";
 import Layout from "../components/Layout";
 import Pig from "../components/User/Pig";
 import UserStatus from "../components/User/UserStatus";
+import { MoneyForm } from "../components/Forms/MoneyForm";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -23,6 +24,7 @@ const Profile = () => {
   }
 
   return (
+    <>
     <Layout>
       {user && (
         <Container maxWidth="lg">
@@ -45,10 +47,12 @@ const Profile = () => {
             `}
           >
             <UserStatus />
-          </Box>
+          </Box><MoneyForm/>
         </Container>
       )}
     </Layout>
+    
+    </>
   );
 };
 
