@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import auth from "./api/auth";
 import { fetchUser } from "./api/user";
-import Header from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Tasks from "./pages/Tasks";
@@ -13,7 +12,7 @@ import "./App.css";
 import { useUser } from "./contexts/userContext";
 import { userContext } from "./contexts/userContext";
 import Profile from "./pages/Profile";
-import Layout from "./components/Layout";
+import Header from "./components/Header/Header";
 
 const queryClient = new QueryClient();
 

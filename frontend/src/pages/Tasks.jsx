@@ -9,9 +9,9 @@ import {
   fetchTasks,
   updateTask,
 } from "../api/task";
-import { AddTaskModal } from "../components/AddTaskModal";
+import { AddTaskModal } from "../components/Task/AddTaskModal";
+import { ShowTasks } from "../components/Task/ShowTasks";
 import Layout from "../components/Layout";
-import { ShowTasks } from "../components/ShowTasks";
 
 const Tasks = () => {
   const navigate = useNavigate();

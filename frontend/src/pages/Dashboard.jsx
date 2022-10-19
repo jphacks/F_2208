@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../api/auth";
-import { AddTaskModal } from "../components/AddTaskModal";
+import { AddTaskModal } from "../components/Task/AddTaskModal";
 import Layout from "../components/Layout";
 
 const Dashboard = () => {

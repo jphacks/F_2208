@@ -17,7 +17,7 @@ export const LoginForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1
           css={css`
-            margin: 0 auto;
+            text-align: center;
           `}
         >
           ログイン
@@ -35,9 +35,7 @@ export const LoginForm = ({
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
                 label="メールアドレス"
@@ -61,9 +59,7 @@ export const LoginForm = ({
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="パスワード"
