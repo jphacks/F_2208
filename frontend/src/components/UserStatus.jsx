@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { userContext } from "../contexts/userContext";
 import { css } from "@emotion/react";
 import { Box, Stack } from "@mui/material";
-import UserBadge from "./UserBadge";
 import LevelExpBar from "./LevelExpBar";
 
 const UserStatus = () => {
