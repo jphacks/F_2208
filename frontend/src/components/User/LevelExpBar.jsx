@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
 import ExpBar from "./ExpBar";

@@ -2,9 +2,15 @@ import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../api/auth";
-import { createTask, deleteTask, fetchTask, fetchTasks, updateTask, } from "../api/task";
-import { AddTaskModal } from "../components/AddTaskModal";
-import { ShowTasks } from "../components/ShowTasks";
+import {
+  createTask,
+  deleteTask,
+  fetchTask,
+  fetchTasks,
+  updateTask,
+} from "../api/task";
+import { AddTaskModal } from "../components/Task/AddTaskModal";
+import { ShowTasks } from "../components/Task/ShowTasks";
 
 const Tasks = () => {
   const navigate = useNavigate();
@@ -37,20 +43,27 @@ const Tasks = () => {
 
   const handleClick = () => {
     setOpen(true);
-  }
+  };
   const handleClose = () => {
     setOpen(false);
-  }
+  };
   return (
     <>
-      {/* {!!tasks && 
+      {/* {!!tasks &&
         Object.entries(tasks).map(([key, value]) => (
           <Typography key={value.title}>{value.title}</Typography>
         ))} */}
-      {!!tasks ? <ShowTasks tasks={tasks} /> : <Typography>タスクが見つかりません</Typography>}
-      <Button variant="contained" color="primary" onClick={handleClick}>AddTaskModal</Button>
+      {!!tasks ? (
+        <ShowTasks tasks={tasks} />
+      ) : (
+        <Typography>タスクが見つかりません</Typography>
+      )}
+      <Button variant="contained" color="primary" onClick={handleClick}>
+        AddTaskModal
+      </Button>
       <AddTaskModal open={open} handleClose={handleClose} />
-    </>);
+    </>
+  );
 };
 
 export default Tasks;
