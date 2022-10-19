@@ -61,7 +61,6 @@ const Top = () => {
   return (
     <div
       css={css`
-        height: 750px;
         background-image: url(${PigImage});
         background-repeat: no-repeat;
         background-position: center;
@@ -84,11 +83,7 @@ const Top = () => {
         align-items: center;
       `}
     >
-      <Container
-        css={css`
-          max-width: 90%;
-        `}
-      >
+      <Container maxWidth="sm">
         {showRegisterForm ? (
           <RegisterForm
             register={registerRegisterForm}
