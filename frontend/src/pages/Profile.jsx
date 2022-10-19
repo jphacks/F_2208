@@ -8,6 +8,8 @@ import grassImage from "../assets/img/grass.png";
 import { userContext } from "../contexts/userContext";
 import SpeechBubbleTop from "../components/User/SpeechBubbleTop";
 import Layout from "../components/Layout";
+import Pig from "../components/User/Pig";
+import UserStatus from "../components/User/UserStatus";
 
 const Profile = () => {
   const { userId } = useParams();
