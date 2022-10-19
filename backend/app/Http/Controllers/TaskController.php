@@ -36,14 +36,14 @@ class TaskController extends Controller {
      */
     public function store(StoreTaskRequest $request) {
         $task = new Task();
-        $task->title = $request->input('title');
-        $task->description = $request->input('description');
-        $task->exp = $request->input('exp');
-        $task->time_limit = $request->input('time_limit');
-        $task->severity = $request->input('severity');
-        $task->status = $request->input('status');
-        $task->user_id = $request->input('user_id');
-        $task->order_user_id = $request->input('order_user_id');
+        $task->title = $request->input('title') ?? $task->title;
+        $task->description = $request->input('description') ?? $task->description;
+        $task->exp = $request->input('exp') ?? $task->exp;
+        $task->time_limit = $request->input('time_limit') ?? $task->time_limit;
+        $task->severity = $request->input('severity') ?? $task->severity;
+        $task->status = $request->input('status') ?? $task->status;
+        $task->user_id = $request->input('user_id') ?? $task->user_id;
+        $task->order_user_id = $request->input('order_user_id') ?? $task->order_user_id;
         $task->created_at = now();
         $task->updated_at = now();
         $task->save();
@@ -78,14 +78,14 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateTaskRequest $request, Task $task) {
-        $task->title = $request->input('title');
-        $task->description = $request->input('description');
-        $task->exp = $request->input('exp');
-        $task->time_limit = $request->input('time_limit');
-        $task->severity = $request->input('severity');
-        $task->status = $request->input('status');
-        $task->user_id = $request->input('user_id');
-        $task->order_user_id = $request->input('order_user_id');
+        $task->title = $request->input('title') ?? $task->title;
+        $task->description = $request->input('description') ?? $task->description;
+        $task->exp = $request->input('exp') ?? $task->exp;
+        $task->time_limit = $request->input('time_limit') ?? $task->time_limit;
+        $task->severity = $request->input('severity') ?? $task->severity;
+        $task->status = $request->input('status') ?? $task->status;
+        $task->user_id = $request->input('user_id') ?? $task->user_id;
+        $task->order_user_id = $request->input('order_user_id') ?? $task->order_user_id;
         $task->updated_at = now();
         $task->save();
         return response()->json($task);
