@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\PayPayController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete("/user", [UserController::class, 'destroy'])->name("user.destroy");
     Route::apiResource('tasks', TaskController::class);
     Route::apiResource('friends', FriendController::class);
+    Route::post('/paypay/qr', [PayPayController::class])->name("paypay.qr.create");
 });
 Route::get('/reset-password/{token}', ResetPasswordController::class)
     ->name('password.reset');
