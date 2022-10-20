@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { css } from "@emotion/react";
 import pigImage from "../assets/img/pig.png";
@@ -10,9 +10,11 @@ import SpeechBubbleTop from "../components/User/SpeechBubbleTop";
 import Layout from "../components/Layout";
 import Pig from "../components/User/Pig";
 import UserStatus from "../components/User/UserStatus";
-import { MoneyForm } from "../components/Forms/MoneyForm";
+import { StoreMoney } from "../components/Forms/StoreMoney";
+import { WithdrawMoney } from "../components/Forms/WithdrawMoney";
 
 const Profile = () => {
+  const [reload, setReload] = useState(false);
   const { userId } = useParams();
   const { user } = useContext(userContext);
 
@@ -22,6 +24,9 @@ const Profile = () => {
   if (!!user && user.id != userId) {
     navigate("/dashboard");
   }
+  const handleReload = () => {
+    setReload(! reload);
+  };
 
   return (
     <>
@@ -38,7 +43,7 @@ const Profile = () => {
             onClick={() => alert(user.name)}
           />
           <SpeechBubbleTop>
-            ぼくの中には{user.total_exp}ポイント入っているっぴ！
+            ぼくの中には{user.balance_exp}ポイント入っているっぴ！
             {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
           </SpeechBubbleTop>
           <Box
@@ -47,7 +52,9 @@ const Profile = () => {
             `}
           >
             <UserStatus />
-          </Box><MoneyForm/>
+          </Box>
+          <StoreMoney handleReload={handleReload}/>
+          <WithdrawMoney handleReload={handleReload} reload={reload}/>
         </Container>
       )}
     </Layout>
