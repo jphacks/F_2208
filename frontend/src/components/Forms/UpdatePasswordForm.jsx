@@ -4,9 +4,9 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
 import { css } from "@emotion/react";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 import { useForm } from "react-hook-form";
-import { updateUserPassword } from "../api/user";
+import { updateUserPassword } from "../../api/user";
 
 const UpdatePasswordForm = () => {
   const { handleSubmit, control, watch } = useForm();
@@ -17,11 +17,11 @@ const UpdatePasswordForm = () => {
 
   const onSubmit = async (inputData) => {
     console.log(inputData["new-password-confirmation"]);
-    const res = await updateUserPassword(
-      inputData["current-password"],
-      inputData["new-password"],
-      inputData["new-password-confirmation"]
-    );
+    const res = await updateUserPassword({
+      current_password: inputData["current-password"],
+      password: inputData["new-password"],
+      password_confirmation: inputData["new-password-confirmation"],
+    });
 
     if (res.status === 200) {
       alert("パスワードを更新しました");
@@ -57,9 +57,7 @@ const UpdatePasswordForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="現在のパスワード"
@@ -83,9 +81,7 @@ const UpdatePasswordForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="新しいパスワード"
@@ -109,9 +105,7 @@ const UpdatePasswordForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="新しいパスワードの再入力"

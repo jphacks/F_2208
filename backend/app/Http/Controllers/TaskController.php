@@ -15,7 +15,7 @@ class TaskController extends Controller {
      */
     public function index(Request $request) {
         $user = $request->user();
-        $tasks = Task::where('user_id', $user->id)->get();
+        $tasks = Task::with('orderUser')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         return response()->json($tasks);
     }
 
@@ -36,14 +36,14 @@ class TaskController extends Controller {
      */
     public function store(StoreTaskRequest $request) {
         $task = new Task();
-        $task->title = $request->input('title') ?? $task->title;
-        $task->description = $request->input('description') ?? $task->description;
-        $task->exp = $request->input('exp') ?? $task->exp;
-        $task->time_limit = $request->input('time_limit') ?? $task->time_limit;
-        $task->severity = $request->input('severity') ?? $task->severity;
-        $task->status = $request->input('status') ?? $task->status;
-        $task->user_id = $request->input('user_id') ?? $task->user_id;
-        $task->order_user_id = $request->input('order_user_id') ?? $task->order_user_id;
+        $request->input('title') && $task->title = $request->input('title');
+        $request->input('description') && $task->description = $request->input('description');
+        $request->input('exp') && $task->exp = $request->input('exp');
+        $request->input('time_limit') && $task->time_limit = $request->input('time_limit');
+        $request->input('severity') && $task->severity = $request->input('severity');
+        $request->input('status') && $task->status = $request->input('status');
+        $request->input('user_id') && $task->user_id = $request->input('user_id');
+        $task->order_user_id = $request->user()->id;
         $task->created_at = now();
         $task->updated_at = now();
         $task->save();
@@ -78,14 +78,13 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateTaskRequest $request, Task $task) {
-        $task->title = $request->input('title') ?? $task->title;
-        $task->description = $request->input('description') ?? $task->description;
-        $task->exp = $request->input('exp') ?? $task->exp;
-        $task->time_limit = $request->input('time_limit') ?? $task->time_limit;
-        $task->severity = $request->input('severity') ?? $task->severity;
-        $task->status = $request->input('status') ?? $task->status;
-        $task->user_id = $request->input('user_id') ?? $task->user_id;
-        $task->order_user_id = $request->input('order_user_id') ?? $task->order_user_id;
+        $request->input('title') && $task->title = $request->input('title');
+        $request->input('description') && $task->description = $request->input('description');
+        $request->input('exp') && $task->exp = $request->input('exp');
+        $request->input('time_limit') && $task->time_limit = $request->input('time_limit');
+        $request->input('severity') && $task->severity = $request->input('severity');
+        $request->input('status') && $task->status = $request->input('status');
+        $request->input('user_id') && $task->user_id = $request->input('user_id');
         $task->updated_at = now();
         $task->save();
         return response()->json($task);
@@ -100,5 +99,26 @@ class TaskController extends Controller {
     public function destroy(Task $task) {
         $task->delete();
         return response('Deletion completed.');
+    }
+
+    // 完了
+    public function do(Request $request, Task $task) {
+        $task->status = 2;
+        $task->save();
+        $user = $request->user();
+        $user->total_exp += $task->exp;
+        $user->level = floor($user->total_exp / 200);
+        $user->save();
+        return response()->json($task);
+    }
+    // 未完了
+    public function undo(Request $request, Task $task) {
+        $task->status = 1;
+        $task->save();
+        $user = $request->user();
+        $user->total_exp -= $task->exp;
+        $user->level = floor($user->total_exp / 200);
+        $user->save();
+        return response()->json($task);
     }
 }

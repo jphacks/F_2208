@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { RegisterForm } from "../components/RegisterForm";
-import { LoginForm } from "../components/LoginForm";
+import { RegisterForm } from "../components/Forms/RegisterForm";
+import { LoginForm } from "../components/Forms/LoginForm";
 import { useForm } from "react-hook-form";
 import register from "../api/register";
 import login from "../api/login";
@@ -61,7 +61,6 @@ const Top = () => {
   return (
     <div
       css={css`
-        height: 750px;
         background-image: url(${PigImage});
         background-repeat: no-repeat;
         background-position: center;
@@ -79,65 +78,60 @@ const Top = () => {
         width: 100%;
         height: calc(100vh - 80px);
         margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       `}
     >
-      <div>
-        <Container
+      <Container maxWidth="sm">
+        {showRegisterForm ? (
+          <RegisterForm
+            register={registerRegisterForm}
+            onSubmit={onSubmitRegisterForm}
+            handleSubmit={handleSubmitRegisterForm}
+            control={controlRegisterForm}
+            watch={watchRegisterForm}
+          />
+        ) : (
+          <LoginForm
+            register={registerLoginForm}
+            onSubmit={onSubmitLoginForm}
+            handleSubmit={handleSubmitLoginForm}
+            control={controlLoginForm}
+            watch={watchLoginForm}
+          />
+        )}
+        <p
           css={css`
-            max-width: 90%;
+            width: 33%;
+            margin: 0 auto;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           `}
         >
-          <div>
-            {showRegisterForm ? (
-              <RegisterForm
-                register={registerRegisterForm}
-                onSubmit={onSubmitRegisterForm}
-                handleSubmit={handleSubmitRegisterForm}
-                control={controlRegisterForm}
-                watch={watchRegisterForm}
-              />
-            ) : (
-              <LoginForm
-                register={registerLoginForm}
-                onSubmit={onSubmitLoginForm}
-                handleSubmit={handleSubmitLoginForm}
-                control={controlLoginForm}
-                watch={watchLoginForm}
-              />
-            )}
-            <div
-              css={css`
-                width: 33%;
-                margin: 0 auto;
-                padding-top: 30px;
-                padding-bottom: 30px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              `}
-            >
-              または
-            </div>
-            <Button
-              css={css`
-                width: 40%;
-                margin: 0 auto;
-                background-color: white;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding-top: 10px;
-                padding-bottom: 10px;
-              `}
-              color="inherit"
-              variant="outlined"
-              onClick={handleClick}
-            >
-              {!showRegisterForm ? "新規登録" : "ログイン"}
-            </Button>
-          </div>
-        </Container>
-      </div>
+          または
+        </p>
+        <Button
+          css={css`
+            width: 40%;
+            margin: 0 auto;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          `}
+          color="inherit"
+          variant="outlined"
+          onClick={handleClick}
+        >
+          {!showRegisterForm ? "新規登録" : "ログイン"}
+        </Button>
+      </Container>
     </div>
   );
 };

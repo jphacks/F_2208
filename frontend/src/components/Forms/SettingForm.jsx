@@ -4,16 +4,19 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
 import { css } from "@emotion/react";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 import { useForm } from "react-hook-form";
-import { fetchUser, updateUser } from "../api/user";
+import { fetchUser, updateUser } from "../../api/user";
 
 const SettingForm = () => {
   const { user, setUser } = useContext(userContext);
   const { handleSubmit, control } = useForm();
 
   const onSubmit = async (inputData) => {
-    const res = await updateUser(inputData.name, inputData.email);
+    const res = await updateUser({
+      name: inputData.name,
+      email: inputData.email,
+    });
     console.log(res);
 
     if (res.status === 200) {
@@ -50,9 +53,7 @@ const SettingForm = () => {
             defaultValue={user.name}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
                 label="ニックーネーム"
@@ -75,9 +76,7 @@ const SettingForm = () => {
             }}
             render={({ field, fieldState }) => (
               <TextField
-                css={css`
-                  background-color: white;
-                `}
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
                 label="メールアドレス"

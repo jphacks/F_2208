@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
-import { css } from '@emotion/react'
+import { css } from "@emotion/react";
 
 export const RegisterForm = ({
   register,
@@ -15,17 +15,22 @@ export const RegisterForm = ({
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>新規登録</h1>
-        <Stack spacing={3}>
-          <Controller 
-            name="name" 
+        <h1
+          css={css`
+            text-align: center;
+          `}
+        >
+          新規登録
+        </h1>
+        <Stack spacing={2}>
+          <Controller
+            name="name"
             control={control}
             rules={{ required: "ニックネームを入力してください" }}
             render={({ field, fieldState }) => (
-              <TextField css={css`
-              background-color:white;
-              `}
-                {...field} 
+              <TextField
+                inputProps={{ style: { backgroundColor: "#fff" } }}
+                {...field}
                 type="text"
                 label="ニックーネーム"
                 variant="outlined"
@@ -45,9 +50,8 @@ export const RegisterForm = ({
               },
             }}
             render={({ field, fieldState }) => (
-              <TextField css={css`
-              background-color:white;
-              `}
+              <TextField
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
                 label="メールアドレス"
@@ -57,7 +61,7 @@ export const RegisterForm = ({
               />
             )}
           />
-          <Controller 
+          <Controller
             name="password"
             control={control}
             rules={{
@@ -70,9 +74,8 @@ export const RegisterForm = ({
               },
             }}
             render={({ field, fieldState }) => (
-              <TextField css={css`
-              background-color:white;
-              `}
+              <TextField
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="パスワード"
@@ -95,9 +98,8 @@ export const RegisterForm = ({
               },
             }}
             render={({ field, fieldState }) => (
-              <TextField css={css`
-              background-color:white;
-              `}
+              <TextField
+                inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="password"
                 label="パスワードの再入力"
@@ -109,16 +111,19 @@ export const RegisterForm = ({
           />
         </Stack>
         <div>
-          <Button css={css`
-          width: 40%;
-          margin: 50px auto 0px auto;
-          padding-top:10px;
-          padding-bottom:10px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          `}
-           variant="contained" type="submit">
+          <Button
+            css={css`
+              width: 40%;
+              margin: 50px auto 0px auto;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            `}
+            variant="contained"
+            type="submit"
+          >
             新規登録
           </Button>
         </div>

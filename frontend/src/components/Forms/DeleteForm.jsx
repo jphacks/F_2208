@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { Alert, Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { css } from "@emotion/react";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 import { useForm } from "react-hook-form";
-import { deleteUser } from "../api/user";
+import { deleteUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 
 const DeleteForm = () => {

@@ -7,12 +7,14 @@ import pigImage from "../assets/img/pig.png";
 import grassImage from "../assets/img/grass.png";
 import paypayImage from "../assets/img/paypay.png";
 import { userContext } from "../contexts/userContext";
-import SpeechBubbleTop from "../components/SpeechBubbleTop";
-import Pig from "../components/Pig";
-import ExpBar from "../components/ExpBar";
-import UserStatus from "../components/UserStatus";
 import { paypayPay, paypayPaymentDetails } from "../api/paypay";
 import CloseIcon from "@mui/icons-material/Close";
+import SpeechBubbleTop from "../components/User/SpeechBubbleTop";
+import Layout from "../components/Layout";
+import Pig from "../components/User/Pig";
+import UserStatus from "../components/User/UserStatus";
+import { StoreMoney } from "../components/Forms/StoreMoney";
+import { WithdrawMoney } from "../components/Forms/WithdrawMoney";
 
 const style = {
   position: "absolute",
@@ -54,6 +56,9 @@ const Profile = () => {
       }
     })();
   }, []);
+
+
+  const [reload, setReload] = useState(false);
   const { userId } = useParams();
   const { user } = useContext(userContext);
 
@@ -76,6 +81,9 @@ const Profile = () => {
   if (!!user && user.id != userId) {
     navigate("/dashboard");
   }
+  const handleReload = () => {
+    setReload(! reload);
+  };
 
   if (user) {
     return (
@@ -101,6 +109,8 @@ const Profile = () => {
           <UserStatus />
           <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
         </Box>
+        <StoreMoney handleReload={handleReload}/>
+          <WithdrawMoney handleReload={handleReload} reload={reload}/>
         {paypayModalOpen && (
           <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
             <Box
