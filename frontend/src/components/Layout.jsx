@@ -11,8 +11,10 @@ const Layout = ({ children }) => {
         margin: 0;
         display: flex;
         min-height: 100vh;
-        justify-content: center;
+        justify-content: start;
         align-items: center;
+        flex-direction: column;
+        padding-top: 30px;
       `}
     >
       {children}

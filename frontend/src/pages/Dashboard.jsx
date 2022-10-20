@@ -1,29 +1,22 @@
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import auth from "../api/auth";
-import { AddTaskModal } from "../components/Task/AddTaskModal";
+import { Typography } from "@mui/material";
 import Layout from "../components/Layout";
+import { ShowTasks } from "../components/Task/ShowTasks";
+import { css } from "@emotion/react";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    auth(navigate);
-  }, []);
-
-  const [open, setOpen] = useState(false);
-  const handleClick = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <Layout>
-      <Button variant="contained" color="primary" onClick={handleClick}>
-        AddTaskModal
-      </Button>
-      <AddTaskModal open={open} handleClose={handleClose} />
+      <Typography
+        variant="h4"
+        element="h1"
+        align="center"
+        css={css`
+          margin-bottom: 30px;
+        `}
+      >
+        おかえりなさい
+      </Typography>
+      <ShowTasks limited={5} showMore hideDoneTask />
     </Layout>
   );
 };
