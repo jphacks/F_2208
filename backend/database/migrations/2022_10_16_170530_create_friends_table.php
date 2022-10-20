@@ -4,21 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('friends', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
             $table->primary(['id', 'user_id']);
             $table->unsignedBiginteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer("intimacy");
+            $table->integer("intimacy")->default(0);
             $table->boolean("favorite")->default(false);
             $table->biginteger("sent_exp")->default(0);
             $table->biginteger("received_exp")->default(0);
@@ -31,8 +29,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('friends');
     }
 };

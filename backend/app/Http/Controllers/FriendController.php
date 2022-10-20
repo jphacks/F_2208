@@ -8,18 +8,16 @@ use App\Models\Friend;
 use Illuminate\Http\Request;
 
 
-class FriendController extends Controller
-{
+class FriendController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $user = $request->user();
-        $freinds = Friend::where('id', $user->id)->get();
-        return response()->json($freinds);
+        $friends = Friend::with("user")->where('id', $user->id)->orWhere('user_id', $user->id)->get();
+        return response()->json($friends);
     }
 
     /**
@@ -27,8 +25,7 @@ class FriendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -38,15 +35,15 @@ class FriendController extends Controller
      * @param  \App\Http\Requests\StoreFriendRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFriendRequest $request)
-    {
+    public function store(StoreFriendRequest $request) {
         $friend = new Friend();
-        $friend->id = $request->input('id');
+        $user = $request->user();
+        $friend->id = $user->id;
         $friend->user_id = $request->input('user_id');
-        $friend->intimacy = $request->input('intimacy');
-        $friend->favorite = $request->input('favorite');
-        $friend->sent_exp = $request->input('sent_exp');
-        $friend->received_exp = $request->input('received_exp');
+        $request->input('intimacy') && $friend->intimacy =  $request->input('intimacy');
+        $request->input('favorite') && $friend->favorite =  $request->input('favorite');
+        $request->input('sent_exp') && $friend->sent_exp = $request->input('sent_exp');
+        $request->input('received_exp') && $friend->received_exp = $request->input('received_exp');
         $friend->created_at = now();
         $friend->updated_at = now();
         $friend->save();
@@ -59,8 +56,14 @@ class FriendController extends Controller
      * @param  \App\Models\Friend  $friend
      * @return \Illuminate\Http\Response
      */
-    public function show(Friend $friend)
-    {
+    public function show(Request $request, $id) {
+        $user  = $request->user();
+        $friend = $this->friend($request, $id);
+
+        if ($friend->id === $user->id) {
+            $friend = $friend->user;
+        }
+
         return response()->json($friend);
     }
 
@@ -70,8 +73,7 @@ class FriendController extends Controller
      * @param  \App\Models\Friend  $friend
      * @return \Illuminate\Http\Response
      */
-    public function edit(Friend $friend)
-    {
+    public function edit(Friend $friend) {
         //
     }
 
@@ -82,12 +84,15 @@ class FriendController extends Controller
      * @param  \App\Models\Friend  $friend
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFriendRequest $request, Friend $friend)
-    {
-        $friend->intimacy = $request->input('intimacy');
-        $friend->favorite = $request->input('favorite');
-        $friend->sent_exp = $request->input('sent_exp');
-        $friend->received_exp = $request->input('received_exp');
+    public function update(UpdateFriendRequest $request, $id) {
+        // get record
+        $friend = $this->friend($request, $id);
+
+        // update record
+        $friend->intimacy = $request->input('intimacy') ?? $friend->intimacy;
+        $friend->favorite = $request->input('favorite') ?? $friend->favorite;
+        $friend->sent_exp = $request->input('sent_exp') ?? $friend->sent_exp;
+        $friend->received_exp = $request->input('received_exp') ?? $friend->received_exp;
         $friend->updated_at = now();
         $friend->save();
         return response()->json($friend);
@@ -99,9 +104,23 @@ class FriendController extends Controller
      * @param  \App\Models\Friend  $friend
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Friend $friend)
-    {
+    public function destroy(Request $request, $id) {
+        $friend = $this->friend($request, $id);
         $friend->delete();
         return response('Deletion completed.');
+    }
+
+    // id　または user_idに存在するフレンドを取得する
+    protected function friend($request, $id) {
+        $user = $request->user();
+
+        return Friend::with('user')
+            ->where(function ($query) use ($user, $id) {
+                $query->where('id', $user->id)->where('user_id', $id);
+            })
+            ->orWhere(function ($query) use ($user, $id) {
+                $query->where('user_id', $user->id)->where('id', $id);
+            })
+            ->firstOrFail();
     }
 }
