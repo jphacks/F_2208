@@ -4,12 +4,11 @@ import {
   Button,
   Modal,
   TextField,
-  FormGroup,
   IconButton,
   Typography,
 } from "@mui/material";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 
 
@@ -33,7 +32,7 @@ const closeButtonStyle = {
 
 export const WithdrawMoney = ({ handleReload, reload }) => {
 
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit, control } = useForm();
   const [open, setOpen] = useState(false);
   const [code, setCode] = useState();
   const [codes, setCodes] = useState([]);
@@ -86,21 +85,30 @@ export const WithdrawMoney = ({ handleReload, reload }) => {
           <div>出金</div>
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormGroup onSubmit={handleSubmit(onSubmit)}>
-              <br />
-              <TextField
-                id="newReward"
-                label="ギフトコード番号"
-                variant="outlined"
-                fullWidth
-                name="codesNum"
-                {...register("codesNum")}
-              />
-              <br />
-              <Button variant="contained" color="primary" type="submit">
-                出金する
-              </Button>
-            </FormGroup>
+            <br />
+            <Controller
+              name="codeNum"
+              control={control}
+              rules={{ required: "番号を入力してください" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  inputProps={{ style: { backgroundColor: "#fff" } }}
+                  {...field}
+                  id="newReward"
+                  label="ギフトコード番号"
+                  variant="outlined"
+                  fullWidth
+                  defaultValue="1"
+                  name="codesNum"
+                  type="number"
+                  error={fieldState.error}
+                  helperText={fieldState.error?.message}
+                />)}
+            />
+            <br />
+            <Button variant="contained" color="primary" type="submit" >
+              出金する
+            </Button>
           </form>
         </Box>
       </Modal>
