@@ -86,84 +86,85 @@ const Profile = () => {
 
   if (user) {
     return (
-      <Container
-        maxWidth="lg"
-        css={css`
-          padding-top: 30px;
-        `}
-      >
-        <Typography variant="h5" component="h2" align="center">
-          {user.name}
-        </Typography>
-        <Pig
-          pigImage={pigImage}
-          grassImage={grassImage}
-          jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
-        />
-        <SpeechBubbleTop>
-          ぼくの中には{user.total_exp}ポイント入っているっぴ！
-          {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
-        </SpeechBubbleTop>
+      <Layout>
         <Box
           css={css`
-            margin-top: 30px;
+            min-width: 80%;
           `}
         >
-          <UserStatus />
-          <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
-        </Box>
-        <StoreMoney handleReload={handleReload} />
-        <WithdrawMoney handleReload={handleReload} reload={reload} />
-        {paypayModalOpen && (
-          <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
-            <Box
-              sx={style}
-              css={css`
-                background-color: #fff;
-                border: none;
-              `}
-            >
-              <Box sx={closeButtonStyle}>
-                <IconButton onClick={handleClosePayPayModal}>
-                  <CloseIcon />
-                </IconButton>
-              </Box>
+          <Typography variant="h5" component="h2" align="center">
+            {user.name}
+          </Typography>
+          <Pig
+            pigImage={pigImage}
+            grassImage={grassImage}
+            jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
+          />
+          <SpeechBubbleTop>
+            ぼくの中には{user.total_exp}ポイント入っているっぴ！
+            {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
+          </SpeechBubbleTop>
+          <Box
+            css={css`
+              margin-top: 30px;
+            `}
+          >
+            <UserStatus />
+            <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
+          </Box>
+          <StoreMoney handleReload={handleReload} />
+          <WithdrawMoney handleReload={handleReload} reload={reload} />
+          {paypayModalOpen && (
+            <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
               <Box
+                sx={style}
                 css={css`
-                  max-width: 100%;
+                  background-color: #fff;
+                  border: none;
                 `}
               >
-                <img
-                  src={paypayImage}
+                <Box sx={closeButtonStyle}>
+                  <IconButton onClick={handleClosePayPayModal}>
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+                <Box
                   css={css`
                     max-width: 100%;
                   `}
-                />
-              </Box>
-              <Typography
-                variant="h5"
-                component="h2"
-                align="center"
-                css={css`
-                  margin-bottom: 1em;
-                `}
-              >
-                入金が完了しました
-              </Typography>
-              <Typography variant="h2" component="p" align="center">
-                {paypay.amount.amount.toLocaleString()}
-                <span
+                >
+                  <img
+                    src={paypayImage}
+                    css={css`
+                      max-width: 100%;
+                    `}
+                  />
+                </Box>
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  align="center"
                   css={css`
-                    font-size: 0.5em;
+                    margin-bottom: 1em;
                   `}
                 >
-                  円
-                </span>
-              </Typography>
-            </Box>
-          </Modal>
-        )}
-      </Container>
+                  入金が完了しました
+                </Typography>
+                <Typography variant="h2" component="p" align="center">
+                  {paypay.amount.amount.toLocaleString()}
+                  <span
+                    css={css`
+                      font-size: 0.5em;
+                    `}
+                  >
+                    円
+                  </span>
+                </Typography>
+              </Box>
+            </Modal>
+          )}
+        </Box>
+      </Layout>
     );
   }
 };

@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { Container } from "@mui/material";
 import bgPigImage from "../assets/img/bg-pig.png";
 
 const Layout = ({ children }) => {
@@ -17,7 +18,16 @@ const Layout = ({ children }) => {
         padding-top: 30px;
       `}
     >
-      {children}
+      <Container
+        css={css`
+          max-width: 100%;
+          @media screen and (min-width: 768px) {
+            max-width: 768px;
+          }
+        `}
+      >
+        {children}
+      </Container>
     </main>
   );
 };
