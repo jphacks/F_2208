@@ -1,8 +1,6 @@
 import { Container, Stack, Typography } from "@mui/material";
 import { css } from "@emotion/react";
 import PigImage from "../assets/img/pig.png";
-import { userContext } from "../contexts/userContext";
-import { fetchUser } from "../api/user";
 
 const NotFound = () => {
   return (

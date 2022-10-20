@@ -17,11 +17,11 @@ const UpdatePasswordForm = () => {
 
   const onSubmit = async (inputData) => {
     console.log(inputData["new-password-confirmation"]);
-    const res = await updateUserPassword(
-      inputData["current-password"],
-      inputData["new-password"],
-      inputData["new-password-confirmation"]
-    );
+    const res = await updateUserPassword({
+      current_password: inputData["current-password"],
+      password: inputData["new-password"],
+      password_confirmation: inputData["new-password-confirmation"],
+    });
 
     if (res.status === 200) {
       alert("パスワードを更新しました");

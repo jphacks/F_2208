@@ -54,16 +54,14 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
 
   // const onSubmit = (inputData) => console.log(inputData.title, inputData.description, inputData.exp, inputData.time_limit, inputData.severity, 1, inputData.user_id, 1);
   const onSubmit = async (inputData) => {
-    await createTask(
-      inputData.title,
-      inputData.description,
-      inputData.exp,
-      `${inputData.time_limit}:00`,
-      inputData.severity,
-      1, // active
-      1, // user_id -> email
-      user.id
-    );
+    await createTask({
+      title: inputData.title,
+      description: inputData.description,
+      exp: inputData.exp,
+      time_limit: `${inputData.time_limit}:00`,
+      severity: inputData.severity,
+      user_id: 1, // user_id -> email
+    });
     const res = await fetchTasks();
     if (res.status === 200) {
       setTasks(res.data);

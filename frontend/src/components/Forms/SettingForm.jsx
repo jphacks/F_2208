@@ -13,7 +13,10 @@ const SettingForm = () => {
   const { handleSubmit, control } = useForm();
 
   const onSubmit = async (inputData) => {
-    const res = await updateUser(inputData.name, inputData.email);
+    const res = await updateUser({
+      name: inputData.name,
+      email: inputData.email,
+    });
     console.log(res);
 
     if (res.status === 200) {

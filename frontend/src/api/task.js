@@ -14,7 +14,7 @@ export const fetchTasks = async () => {
     });
 }
 
-export const fetchTask = async (id) => {
+export const fetchTask = async ({ id }) => {
   return await axios
     .get(`/api/tasks/${id}`)
     .then((res) => {
@@ -28,7 +28,7 @@ export const fetchTask = async (id) => {
     });
 }
 
-export const createTask = async (title, description, exp, time_limit, severity, status, user_id, order_user_id) => {
+export const createTask = async ({ title, description, exp, time_limit, severity, status, user_id }) => {
   return await axios
     .post(`/api/tasks`, {
       title,
@@ -38,7 +38,6 @@ export const createTask = async (title, description, exp, time_limit, severity, 
       severity,
       status,
       user_id,
-      order_user_id
     })
     .then((res) => {
       console.log("[task]作成成功");
@@ -51,7 +50,7 @@ export const createTask = async (title, description, exp, time_limit, severity, 
     });
 }
 
-export const updateTask = async (id, title, description, exp, time_limit, severity, status, user_id, order_user_id) => {
+export const updateTask = async ({ id, title, description, exp, time_limit, severity, status, user_id }) => {
   return await axios
     .put(`/api/tasks/${id}`, {
       title,
@@ -61,7 +60,6 @@ export const updateTask = async (id, title, description, exp, time_limit, severi
       severity,
       status,
       user_id,
-      order_user_id
     })
     .then((res) => {
       console.log("[task]更新成功");
@@ -74,7 +72,7 @@ export const updateTask = async (id, title, description, exp, time_limit, severi
     });
 }
 
-export const deleteTask = async (id) => {
+export const deleteTask = async ({ id }) => {
   return await axios
     .delete(`/api/tasks/${id}`)
     .then((res) => {
@@ -88,7 +86,7 @@ export const deleteTask = async (id) => {
     })
 }
 
-export const updateDoTask = async (id) => {
+export const updateDoTask = async ({ id }) => {
   return await axios
     .put(`/api/tasks/${id}/do`)
     .then((res) => {
@@ -102,7 +100,7 @@ export const updateDoTask = async (id) => {
     });
 }
 
-export const updateUndoTask = async (id) => {
+export const updateUndoTask = async ({ id }) => {
   return await axios
     .put(`/api/tasks/${id}/undo`)
     .then((res) => {
