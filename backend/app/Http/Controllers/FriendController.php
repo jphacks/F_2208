@@ -123,4 +123,10 @@ class FriendController extends Controller {
             })
             ->firstOrFail();
     }
+    
+    protected function add() {
+        $friend = new Friend();
+        // データベースに値をinsert
+        $friend->save();
+    }
 }
