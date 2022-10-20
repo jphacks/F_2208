@@ -4,11 +4,10 @@ import {
   Button,
   Modal,
   TextField,
-  FormGroup,
   IconButton,
 } from "@mui/material";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 
 
@@ -30,9 +29,9 @@ const closeButtonStyle = {
   textAlign: "right",
 };
 
-export const StoreMoney = ({handleReload}) => {
+export const StoreMoney = ({ handleReload }) => {
   // Task記録
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit, control } = useForm();
   const [open, setOpen] = useState(false);
 
   // ローカルストレージに保存
@@ -41,13 +40,13 @@ export const StoreMoney = ({handleReload}) => {
       inputData.code,
       inputData.value,
     );
-    const handleClick = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-      handleReload();
-    };
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    handleReload();
+  };
 
   return (
     <Box>
@@ -66,31 +65,48 @@ export const StoreMoney = ({handleReload}) => {
           <div>入金</div>
           <br />
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormGroup onSubmit={handleSubmit(onSubmit)}>
               <br />
-              <TextField
-                id="newReward"
-                label="ギフトコード"
-                variant="outlined"
-                fullWidth
+              <Controller
                 name="code"
-                {...register("code")}
+                control={control}
+                rules={{ required: "コードを入力してください" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    inputProps={{ style: { backgroundColor: "#fff" } }}
+                    {...field}
+                    id="newReward"
+                    label="ギフトコード"
+                    variant="outlined"
+                    fullWidth
+                    name="code"
+                    error={fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />)}
               />
               <br />
-              <TextField
-                id="newAssign"
-                label="価格"
-                variant="outlined"
-                defaultValue="3000"
-                fullWidth
+              <Controller
                 name="value"
-                {...register("value")}
+                control={control}
+                rules={{ required: "価格を入力してください" }}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    inputProps={{ style: { backgroundColor: "#fff" } }}
+                    {...field}
+                    id="newAssign"
+                    label="価格"
+                    variant="outlined"
+                    defaultValue="3000"
+                    fullWidth
+                    name="value"
+                    type="number"
+                    error={fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />)}
               />
               <br />
               <Button variant="contained" color="primary" type="submit">
-               入金する
+                入金する
               </Button>
-            </FormGroup>
           </form>
         </Box>
       </Modal>
