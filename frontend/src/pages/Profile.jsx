@@ -48,11 +48,9 @@ const Profile = () => {
     const merchantPaymentId = searchParams.get("merchant_payment_id");
 
     // URLからパラメタを削除する
-    const url = new URL(window.location.href);
-    const params = url.searchParams;
-    params.delete("payment");
-    params.delete("merchant_payment_id");
-    history.replaceState("", "", url.pathname);
+    searchParams.delete("payment");
+    searchParams.delete("merchant_payment_id");
+    setSearchParams(searchParams);
 
     (async () => {
       if (payment === "paypay" && !!merchantPaymentId) {

@@ -94,7 +94,9 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
                 `}
               >
                 <AccessTimeIcon fontSize="small" />
-                {task.time_limit.slice(0, -3)}:00
+                {task.time_limit
+                  ? `${task.time_limit.slice(0, -3)}:00`
+                  : "なし"}
               </Typography>
             </Grid>
           </Grid>
@@ -114,7 +116,7 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
               color: #e29090;
             `}
           />
-          < DeleteTask setTasks={setTasks} tasks={tasks} id={task.id}/>
+          <DeleteTask setTasks={setTasks} tasks={tasks} id={task.id} />
         </Stack>
       </Grid>
       <Grid

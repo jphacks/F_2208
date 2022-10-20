@@ -40,7 +40,7 @@ class PayPayController extends Controller {
         ]);
         // Configure redirects
         $CQCPayload->setRedirectType('WEB_LINK');
-        $CQCPayload->setRedirectUrl(env("FRONTEND_APP_URL") . '/users/' . $user->id . '?payment=paypay&merchant_payment_id=' . $merchantPaymentId);
+        $CQCPayload->setRedirectUrl(env("FRONTEND_APP_URL") . '/users/#/users/' . $user->id . '?payment=paypay&merchant_payment_id=' . $merchantPaymentId);
         // Get data for QR code
         $response = $client->code->createQRCode($CQCPayload);
 
