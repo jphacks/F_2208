@@ -15,6 +15,7 @@ import Pig from "../components/User/Pig";
 import UserStatus from "../components/User/UserStatus";
 import { StoreMoney } from "../components/Forms/StoreMoney";
 import { WithdrawMoney } from "../components/Forms/WithdrawMoney";
+import { fetchUser, updateUser } from "../api/user";
 
 const style = {
   position: "absolute",
@@ -35,6 +36,9 @@ const closeButtonStyle = {
 };
 
 const Profile = () => {
+  const [reload, setReload] = useState(false);
+  const { userId } = useParams();
+  const { user, setUser } = useContext(userContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [paypay, setPaypay] = useState({});
   const [paypayModalOpen, setPaypayModalOpen] = useState(false);
@@ -42,9 +46,13 @@ const Profile = () => {
   useEffect(() => {
     const payment = searchParams.get("payment");
     const merchantPaymentId = searchParams.get("merchant_payment_id");
-    searchParams.delete("payment");
-    searchParams.delete("merchant_payment_id");
-    setSearchParams(searchParams);
+
+    // URLからパラメタを削除する
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+    params.delete("payment");
+    params.delete("merchant_payment_id");
+    history.replaceState("", "", url.pathname);
 
     (async () => {
       if (payment === "paypay" && !!merchantPaymentId) {
@@ -52,15 +60,16 @@ const Profile = () => {
         if (res.status === 200) {
           setPaypay(res.data);
           setPaypayModalOpen(true);
+          const currentUser = await fetchUser();
+          const newUser = await updateUser({
+            balance_exp: currentUser.data.balance_exp + res.data.amount.amount,
+          });
+          setUser(newUser.data);
         }
       }
     })();
   }, []);
-
-  const [reload, setReload] = useState(false);
-  const { userId } = useParams();
-  const { user } = useContext(userContext);
-
+  console.log(user);
   const handleClickPayPay = async (amount) => {
     const res = await paypayPay(amount);
     console.log(res);
@@ -101,7 +110,7 @@ const Profile = () => {
             jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
           />
           <SpeechBubbleTop>
-            ぼくの中には{user.total_exp}ポイント入っているっぴ！
+            ぼくの中には{user.balance_exp}ポイント入っているっぴ！
             {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
           </SpeechBubbleTop>
           <Box
