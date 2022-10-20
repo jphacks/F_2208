@@ -35,47 +35,7 @@ const closeButtonStyle = {
   marginBottom: "15px",
 };
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 300,
-  // maxWidth: "80%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  borderRadius: 2,
-  p: 4,
-};
-const closeButtonStyle = {
-  height: 0,
-  textAlign: "right",
-  marginBottom: "15px",
-};
-
 const Profile = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [paypay, setPaypay] = useState({});
-  const [paypayModalOpen, setPaypayModalOpen] = useState(false);
-
-  useEffect(() => {
-    const payment = searchParams.get("payment");
-    const merchantPaymentId = searchParams.get("merchant_payment_id");
-    searchParams.delete("payment");
-    searchParams.delete("merchant_payment_id");
-    setSearchParams(searchParams);
-
-    (async () => {
-      if (payment === "paypay" && !!merchantPaymentId) {
-        const res = await paypayPaymentDetails(merchantPaymentId);
-        if (res.status === 200) {
-          setPaypay(res.data);
-          setPaypayModalOpen(true);
-        }
-      }
-    })();
-  }, []);
-
   const [reload, setReload] = useState(false);
   const { userId } = useParams();
   const { user, setUser } = useContext(userContext);
@@ -110,19 +70,6 @@ const Profile = () => {
     })();
   }, []);
   console.log(user);
-  const handleClickPayPay = async (amount) => {
-    const res = await paypayPay(amount);
-    console.log(res);
-    // PayPayアプリを起動
-    window.location.href = res.data.deeplink;
-    // PayPayアプリを起動できない場合
-    window.location.href = res.data.url;
-  };
-
-  const handleClosePayPayModal = () => {
-    setPaypayModalOpen(false);
-  };
-
   const handleClickPayPay = async (amount) => {
     const res = await paypayPay(amount);
     console.log(res);
