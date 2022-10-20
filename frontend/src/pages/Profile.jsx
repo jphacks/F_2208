@@ -42,9 +42,9 @@ const Profile = () => {
   useEffect(() => {
     const payment = searchParams.get("payment");
     const merchantPaymentId = searchParams.get("merchant_payment_id");
-    // searchParams.delete("payment");
-    // searchParams.delete("merchant_payment_id");
-    // setSearchParams(searchParams);
+    searchParams.delete("payment");
+    searchParams.delete("merchant_payment_id");
+    setSearchParams(searchParams);
 
     (async () => {
       if (payment === "paypay" && !!merchantPaymentId) {
@@ -56,7 +56,6 @@ const Profile = () => {
       }
     })();
   }, []);
-
 
   const [reload, setReload] = useState(false);
   const { userId } = useParams();
@@ -82,7 +81,7 @@ const Profile = () => {
     navigate("/dashboard");
   }
   const handleReload = () => {
-    setReload(! reload);
+    setReload(!reload);
   };
 
   if (user) {
@@ -96,7 +95,11 @@ const Profile = () => {
         <Typography variant="h5" component="h2" align="center">
           {user.name}
         </Typography>
-        <Pig pigImage={pigImage} grassImage={grassImage} jump={true} />
+        <Pig
+          pigImage={pigImage}
+          grassImage={grassImage}
+          jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
+        />
         <SpeechBubbleTop>
           ぼくの中には{user.total_exp}ポイント入っているっぴ！
           {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
@@ -109,8 +112,8 @@ const Profile = () => {
           <UserStatus />
           <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
         </Box>
-        <StoreMoney handleReload={handleReload}/>
-          <WithdrawMoney handleReload={handleReload} reload={reload}/>
+        <StoreMoney handleReload={handleReload} />
+        <WithdrawMoney handleReload={handleReload} reload={reload} />
         {paypayModalOpen && (
           <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
             <Box
