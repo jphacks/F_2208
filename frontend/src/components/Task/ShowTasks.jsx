@@ -102,6 +102,8 @@ export const ShowTasks = ({
                     task={task}
                     handleToggleCheckbox={handleToggleCheckbox}
                     checked={checked}
+                    setTasks={setTasks}
+                    tasks={tasks}
                   />
                 );
               }

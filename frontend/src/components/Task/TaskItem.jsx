@@ -5,9 +5,9 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ControlPointDuplicateIcon from "@mui/icons-material/ControlPointDuplicate";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { DeleteTask } from "./DeleteTask";
 
-const TaskItem = ({ task, handleToggleCheckbox, checked }) => {
+const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
   const [show, setShow] = useState(false);
 
   const handleClickOpen = () => {
@@ -16,10 +16,6 @@ const TaskItem = ({ task, handleToggleCheckbox, checked }) => {
 
   const handleClickEdit = (task) => {
     alert("edit");
-  };
-
-  const handleClickDelete = (task) => {
-    alert("delete");
   };
 
   return (
@@ -118,12 +114,7 @@ const TaskItem = ({ task, handleToggleCheckbox, checked }) => {
               color: #e29090;
             `}
           />
-          <DeleteIcon
-            onClick={() => handleClickDelete(task)}
-            css={css`
-              color: #e29090;
-            `}
-          />
+          < DeleteTask setTasks={setTasks} tasks={tasks} id={task.id}/>
         </Stack>
       </Grid>
       <Grid
