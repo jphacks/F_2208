@@ -8,15 +8,14 @@ import {
   MenuList,
   Typography,
 } from "@mui/material";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import RedeemIcon from "@mui/icons-material/Redeem";
 import GroupIcon from "@mui/icons-material/Group";
-import logout from "../api/logout";
-import PigImage from "../assets/img/pig.png";
-import ExpBar from "./ExpBar";
+import logout from "../../api/logout";
+import PigImage from "../../assets/img/pig.png";
+import ExpBar from "../User/ExpBar";
 
 const UserMenu = () => {
   const { user } = useContext(userContext);

@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import { useContext } from "react";
-import { userContext } from "../contexts/userContext";
+import { userContext } from "../../contexts/userContext";
 
 const Logo = () => {
   const { user } = useContext(userContext);
