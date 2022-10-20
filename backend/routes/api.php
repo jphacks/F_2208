@@ -30,5 +30,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::get('/reset-password/{token}', ResetPasswordController::class)
     ->name('password.reset');
     
-Route::get('api/friends/add/[user_id]?email=test@email.com', FriendController::class)
+Route::get('api/friends/add/[user_id]?email=test@email.com', [FriendController::class, 'add'])
     ->name('friend.add');

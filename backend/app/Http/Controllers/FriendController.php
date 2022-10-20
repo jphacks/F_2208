@@ -124,16 +124,17 @@ class FriendController extends Controller {
             ->firstOrFail();
     }
     
-    protected function add(Request $request) {
-    $friend = new Friend();
+    protected function add(Request $request, $id) {
     $user = $request->user();
-    $friend->id = $user->id;
-    $friend->user_id = $request->input('user_id');
-    $request->input('intimacy') && $friend->intimacy =  $request->input('intimacy');
-    $request->input('favorite') && $friend->favorite =  $request->input('favorite');
-    $request->input('sent_exp') && $friend->sent_exp = $request->input('sent_exp');
-    $request->input('received_exp') && $friend->received_exp = $request->input('received_exp');
-    $friend->created_at = now();
-    $friend->save();
+    $email = $request->email;
+    if($user->id === $id && $user->email === $email) {
+        $friend = new Friend();
+        $friend->id = $user->id;
+        $friend->user_id = $request->input('user_id');
+        $friend->created_at = now();
+        $friend->updated_at = now();
+        $friend->save();
+    }
+    return response()-> join($friend);
     }
 }
