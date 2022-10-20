@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Friend extends Model
-{
+class Friend extends Model {
     use HasFactory;
 
     protected $fillable = [
@@ -22,6 +21,6 @@ class Friend extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected $primaryKey = null;
+    protected $primaryKey = "user_id";
     public $incrementing = false;
 }
