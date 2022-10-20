@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import auth from "./api/auth";
 import { fetchUser } from "./api/user";
 import Dashboard from "./pages/Dashboard";
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <userContext.Provider value={user}>
-        <BrowserRouter>
+        <HashRouter>
           <Header />
           <Routes>
             <Route index element={<Top />} />
@@ -46,7 +46,7 @@ const App = () => {
             <Route path="/tasks" element={<Tasks />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </userContext.Provider>
     </QueryClientProvider>
   );
