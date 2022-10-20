@@ -25,7 +25,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete("/user", [UserController::class, 'destroy'])->name("user.destroy");
     Route::apiResource('tasks', TaskController::class);
     Route::apiResource('friends', FriendController::class);
-    Route::post('/paypay/qr', [PayPayController::class])->name("paypay.qr.create");
+    Route::get('/paypay', [PayPayController::class, 'createQRCode'])->name("paypay.qr.\create");
+    Route::get('/paypay/payment', [PayPayController::class, 'getPaymentDetails'])->name("paypay.payment");
 });
 Route::get('/reset-password/{token}', ResetPasswordController::class)
     ->name('password.reset');

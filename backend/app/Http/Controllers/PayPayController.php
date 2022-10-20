@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use PayPay\OpenPaymentAPI\Client;
 use PayPay\OpenPaymentAPI\Models\CreateQrCodePayload;
-use PayPay\OpenPaymentAPI\Models\OrderItem;
+// use PayPay\OpenPaymentAPI\Models\OrderItem;
 
 class PayPayController extends Controller {
-    public function createQRCode() {
+    public function createQRCode(Request $request) {
+        $user = $request->user();
+        // $userAgent = $request->header('User-Agent');
+        $amount = $request->amount;
+        $merchantPaymentId = Str::random(16) . Carbon::now()->timestamp;
+
         $client = new Client([
             'API_KEY' => env('PAYPAY_API_KEY'),
             'API_SECRET' => env('PAYPAY_API_SECRET'),
@@ -18,35 +25,44 @@ class PayPayController extends Controller {
         $CQCPayload = new CreateQrCodePayload();
 
         // Set merchant pay identifier
-        $CQCPayload->setMerchantPaymentId("YOUR_TRANSACTION_ID");
+        $CQCPayload->setMerchantPaymentId($merchantPaymentId);
 
         // Log time of request
         $CQCPayload->setRequestedAt();
         // Indicate you want QR Code
         $CQCPayload->setCodeType("ORDER_QR");
-
-        // Provide order details for invoicing
-        $OrderItems = [];
-        $OrderItems[] = (new OrderItem())
-            ->setName('Cake')
-            ->setQuantity(1)
-            ->setUnitPrice('amount' => 20, 'currency' => 'JPY']);
-        $CQCPayload->setOrderItems($OrderItems);
-
+        // User agent
+        // $CQCPayload->setUserAgent($userAgent);
         // Save Cart totals
-        $amount = [
-            "amount" => 1,
+        $CQCPayload->setAmount([
+            "amount" => $amount,
             "currency" => "JPY"
-        ];
-        $CQCPayload->setAmount($amount);
+        ]);
         // Configure redirects
         $CQCPayload->setRedirectType('WEB_LINK');
-        $CQCPayload->setRedirectUrl($_SERVER['SERVER_NAME']);
-
+        $CQCPayload->setRedirectUrl(env("FRONTEND_APP_URL") . '/users/' . $user->id . '?payment=paypay&merchant_payment_id=' . $merchantPaymentId);
         // Get data for QR code
         $response = $client->code->createQRCode($CQCPayload);
 
         $data = $response['data'];
         \Log::info($data);
+        \Log::info($data["url"]);
+        // return redirect()->to($data["url"])->send();
+        return response()->json($data);
+    }
+
+    public function getPaymentDetails(Request $request) {
+        \Log::info($request);
+        $merchantPaymentId = $request->merchantPaymentId;
+        $client = new Client([
+            'API_KEY' => env('PAYPAY_API_KEY'),
+            'API_SECRET' => env('PAYPAY_API_SECRET'),
+            'MERCHANT_ID' => env('PAYPAY_MERCHANT_ID')
+        ], false);
+
+        $response =  $client->code->getPaymentDetails($merchantPaymentId);
+        $data = $response['data'];
+        \Log::info($response);
+        return response()->json($data);
     }
 }
