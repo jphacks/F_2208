@@ -15,7 +15,7 @@ class TaskController extends Controller {
      */
     public function index(Request $request) {
         $user = $request->user();
-        $tasks = Task::where('user_id', $user->id)->get();
+        $tasks = Task::with('orderUser')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         return response()->json($tasks);
     }
 
@@ -100,5 +100,26 @@ class TaskController extends Controller {
     public function destroy(Task $task) {
         $task->delete();
         return response('Deletion completed.');
+    }
+
+    // 完了
+    public function do(Request $request, Task $task) {
+        $task->status = 2;
+        $task->save();
+        $user = $request->user();
+        $user->total_exp += $task->exp;
+        $user->level = floor($user->total_exp / 200);
+        $user->save();
+        return response()->json($task);
+    }
+    // 未完了
+    public function undo(Request $request, Task $task) {
+        $task->status = 1;
+        $task->save();
+        $user = $request->user();
+        $user->total_exp -= $task->exp;
+        $user->level = floor($user->total_exp / 200);
+        $user->save();
+        return response()->json($task);
     }
 }

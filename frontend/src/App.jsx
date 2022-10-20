@@ -3,17 +3,16 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import auth from "./api/auth";
 import { fetchUser } from "./api/user";
-import Header from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Tasks from "./pages/Tasks";
 import Top from "./pages/Top";
 import UserSettings from "./pages/UserSettings";
-import { css } from "@emotion/react";
 import "./App.css";
 import { useUser } from "./contexts/userContext";
 import { userContext } from "./contexts/userContext";
 import Profile from "./pages/Profile";
+import Header from "./components/Header/Header";
 
 const queryClient = new QueryClient();
 
@@ -39,23 +38,14 @@ const App = () => {
       <userContext.Provider value={user}>
         <BrowserRouter>
           <Header />
-          <main
-            css={css`
-              margin-top: 80px;
-              @media screen and (min-width: 600px) {
-                margin-top: 68px;
-              }
-            `}
-          >
-            <Routes>
-              <Route index element={<Top />} />
-              <Route path="/dashboard" exact element={<Dashboard />} />
-              <Route path="/users/:userId" element={<Profile />} />
-              <Route path="/users/settings" element={<UserSettings />} />
-              <Route path="/tasks" element={<Tasks />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
+          <Routes>
+            <Route index element={<Top />} />
+            <Route path="/dashboard" exact element={<Dashboard />} />
+            <Route path="/users/:userId" element={<Profile />} />
+            <Route path="/users/settings" element={<UserSettings />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </BrowserRouter>
       </userContext.Provider>
     </QueryClientProvider>

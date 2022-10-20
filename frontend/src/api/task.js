@@ -87,3 +87,31 @@ export const deleteTask = async (id) => {
       return error;
     })
 }
+
+export const updateDoTask = async (id) => {
+  return await axios
+    .put(`/api/tasks/${id}/do`)
+    .then((res) => {
+      console.log("[task]更新成功");
+      return res;
+    })
+    .catch((error) => {
+      console.log("[task]更新失敗");
+      console.log(error);
+      return error;
+    });
+}
+
+export const updateUndoTask = async (id) => {
+  return await axios
+    .put(`/api/tasks/${id}/undo`)
+    .then((res) => {
+      console.log("[task]更新成功");
+      return res;
+    })
+    .catch((error) => {
+      console.log("[task]更新失敗");
+      console.log(error);
+      return error;
+    });
+}
