@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->integer('exp')->default(0);
             $table->timestamp('time_limit')->nullable();
-            $table->tinyInteger('severity')->default(0);
+            $table->tinyInteger('severity')->default(1);
             $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

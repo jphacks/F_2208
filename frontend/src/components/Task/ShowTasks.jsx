@@ -43,7 +43,7 @@ export const ShowTasks = ({
     switch (task.status) {
       case 1:
         // 完了にする
-        const res1 = await updateDoTask(task.id);
+        const res1 = await updateDoTask({ id: task.id });
         if (res1.status === 200) {
           const resTasks = await fetchTasks();
           setTasks(resTasks.data);
@@ -54,7 +54,7 @@ export const ShowTasks = ({
         break;
       case 2:
         // 未完了に戻す
-        const res2 = await updateUndoTask(task.id);
+        const res2 = await updateUndoTask({ id: task.id });
         if (res2.status === 200) {
           const resTasks = await fetchTasks();
           setTasks(resTasks.data);

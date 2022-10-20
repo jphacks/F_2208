@@ -46,12 +46,12 @@ class UserController extends Controller {
     public function update(Request $request) {
         // 自身のみ更新できる
         $user = $request->user();
-        $user->name = $request->input("name") ?? $user->level;
-        $user->email = $request->input("email") ?? $user->email;
-        $user->avatar = $request->input("avatar") ?? $user->avatar;
-        $user->level = $request->input("level") ?? $user->level;
-        $user->total_exp = $request->input("total_exp") ?? $user->total_exp;
-        $user->balance_exp = $request->input("balance_exp") ?? $user->balance_exp;
+        $request->input("name") && $user->name = $request->input("name");
+        $request->input("email")  && $user->email = $request->input("email");
+        $request->input("avatar") && $user->avatar = $request->input("avatar");
+        $request->input("level") && $user->level = $request->input("level");
+        $request->input("total_exp") && $user->total_exp = $request->input("total_exp");
+        $request->input("balance_exp") && $user->balance_exp = $request->input("balance_exp");
         $user->updated_at = now();
         $user->save();
         return response()->json($user);

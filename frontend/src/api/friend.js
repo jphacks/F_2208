@@ -14,7 +14,7 @@ export const fetchFriends = async () => {
     });
 }
 
-export const fetchFriend = async (user_id) => {
+export const fetchFriend = async ({ user_id }) => {
   return await axios
     .get(`/api/friends/${user_id}`)
     .then((res) => {
@@ -28,7 +28,7 @@ export const fetchFriend = async (user_id) => {
     });
 }
 
-export const createFriend = async (user_id, intimacy, favorite, sent_exp, received_exp) => {
+export const createFriend = async ({ user_id, intimacy, favorite, sent_exp, received_exp }) => {
   return await axios
     .post(`/api/friends`, {
       user_id,
@@ -48,7 +48,7 @@ export const createFriend = async (user_id, intimacy, favorite, sent_exp, receiv
     });
 }
 
-export const updateFriend = async (friend_id, intimacy, favorite, sent_exp, received_exp) => {
+export const updateFriend = async ({ friend_id, intimacy, favorite, sent_exp, received_exp }) => {
   return await axios
     .put(`/api/friends/${friend_id}`, {
       intimacy,
@@ -67,7 +67,7 @@ export const updateFriend = async (friend_id, intimacy, favorite, sent_exp, rece
     });
 }
 
-export const deleteFriend = async (user_id) => {
+export const deleteFriend = async ({ user_id }) => {
   return await axios
     .delete(`/api/friends/${user_id}`)
     .then((res) => {
