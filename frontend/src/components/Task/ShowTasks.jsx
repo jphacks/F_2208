@@ -82,7 +82,13 @@ export const ShowTasks = ({
             setTasks={setTasks}
           />
           <Stack spacing={2} divider={<Divider />}>
-            <Button variant="contained" color="primary" onClick={handleClick}>
+            <Button
+              variant="contained"
+              onClick={handleClick}
+              css={css`
+                background-color: #ff0d72;
+              `}
+            >
               タスクを追加する
             </Button>
             {Object.entries(tasks).map(([key, task]) => {
@@ -96,6 +102,8 @@ export const ShowTasks = ({
                     task={task}
                     handleToggleCheckbox={handleToggleCheckbox}
                     checked={checked}
+                    setTasks={setTasks}
+                    tasks={tasks}
                   />
                 );
               }
@@ -106,6 +114,10 @@ export const ShowTasks = ({
                 color="primary"
                 to="/tasks"
                 component={Link}
+                css={css`
+                  color: #ff0d72;
+                  border-color: #ff0d72;
+                `}
               >
                 もっとみる
               </Button>

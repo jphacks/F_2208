@@ -15,6 +15,7 @@ import Pig from "../components/User/Pig";
 import UserStatus from "../components/User/UserStatus";
 import { StoreMoney } from "../components/Forms/StoreMoney";
 import { WithdrawMoney } from "../components/Forms/WithdrawMoney";
+import { fetchUser, updateUser } from "../api/user";
 
 const style = {
   position: "absolute",
@@ -35,6 +36,9 @@ const closeButtonStyle = {
 };
 
 const Profile = () => {
+  const [reload, setReload] = useState(false);
+  const { userId } = useParams();
+  const { user, setUser } = useContext(userContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [paypay, setPaypay] = useState({});
   const [paypayModalOpen, setPaypayModalOpen] = useState(false);
@@ -42,9 +46,13 @@ const Profile = () => {
   useEffect(() => {
     const payment = searchParams.get("payment");
     const merchantPaymentId = searchParams.get("merchant_payment_id");
-    searchParams.delete("payment");
-    searchParams.delete("merchant_payment_id");
-    setSearchParams(searchParams);
+
+    // URLからパラメタを削除する
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+    params.delete("payment");
+    params.delete("merchant_payment_id");
+    history.replaceState("", "", url.pathname);
 
     (async () => {
       if (payment === "paypay" && !!merchantPaymentId) {
@@ -52,15 +60,16 @@ const Profile = () => {
         if (res.status === 200) {
           setPaypay(res.data);
           setPaypayModalOpen(true);
+          const currentUser = await fetchUser();
+          const newUser = await updateUser({
+            balance_exp: currentUser.data.balance_exp + res.data.amount.amount,
+          });
+          setUser(newUser.data);
         }
       }
     })();
   }, []);
-
-  const [reload, setReload] = useState(false);
-  const { userId } = useParams();
-  const { user } = useContext(userContext);
-
+  console.log(user);
   const handleClickPayPay = async (amount) => {
     const res = await paypayPay(amount);
     console.log(res);
@@ -86,84 +95,85 @@ const Profile = () => {
 
   if (user) {
     return (
-      <Container
-        maxWidth="lg"
-        css={css`
-          padding-top: 30px;
-        `}
-      >
-        <Typography variant="h5" component="h2" align="center">
-          {user.name}
-        </Typography>
-        <Pig
-          pigImage={pigImage}
-          grassImage={grassImage}
-          jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
-        />
-        <SpeechBubbleTop>
-          ぼくの中には{user.total_exp}ポイント入っているっぴ！
-          {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
-        </SpeechBubbleTop>
+      <Layout>
         <Box
           css={css`
-            margin-top: 30px;
+            min-width: 80%;
           `}
         >
-          <UserStatus />
-          <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
-        </Box>
-        <StoreMoney handleReload={handleReload} />
-        <WithdrawMoney handleReload={handleReload} reload={reload} />
-        {paypayModalOpen && (
-          <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
-            <Box
-              sx={style}
-              css={css`
-                background-color: #fff;
-                border: none;
-              `}
-            >
-              <Box sx={closeButtonStyle}>
-                <IconButton onClick={handleClosePayPayModal}>
-                  <CloseIcon />
-                </IconButton>
-              </Box>
+          <Typography variant="h5" component="h2" align="center">
+            {user.name}
+          </Typography>
+          <Pig
+            pigImage={pigImage}
+            grassImage={grassImage}
+            jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
+          />
+          <SpeechBubbleTop>
+            ぼくの中には{user.balance_exp}ポイント入っているっぴ！
+            {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
+          </SpeechBubbleTop>
+          <Box
+            css={css`
+              margin-top: 30px;
+            `}
+          >
+            <UserStatus />
+            <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
+          </Box>
+          <StoreMoney handleReload={handleReload} />
+          <WithdrawMoney handleReload={handleReload} reload={reload} />
+          {paypayModalOpen && (
+            <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
               <Box
+                sx={style}
                 css={css`
-                  max-width: 100%;
+                  background-color: #fff;
+                  border: none;
                 `}
               >
-                <img
-                  src={paypayImage}
+                <Box sx={closeButtonStyle}>
+                  <IconButton onClick={handleClosePayPayModal}>
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+                <Box
                   css={css`
                     max-width: 100%;
                   `}
-                />
-              </Box>
-              <Typography
-                variant="h5"
-                component="h2"
-                align="center"
-                css={css`
-                  margin-bottom: 1em;
-                `}
-              >
-                入金が完了しました
-              </Typography>
-              <Typography variant="h2" component="p" align="center">
-                {paypay.amount.amount.toLocaleString()}
-                <span
+                >
+                  <img
+                    src={paypayImage}
+                    css={css`
+                      max-width: 100%;
+                    `}
+                  />
+                </Box>
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  align="center"
                   css={css`
-                    font-size: 0.5em;
+                    margin-bottom: 1em;
                   `}
                 >
-                  円
-                </span>
-              </Typography>
-            </Box>
-          </Modal>
-        )}
-      </Container>
+                  入金が完了しました
+                </Typography>
+                <Typography variant="h2" component="p" align="center">
+                  {paypay.amount.amount.toLocaleString()}
+                  <span
+                    css={css`
+                      font-size: 0.5em;
+                    `}
+                  >
+                    円
+                  </span>
+                </Typography>
+              </Box>
+            </Modal>
+          )}
+        </Box>
+      </Layout>
     );
   }
 };

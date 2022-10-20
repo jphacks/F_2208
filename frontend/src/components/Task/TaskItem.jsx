@@ -4,12 +4,18 @@ import { css } from "@emotion/react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ControlPointDuplicateIcon from "@mui/icons-material/ControlPointDuplicate";
 import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import { DeleteTask } from "./DeleteTask";
 
-const TaskItem = ({ task, handleToggleCheckbox, checked }) => {
+const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
   const [show, setShow] = useState(false);
 
-  const handleClick = () => {
+  const handleClickOpen = () => {
     setShow(!show);
+  };
+
+  const handleClickEdit = (task) => {
+    alert("edit");
   };
 
   return (
@@ -29,9 +35,14 @@ const TaskItem = ({ task, handleToggleCheckbox, checked }) => {
           onChange={() => handleToggleCheckbox(task)}
           checked={task.status === 2 || checked.indexOf(task.id) !== -1}
           inputProps={{ "aria-labelledby": task.title }}
+          css={css`
+            &.Mui-checked {
+              color: #fe3e83;
+            }
+          `}
         />
       </Grid>
-      <Grid item xs={10} onClick={handleClick}>
+      <Grid item xs={8} onClick={handleClickOpen}>
         <Stack spacing={0.5}>
           <Typography
             variant="h6"
@@ -87,6 +98,23 @@ const TaskItem = ({ task, handleToggleCheckbox, checked }) => {
               </Typography>
             </Grid>
           </Grid>
+        </Stack>
+      </Grid>
+      <Grid item xs={2}>
+        <Stack
+          spacing={0.5}
+          css={css`
+            align-items: end;
+            padding-right: 10px;
+          `}
+        >
+          <EditIcon
+            onClick={() => handleClickEdit(task)}
+            css={css`
+              color: #e29090;
+            `}
+          />
+          < DeleteTask setTasks={setTasks} tasks={tasks} id={task.id}/>
         </Stack>
       </Grid>
       <Grid
