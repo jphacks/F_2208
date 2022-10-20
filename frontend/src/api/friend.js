@@ -48,9 +48,9 @@ export const createFriend = async (user_id, intimacy, favorite, sent_exp, receiv
     });
 }
 
-export const updateFriend = async (intimacy, favorite, sent_exp, received_exp) => {
+export const updateFriend = async (friend_id, intimacy, favorite, sent_exp, received_exp) => {
   return await axios
-    .put(`/api/friends/${user_id}`, {
+    .put(`/api/friends/${friend_id}`, {
       intimacy,
       favorite,
       sent_exp,
