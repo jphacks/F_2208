@@ -64,9 +64,27 @@ export const DeleteTask = ({ setTasks, tasks, id }) => {
               </IconButton>
             </Box>
             <div>本当にタスクを消しますか？</div>
-            <Button variant="contained" onClick={ handleClickDelete} >
+            <Button css={css`
+                  color: #fff;
+                  background-color: #ff0d72;
+                  opacity:0.8;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} variant="contained" onClick={ handleClickDelete} >
               タスクを消す</Button>
-            <Button variant="contained" onClick={handleClose} >やっぱりやめる</Button>
+            <Button css={css`
+                  color: #fff;
+                  background-color: #ff0d72;
+                  opacity:0.8;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} variant="contained" onClick={handleClose} >やっぱりやめる</Button>
           </Box>
         </Modal>
         <DeleteIcon

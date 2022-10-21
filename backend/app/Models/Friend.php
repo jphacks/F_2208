@@ -14,7 +14,7 @@ class Friend extends Model {
         'intimacy',
         'favorite',
         'sent_exp',
-        'recieved_exp',
+        'received_exp',
     ];
 
     public function user() {

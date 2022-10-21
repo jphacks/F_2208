@@ -1,4 +1,11 @@
-import { Button, IconButton, Modal, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  IconButton,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -16,6 +23,7 @@ import UserStatus from "../components/User/UserStatus";
 import { StoreMoney } from "../components/Forms/StoreMoney";
 import { WithdrawMoney } from "../components/Forms/WithdrawMoney";
 import { fetchUser, updateUser } from "../api/user";
+import QRCode from "../components/QRCode/QRCode";
 
 const style = {
   position: "absolute",
@@ -99,9 +107,17 @@ const Profile = () => {
             min-width: 80%;
           `}
         >
-          <Typography variant="h5" component="h2" align="center">
-            {user.name}
-          </Typography>
+          <Grid container alignItems="center">
+            <Grid item xs={2}>
+              <QRCode />
+            </Grid>
+            <Grid item xs={8}>
+              <Typography variant="h5" component="h2" align="center">
+                {user.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={2} />
+          </Grid>
           <Pig
             pigImage={pigImage}
             grassImage={grassImage}
@@ -117,7 +133,15 @@ const Profile = () => {
             `}
           >
             <UserStatus />
-            <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
+            <Button css={css`
+                  color: #ff0d72;
+                  border-color: #ff0d72;
+                  &:hover {
+                    background-color:transparent;
+                    color:color: #ff0d72;;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
           </Box>
           <StoreMoney handleReload={handleReload} />
           <WithdrawMoney handleReload={handleReload} reload={reload} />
