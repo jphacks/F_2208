@@ -222,7 +222,7 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
         variant="contained"
         onClick={handleClick}
       >
-        出金
+        Amazon
       </Button>
     </Box>
   );
