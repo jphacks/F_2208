@@ -7,6 +7,7 @@ import {
   Stack,
   Slider,
   IconButton,
+  Typography,
 } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -138,7 +139,7 @@ export const EditTask = ({ setTasks, task }) => {
                 <Controller
                   name="description"
                   control={control}
-                  rules={{ required: false}}
+                  rules={{ required: false }}
                   defaultValue={task.description}
                   render={({ field, fieldState }) => (
                     <TextField
@@ -186,20 +187,43 @@ export const EditTask = ({ setTasks, task }) => {
                   rules={{ required: "優先度を入力してください" }}
                   defaultValue={task.severity}
                   render={({ field, fieldState }) => (
-                    <Slider
-                      aria-label="Temperature"
-                      {...field}
-                      inputProps={{ style: { backgroundColor: "#fff" } }}
-                      getAriaValueText={valuePriority}
-                      valueLabelDisplay="auto"
-                      step={1}
-                      marks
-                      min={1}
-                      max={3}
-                      sx={"color:#ff0d72;"}
-                      error={fieldState.error}
-                      helperText={fieldState.error?.message}
-                    />
+                    <Box>
+                      <Typography
+                        variant="body2"
+                        css={css`
+                          color: rgba(0, 0, 0, 0.6);
+                        `}
+                      >
+                        優先度
+                      </Typography>
+                      <Slider
+                        aria-label="Temperature"
+                        {...field}
+                        inputProps={{ style: { backgroundColor: "#fff" } }}
+                        getAriaValueText={valuePriority}
+                        valueLabelDisplay="auto"
+                        step={1}
+                        marks={[
+                          {
+                            value: 1,
+                            label: "低",
+                          },
+                          {
+                            value: 2,
+                            label: "中",
+                          },
+                          {
+                            value: 3,
+                            label: "高",
+                          },
+                        ]}
+                        min={1}
+                        max={3}
+                        sx={"color:#ff0d72;"}
+                        error={fieldState.error}
+                        helperText={fieldState.error?.message}
+                      />
+                    </Box>
                   )}
                 />
                 <Controller
