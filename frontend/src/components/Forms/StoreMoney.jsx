@@ -138,7 +138,7 @@ export const StoreMoney = ({ codes, setCodes }) => {
                     color: #fff;
                     background-color: #f67690;
                     &:hover {
-                      color: #ff0d72;
+                      color: #fff;
                       background-color: #dc8ba7;
                       opacity: 0.8;
                       border-color: #ff0d72;

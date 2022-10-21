@@ -186,7 +186,7 @@ export const ShowTasks = ({
                     color: #ff0d72;
                     border-color: #ff0d72;
                     &:hover {
-                      color: #ff0d72;
+                      color: #fff;
                       border-color: #ff0d72;
                       opacity: 0.6;
                       border-color: #ff0d72;

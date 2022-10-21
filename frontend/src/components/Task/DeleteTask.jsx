@@ -59,7 +59,12 @@ export const DeleteTask = ({ setTasks, id, showMyTasks }) => {
         onClose={handleClose}
       >
         <Box sx={style}>
-          <Box sx={closeButtonStyle}>
+          <Box
+            sx={closeButtonStyle}
+            css={css`
+              margin-bottom: 0.5em;
+            `}
+          >
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
@@ -69,13 +74,12 @@ export const DeleteTask = ({ setTasks, id, showMyTasks }) => {
             <Button
               css={css`
                 color: #fff;
-                background-color: #ff0d72;
-                opacity: 0.8;
+                background-color: #c62828;
                 &:hover {
-                  color: #ff0d72;
+                  color: #fff;
                   background-color: #dc8ba7;
                   opacity: 0.8;
-                  border-color: #ff0d72;
+                  border-color: #c62828;
                 }
               `}
               variant="contained"
@@ -85,13 +89,13 @@ export const DeleteTask = ({ setTasks, id, showMyTasks }) => {
             </Button>
             <Button
               css={css`
-                color: #ff0d72;
+                color: #c62828;
                 opacity: 0.8;
-                border-color: #ff0d72;
+                border-color: #c62828;
                 &:hover {
-                  color: #ff0d72;
+                  color: #fff;
                   opacity: 0.8;
-                  border-color: #ff0d72;
+                  border-color: #c62828;
                 }
               `}
               variant="outlined"
