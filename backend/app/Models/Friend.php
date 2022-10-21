@@ -10,7 +10,7 @@ class Friend extends Model {
 
     protected $fillable = [
         'id',
-        'user_id',
+        'friend_id',
         'intimacy',
         'favorite',
         'sent_exp',
@@ -18,9 +18,13 @@ class Friend extends Model {
     ];
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id', 'id');
     }
 
-    protected $primaryKey = "user_id";
+    public function friend() {
+        return $this->belongsTo(User::class, 'friend_id', 'id');
+    }
+
+    protected $primaryKey = "friend_id";
     public $incrementing = false;
 }
