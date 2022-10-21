@@ -13,7 +13,18 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
   const handleClickOpen = () => {
     setShow(!show);
   };
+  const changeJSTDate = (date) => {
+    const newDate = new Date(date)
+    const year = newDate.getFullYear()
+    const month = newDate.getMonth() + 1
+    const day = newDate.getDate()
+    const dayOfWeek = '日月火水木金土'.charAt(newDate.getDay());
 
+    const hour = (`0` + (newDate.getHours())).slice(-2)
+    const minute = (`0` + (newDate.getMinutes())).slice(-2)
+    return `${year}/${month}/${day} (${dayOfWeek}) ${hour}:${minute}`;
+  }
+  
   return (
     <Grid
       key={task.id}
@@ -46,8 +57,8 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
               color: ${task.severity > 2
                 ? "#d50000"
                 : task.severity > 1
-                ? "#ff8f00"
-                : "#212121"};
+                  ? "#ff8f00"
+                  : "#212121"};
             `}
           >
             {task.title}
@@ -91,7 +102,7 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
               >
                 <AccessTimeIcon fontSize="small" />
                 {task.time_limit
-                  ? `${task.time_limit.slice(0, -3)}:00`
+                  ? `${changeJSTDate(task.time_limit)}`
                   : "なし"}
               </Typography>
             </Grid>
@@ -143,7 +154,7 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
                 作成日時
               </Typography>
               <Typography variant="body1" color="text.primary">
-                {task.created_at.slice(0, -3)}:00
+                {changeJSTDate(task.created_at)}
               </Typography>
             </Stack>
           </Stack>

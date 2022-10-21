@@ -70,6 +70,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
         setTasks(resUser.data);
       }
     }
+    handleClose();
   };
 
   if (user) {
@@ -120,7 +121,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                 <Controller
                   name="description"
                   control={control}
-                  rules={{ required: "説明を入力してください" }}
+                  rules={{ required:false }}
                   render={({ field, fieldState }) => (
                     <TextField
                       inputProps={{ style: { backgroundColor: "#fff" } }}
@@ -138,7 +139,6 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                 <Controller
                   name="time_limit"
                   control={control}
-                  rules={{ required: "期限を選択してください" }}
                   defaultValue={new Date()}
                   render={({ field, fieldState }) => (
                     <LocalizationProvider
