@@ -25,6 +25,7 @@ const Pig = ({
           background-position: bottom 0 left 0;
           background-repeat: no-repeat;
           background-size: 100% auto;
+          transform: translate3d(0, 0, 0);
         `}
       >
         <img

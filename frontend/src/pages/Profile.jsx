@@ -53,6 +53,7 @@ const Profile = () => {
   const [codes, setCodes] = useState([]);
   const [openWithdraw, setOpenWithdraw] = useState(false);
   const [openStore, setOpenStore] = useState(false);
+  const [openQRCode, setOpenQRCode] = useState(false);
 
   const handleClickStore = () => {
     setOpenStore(true);
@@ -86,7 +87,7 @@ const Profile = () => {
           setPaypayModalOpen(true);
           const currentUser = await fetchUser();
           const newUser = await updateUser({
-            balance_exp: currentUser.data.balance_exp + res.data.amount.amount,
+            point: currentUser.data.point + res.data.amount.amount,
           });
           setUser(newUser.data);
         }
@@ -138,7 +139,7 @@ const Profile = () => {
         >
           <Grid container alignItems="center">
             <Grid item xs={2}>
-              <QRCode />
+              <QRCode open={openQRCode} setOpen={setOpenQRCode} />
             </Grid>
             <Grid item xs={8}>
               <Typography variant="h5" component="h2" align="center">
@@ -150,7 +151,10 @@ const Profile = () => {
           <Pig
             pigImage={pigImage}
             grassImage={grassImage}
-            jump={!paypayModalOpen && !openWithdraw && !openStore} // Safariで豚がモーダルに重なる不具合への対策
+            // jump={
+            //   !openQRCode && !paypayModalOpen && !openWithdraw && !openStore
+            // } // Safariで豚がモーダルに重なる不具合への対策
+            jump={true}
           />
           <SpeechBubbleTop>
             ぼくの中には{user.point}円入っているっぴ！大事にするっぴ！

@@ -38,9 +38,8 @@ const closeButtonStyle = {
   textAlign: "right",
 };
 
-const QRCode = ({ fontSize = 60, color = "#444" }) => {
+const QRCode = ({ fontSize = 60, color = "#444", open, setOpen }) => {
   const { user, setUser } = useContext(userContext);
-  const [open, setOpen] = useState(false);
   const [QRCodes, setQRCodes] = useState([]);
   const [friend, setFriend] = useState({});
   const [showMyQRCode, setShowMyQRCode] = useState(false);
