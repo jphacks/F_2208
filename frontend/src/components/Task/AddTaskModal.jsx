@@ -10,6 +10,7 @@ import {
   IconButton,
   inputAdornmentClasses,
   Typography,
+  Autocomplete,
 } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -22,6 +23,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { userContext } from "../../contexts/userContext";
 import { Controller } from "react-hook-form";
 import { getTimestamp } from "../../libs/getTimestamp";
+import { fetchFriendUsers } from "../../api/friend";
 
 const style = {
   position: "absolute",
@@ -47,6 +49,19 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
   const { handleSubmit, control, errors } = useForm();
   // modalカレンダー
   const [date, setDate] = useState(dayjs(new Date()));
+  const [friends, setFriends] = useState([]);
+  // 割り当て先ユーザーメールアドレス
+  const [assignedEmail, setAssignedEmail] = useState();
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetchFriendUsers();
+      if (res.status === 200) {
+        setFriends([...res.data, user]);
+      }
+    })();
+  }, [user]);
+
   const handleChange = (newDate) => {
     setDate(newDate);
   };
@@ -56,13 +71,16 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
   };
 
   const onSubmit = async (inputData) => {
+    let user_id = user.email; // デフォルトで自身のユーザID
+    user_id = friends.filter((friend) => assignedEmail === friend.email)[0].id;
+
     const resTask = await createTask({
       title: inputData.title,
       description: inputData.description,
       exp: inputData.exp,
       time_limit: getTimestamp(date),
       severity: inputData.severity,
-      user_id: user.id, // user_id -> email
+      user_id: user_id,
     });
     // console.log(resTask);
     if (resTask.status === 200) {
@@ -225,7 +243,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   )}
                 />
                 <Controller
-                  name="user_id"
+                  name="email"
                   control={control}
                   defaultValue={user.email}
                   rules={{
@@ -237,14 +255,27 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                     },
                   }}
                   render={({ field, fieldState }) => (
-                    <TextField
-                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                    <Autocomplete
                       {...field}
                       type="email"
-                      label="割当先ユーザー (メールアドレス)"
-                      variant="outlined"
+                      value={assignedEmail}
+                      inputValue={assignedEmail}
+                      onChange={(event, newValue) => {
+                        setAssignedEmail(newValue);
+                      }}
+                      // inputValue={inputValue}
+                      // onInputChange={(event, newInputValue) => {
+                      //   setInputValue(newInputValue);
+                      // }}
                       error={fieldState.error}
                       helperText={fieldState.error?.message}
+                      options={friends.map((friend) => friend?.email)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="割当先ユーザー (メールアドレス)"
+                        />
+                      )}
                     />
                   )}
                 />

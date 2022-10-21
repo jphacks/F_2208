@@ -69,7 +69,7 @@ export const updateFriend = async ({ friend_id, intimacy, favorite, sent_exp, re
 
 export const deleteFriend = async ({ friend_id }) => {
   return await axios
-    .delete(`/api/friends/${user_id}`)
+    .delete(`/api/friends/${friend_id}`)
     .then((res) => {
       // console.log("[friend]削除成功")
       return res;
@@ -79,4 +79,31 @@ export const deleteFriend = async ({ friend_id }) => {
       // console.log(error);
       return error;
     })
+}
+
+export const searchFriend = async ({ email }) => {
+  return await axios
+    .get(`/api/friends/search?email=${email}`)
+    .then((res) => {
+      // console.log("[friend]取得成功");
+      return res;
+    })
+    .catch((error) => {
+      // console.log("[friend]取得失敗");
+      // console.log(error);
+      return error;
+    });
+}
+export const fetchFriendUsers = async () => {
+  return await axios
+    .get(`/api/friendss/users`)
+    .then((res) => {
+      // console.log("[friend]取得成功");
+      return res;
+    })
+    .catch((error) => {
+      // console.log("[friend]取得失敗");
+      // console.log(error);
+      return error;
+    });
 }
