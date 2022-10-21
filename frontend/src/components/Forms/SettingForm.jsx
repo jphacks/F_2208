@@ -56,7 +56,7 @@ const SettingForm = () => {
                 inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
-                label="ニックーネーム"
+                label="ニックネーム"
                 variant="outlined"
                 error={fieldState.error}
                 helperText={fieldState.error?.message}
