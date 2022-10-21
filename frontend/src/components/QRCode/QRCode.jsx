@@ -148,7 +148,7 @@ const QRCode = ({ fontSize = 60, color = "#444", open, setOpen }) => {
                       color: #ff0d72;
                       border-color: #ff0d72;
                       &:hover {
-                        color: #ff0d72;
+                        color: #fff;
                         opacity: 0.8;
                         border-color: #ff0d72;
                       }

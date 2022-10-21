@@ -81,14 +81,14 @@ export const LoginForm = ({
             justify-content: center;
             align-items: center;
             background-color: #ff0d72;
-            opacity:0.8;
-                  border-color: #ff0d72;
-                  &:hover {
-                    color:color: #ff0d72;;
-                    background-color: #dc8ba7;
-                    opacity:0.8;
-                    border-color: #ff0d72;
-                  }
+            opacity: 0.8;
+            border-color: #ff0d72;
+            &:hover {
+              color: #fff;
+              background-color: #dc8ba7;
+              opacity: 0.8;
+              border-color: #ff0d72;
+            }
           `}
           variant="contained"
           type="submit"

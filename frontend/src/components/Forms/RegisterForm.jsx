@@ -28,7 +28,7 @@ export const RegisterForm = ({
             control={control}
             rules={{ required: "ニックネームを入力してください" }}
             render={({ field, fieldState }) => (
-              <TextField 
+              <TextField
                 inputProps={{ style: { backgroundColor: "#fff" } }}
                 {...field}
                 type="text"
@@ -121,14 +121,14 @@ export const RegisterForm = ({
               justify-content: center;
               align-items: center;
               background-color: #ff0d72;
-              opacity:0.8;
-                  border-color: #ff0d72;
-                  &:hover {
-                    color:color: #ff0d72;;
-                    background-color: #dc8ba7;
-                    opacity:0.8;
-                    border-color: #ff0d72;
-                  }
+              opacity: 0.8;
+              border-color: #ff0d72;
+              &:hover {
+                color: #fff;
+                background-color: #dc8ba7;
+                opacity: 0.8;
+                border-color: #ff0d72;
+              }
             `}
             variant="contained"
             type="submit"

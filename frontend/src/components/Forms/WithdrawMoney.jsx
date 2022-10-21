@@ -144,12 +144,12 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
                 <Button
                   css={css`
                     color: #fff;
-                    background-color: #f67690;
+                    background-color: #76b9f6;
                     &:hover {
-                      color: #ff0d72;
-                      background-color: #dc8ba7;
+                      color: #fff;
+                      background-color: #8bb5dc;
                       opacity: 0.8;
-                      border-color: #ff0d72;
+                      border-color: #76b9f6;
                     }
                   `}
                   variant="contained"
@@ -213,10 +213,10 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
       <Stack spacing={2}>
         <Button
           css={css`
-            color: #ff0d72;
-            border-color: #ff0d72;
+            color: #76b9f6;
+            border-color: #76b9f6;
             &:hover {
-              color: #ff0d72;
+              color: #76b9f6;
               opacity: 0.8;
             }
           `}
@@ -228,10 +228,10 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
         </Button>
         <Button
           css={css`
-            color: #ff0d72;
-            border-color: #ff0d72;
+            color: #76b9f6;
+            border-color: #76b9f6;
             &:hover {
-              color: #ff0d72;
+              color: #76b9f6;
               opacity: 0.8;
             }
           `}
@@ -243,10 +243,10 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
         </Button>
         <Button
           css={css`
-            color: #ff0d72;
-            border-color: #ff0d72;
+            color: #76b9f6;
+            border-color: #76b9f6;
             &:hover {
-              color: #ff0d72;
+              color: #76b9f6;
               opacity: 0.8;
             }
           `}
