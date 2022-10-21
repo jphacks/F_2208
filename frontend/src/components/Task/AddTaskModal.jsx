@@ -8,6 +8,7 @@ import {
   Slider,
   FormGroup,
   IconButton,
+  inputAdornmentClasses,
 } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -18,6 +19,7 @@ import ja from "date-fns/locale/ja";
 import { css } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
 import { userContext } from "../../contexts/userContext";
+import { Controller } from "react-hook-form";
 
 const style = {
   position: "absolute",
@@ -40,8 +42,7 @@ const closeButtonStyle = {
 export const AddTaskModal = ({ open, handleClose, setTasks }) => {
   const { user } = useContext(userContext);
   // Task記録
-  const { register, handleSubmit } = useForm();
-
+  const { handleSubmit, control, errors } = useForm();
   // modalカレンダー
   const [date, setDate] = useState(dayjs(new Date()));
   const handleChange = (newDate) => {
@@ -52,19 +53,37 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
     return `${priority}`;
   };
 
-  // const onSubmit = (inputData) => console.log(inputData.title, inputData.description, inputData.exp, inputData.time_limit, inputData.severity, 1, inputData.user_id, 1);
   const onSubmit = async (inputData) => {
-    await createTask({
+    console.log(inputData);
+    let date = inputData.time_limit;
+    if (date) {
+      inputData.time_limit =
+        date.getFullYear() +
+        "/" +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
+        "/" +
+        ("0" + date.getDate()).slice(-2) +
+        " " +
+        ("0" + date.getHours()).slice(-2) +
+        ":" +
+        ("0" + date.getMinutes()).slice(-2) +
+        ":" +
+        ("0" + date.getSeconds()).slice(-2);
+    }
+    const resTask = await createTask({
       title: inputData.title,
       description: inputData.description,
       exp: inputData.exp,
-      time_limit: `${inputData.time_limit}:00`,
+      time_limit: inputData.time_limit,
       severity: inputData.severity,
       user_id: 1, // user_id -> email
     });
-    const res = await fetchTasks();
-    if (res.status === 200) {
-      setTasks(res.data);
+    console.log(resTask);
+    if (resTask.status === 200) {
+      const resUser = await fetchTasks();
+      if (resUser.status === 200) {
+        setTasks(resUser.data);
+      }
     }
   };
 
@@ -78,87 +97,148 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
           onClose={handleClose}
         >
           <Box sx={style}>
-            <Box sx={closeButtonStyle}>
+            <Box
+              sx={closeButtonStyle}
+              css={css`
+                margin-bottom: 0.5em;
+              `}
+            >
               <IconButton onClick={handleClose}>
                 <CloseIcon />
               </IconButton>
             </Box>
-            <div>タスクの追加</div>
-            <br />
+            <div
+              css={css`
+                margin-bottom: 1em;
+              `}
+            >
+              タスクの追加
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <FormGroup onSubmit={handleSubmit(onSubmit)}>
-                <TextField
-                  id="newTaskTitle"
-                  label="タスク名"
-                  variant="outlined"
-                  fullWidth
+              <Stack spacing={3}>
+                <Controller
                   name="title"
-                  {...register("title")}
-                />
-                <br />
-                <TextField
-                  id="newDescription"
-                  label="説明"
-                  variant="outlined"
-                  fullWidth
-                  multiline
-                  rows={3}
-                  name="description"
-                  {...register("description")}
-                />
-                <br />
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  adapterLocale={ja}
-                >
-                  <Stack spacing={3}>
-                    <DateTimePicker
-                      label="期限選択"
-                      minDate={new Date()}
-                      value={date}
-                      onChange={handleChange}
-                      inputFormat="YYYY-MM-DD hh:mm"
-                      renderInput={(params) => <TextField {...params} />}
-                      name="time_limit"
-                      {...register("time_limit")}
+                  control={control}
+                  rules={{ required: "タスク名を入力してください" }}
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                      {...field}
+                      type="text"
+                      label="タスク名"
+                      variant="outlined"
+                      error={fieldState.error}
+                      helperText={fieldState.error?.message}
                     />
-                  </Stack>
-                </LocalizationProvider>
-                <br />
-                <Slider
-                  aria-label="Temperature"
-                  defaultValue={1}
-                  getAriaValueText={valuePriority}
-                  valueLabelDisplay="auto"
-                  sx={"color:#ff0d72;"}
-                  step={1}
-                  marks
-                  min={1}
-                  max={3}
+                  )}
+                />
+                <Controller
+                  name="description"
+                  control={control}
+                  rules={{ required: "説明を入力してください" }}
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                      {...field}
+                      type="text"
+                      label="説明"
+                      multiline
+                      rows={3}
+                      variant="outlined"
+                      error={fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="time_limit"
+                  control={control}
+                  rules={{ required: "期限を選択してください" }}
+                  defaultValue={new Date()}
+                  render={({ field, fieldState }) => (
+                    <LocalizationProvider
+                      dateAdapter={AdapterDayjs}
+                      adapterLocale={ja}
+                    >
+                      <DateTimePicker
+                        inputProps={{ style: { backgroundColor: "#fff" } }}
+                        label="期限"
+                        inputFormat="YYYY-MM-DD hh:mm"
+                        {...field}
+                        minDate={new Date()}
+                        value={date}
+                        onChange={handleChange}
+                        renderInput={(params) => <TextField {...params} />}
+                        variant="outlined"
+                        error={fieldState.error}
+                        helperText={fieldState.error?.message}
+                      />
+                    </LocalizationProvider>
+                  )}
+                />
+                <Controller
                   name="severity"
-                  {...register("severity")}
+                  control={control}
+                  rules={{ required: "優先度を入力してください" }}
+                  defaultValue={1}
+                  render={({ field, fieldState }) => (
+                    <Slider
+                      aria-label="Temperature"
+                      {...field}
+                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                      getAriaValueText={valuePriority}
+                      valueLabelDisplay="auto"
+                      step={1}
+                      marks
+                      min={1}
+                      max={3} 
+                      sx={"color:#ff0d72;"}
+                      error={fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
                 />
-                <br />
-                <TextField
-                  id="newReward"
-                  label="報酬"
-                  variant="outlined"
-                  defaultValue={100}
-                  fullWidth
+                <Controller
                   name="exp"
-                  {...register("exp")}
+                  control={control}
+                  defaultValue={100}
+                  rules={{ required: "報酬を入力してください" }}
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                      {...field}
+                      type="number"
+                      label="報酬"
+                      variant="outlined"
+                      error={fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
                 />
-                <br />
-                <TextField
-                  id="newAssign"
-                  label="割当先ユーザー (メールアドレス)"
-                  variant="outlined"
-                  defaultValue={user.email}
-                  fullWidth
+                <Controller
                   name="user_id"
-                  {...register("user_id")}
+                  control={control}
+                  defaultValue={user.email}
+                  rules={{
+                    required:
+                      "割当先ユーザー (メールアドレス)を入力してください",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "メールアドレスの形式が正しくありません",
+                    },
+                  }}
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                      {...field}
+                      type="email"
+                      label="割当先ユーザー (メールアドレス)"
+                      variant="outlined"
+                      error={fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
                 />
-                <br />
                 <Button css={css`
                 color: #fff;
                   background-color: #ff0d72;
@@ -174,7 +254,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   type="submit">
                   追加する
                 </Button>
-              </FormGroup>
+              </Stack>
             </form>
           </Box>
         </Modal>
