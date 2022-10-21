@@ -80,6 +80,7 @@ export const EditTask = ({ setTasks, task }) => {
         setTasks(resUser.data);
       }
     }
+    handleClose();
   };
 
   if (user) {
@@ -137,7 +138,7 @@ export const EditTask = ({ setTasks, task }) => {
                 <Controller
                   name="description"
                   control={control}
-                  rules={{ required: "説明を入力してください" }}
+                  rules={{ required: false}}
                   defaultValue={task.description}
                   render={({ field, fieldState }) => (
                     <TextField
