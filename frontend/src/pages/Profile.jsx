@@ -50,6 +50,7 @@ const Profile = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [paypay, setPaypay] = useState({});
   const [paypayModalOpen, setPaypayModalOpen] = useState(false);
+  const [codes, setCodes] = useState([]);
 
   useEffect(() => {
     const payment = searchParams.get("payment");
@@ -99,6 +100,20 @@ const Profile = () => {
     setReload(!reload);
   };
 
+  // ローカルストレージ内のコードを取り出し、ステートで管理する
+  useEffect(() => {
+    fetchCodes();
+    console.log(codes);
+  }, []);
+
+  const fetchCodes = () => {
+    const localStorageCodes = JSON.parse(
+      localStorage.getItem("codes") || "[{}]"
+    );
+    console.log("localStorageCodes");
+    setCodes([...localStorageCodes]);
+  };
+
   if (user) {
     return (
       <Layout>
@@ -124,8 +139,7 @@ const Profile = () => {
             jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
           />
           <SpeechBubbleTop>
-            ぼくの中には{user.balance_exp}ポイント入っているっぴ！
-            {user.total_exp ? "がんばったっぴね！" : "がんばれっぴ！"}
+            ぼくの中には{user.point}ポイント入っているっぴ！
           </SpeechBubbleTop>
           <Box
             css={css`
@@ -133,18 +147,33 @@ const Profile = () => {
             `}
           >
             <UserStatus />
-            <Button css={css`
+            <Button
+              css={css`
+                color: #ff0d72;
+                border-color: #ff0d72;
+                &:hover {
+                  background-color: transparent;
                   color: #ff0d72;
+                  opacity: 0.8;
                   border-color: #ff0d72;
-                  &:hover {
-                    background-color:transparent;
-                    color:color: #ff0d72;;
-                    opacity:0.8;
-                    border-color: #ff0d72;
-                  }`} onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
+                }
+              `}
+              onClick={() => handleClickPayPay(1)}
+            >
+              PayPayで支払う
+            </Button>
           </Box>
-          <StoreMoney handleReload={handleReload} />
-          <WithdrawMoney handleReload={handleReload} reload={reload} />
+          <StoreMoney
+            handleReload={handleReload}
+            codes={codes}
+            setCodes={setCodes}
+          />
+          <WithdrawMoney
+            handleReload={handleReload}
+            reload={reload}
+            codes={codes}
+            setCodes={setCodes}
+          />
           {paypayModalOpen && (
             <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
               <Box

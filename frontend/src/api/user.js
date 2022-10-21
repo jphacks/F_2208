@@ -14,7 +14,7 @@ export const fetchUser = async () => {
     });
 }
 
-export const updateUser = async ({ name, email, avatar, level, total_exp, balance_exp }) => {
+export const updateUser = async ({ name, email, avatar, level, total_exp, balance_exp, point }) => {
   return await axios
     .put("/api/user", {
       name,
@@ -23,6 +23,7 @@ export const updateUser = async ({ name, email, avatar, level, total_exp, balanc
       level,
       total_exp,
       balance_exp,
+      point
     })
     .then((res) => {
       console.log("[user]更新成功")

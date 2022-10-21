@@ -53,6 +53,7 @@ const QRCode = ({ fontSize = 60, color = "#444" }) => {
       const email = data.email;
       if (user_id === user.id) {
         alert("自分以外のQRコードをスキャンしてください");
+        return;
       }
       setFriend({ user_id, name, email });
     })();
@@ -135,6 +136,15 @@ const QRCode = ({ fontSize = 60, color = "#444" }) => {
                       setShowMyQRCode(false);
                     }}
                     variant="outlined"
+                    css={css`
+                      color: #ff0d72;
+                      border-color: #ff0d72;
+                      &:hover {
+                        color: #ff0d72;
+                        opacity: 0.8;
+                        border-color: #ff0d72;
+                      }
+                    `}
                   >
                     フレンドを追加する
                   </Button>
@@ -192,6 +202,10 @@ const QRCode = ({ fontSize = 60, color = "#444" }) => {
                       setShowMyQRCode(true);
                     }}
                     variant="outlined"
+                    css={css`
+                      color: #ff0d72;
+                      border-color: #ff0d72;
+                    `}
                   >
                     マイQRコードを表示する
                   </Button>

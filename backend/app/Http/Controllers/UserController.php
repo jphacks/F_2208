@@ -50,8 +50,9 @@ class UserController extends Controller {
         $request->input("email")  && $user->email = $request->input("email");
         $request->input("avatar") && $user->avatar = $request->input("avatar");
         $request->input("level") && $user->level = $request->input("level");
-        $request->input("total_exp") && $user->total_exp = $request->input("total_exp");
-        $request->input("balance_exp") && $user->balance_exp = $request->input("balance_exp");
+        ($request->input("total_exp") || $request->input("total_exp") === 0) && $user->total_exp = $request->input("total_exp");
+        ($request->input("balance_exp") || $request->input("balance_exp") === 0) && $user->balance_exp = $request->input("balance_exp");
+        ($request->input("point") || $request->input("point") === 0) && $user->point = $request->input("point");
         $user->updated_at = now();
         $user->save();
         return response()->json($user);

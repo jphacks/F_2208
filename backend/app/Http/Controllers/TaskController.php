@@ -107,7 +107,8 @@ class TaskController extends Controller {
         $task->save();
         $user = $request->user();
         $user->total_exp += $task->exp;
-        $user->level = floor($user->total_exp / 200);
+        $user->balance_exp += $task->exp;
+        $user->level = floor($user->total_exp / 200) + 1;
         $user->save();
         return response()->json($task);
     }
@@ -117,7 +118,8 @@ class TaskController extends Controller {
         $task->save();
         $user = $request->user();
         $user->total_exp -= $task->exp;
-        $user->level = floor($user->total_exp / 200);
+        $user->balance_exp -= $task->exp;
+        $user->level = floor($user->total_exp / 200) + 1;
         $user->save();
         return response()->json($task);
     }

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -241,15 +241,16 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                 />
                 <Button
                   css={css`
-                color: #fff;
-                  background-color: #ff0d72;
-                  opacity:0.8;
-                  &:hover {
-                    color:color: #ff0d72;;
-                    background-color: #dc8ba7;
-                    opacity:0.8;
-                    border-color: #ff0d72;
-                  }`}
+                    color: #fff;
+                    background-color: #ff0d72;
+                    opacity: 0.8;
+                    &:hover {
+                      color: #ff0d72;
+                      background-color: #dc8ba7;
+                      opacity: 0.8;
+                      border-color: #ff0d72;
+                    }
+                  `}
                   variant="contained"
                   color="primary"
                   type="submit"
