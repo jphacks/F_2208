@@ -76,7 +76,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
       exp: inputData.exp,
       time_limit: inputData.time_limit,
       severity: inputData.severity,
-      user_id: 1, // user_id -> email
+      user_id: user.id, // user_id -> email
     });
     console.log(resTask);
     if (resTask.status === 200) {
@@ -191,7 +191,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                       step={1}
                       marks
                       min={1}
-                      max={3} 
+                      max={3}
                       sx={"color:#ff0d72;"}
                       error={fieldState.error}
                       helperText={fieldState.error?.message}
@@ -239,7 +239,8 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                     />
                   )}
                 />
-                <Button css={css`
+                <Button
+                  css={css`
                 color: #fff;
                   background-color: #ff0d72;
                   opacity:0.8;
@@ -248,10 +249,11 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                     background-color: #dc8ba7;
                     opacity:0.8;
                     border-color: #ff0d72;
-                  }`} 
-                  variant="contained" 
-                  color="primary" 
-                  type="submit">
+                  }`}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
                   追加する
                 </Button>
               </Stack>
