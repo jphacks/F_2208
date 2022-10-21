@@ -174,7 +174,9 @@ const Profile = () => {
             円入っているっぴ！焼肉行くっぴ！`) ||
               (user.point < 10000 &&
                 `ぼくの中には${user.point}
-            円入っているっぴ！と、飛べないっぴ...！`)}
+            円入っているっぴ！と、飛べないっぴ...！`) ||
+              `ぼくの中には${user.point}
+            円入っているっぴ！もう限界っぴ！`}
           </SpeechBubbleTop>
 
           {paypayModalOpen && (
