@@ -122,6 +122,7 @@ const QRCode = ({ fontSize = 60, color = "#444" }) => {
                       name: user.name,
                       email: user.email,
                     })}
+                    fgColor="#D21363"
                   />
                 </Box>
                 <Box

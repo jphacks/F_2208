@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -6,20 +6,20 @@ import {
   TextField,
   Stack,
   Slider,
-  FormGroup,
   IconButton,
-  inputAdornmentClasses,
 } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { createTask, fetchTasks } from "../../api/task";
+import { fetchTasks, updateTask } from "../../api/task";
 import { useForm } from "react-hook-form";
 import ja from "date-fns/locale/ja";
 import { css } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
 import { userContext } from "../../contexts/userContext";
 import { Controller } from "react-hook-form";
+import EditIcon from "@mui/icons-material/Edit";
+import Tasks from "../../pages/Tasks";
 import { getTimestamp } from "../../libs/getTimestamp";
 
 const style = {
@@ -40,7 +40,16 @@ const closeButtonStyle = {
   textAlign: "right",
 };
 
-export const AddTaskModal = ({ open, handleClose, setTasks }) => {
+export const EditTask = ({ setTasks, task }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const { user } = useContext(userContext);
   // Task記録
   const { handleSubmit, control, errors } = useForm();
@@ -55,7 +64,8 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
   };
 
   const onSubmit = async (inputData) => {
-    const resTask = await createTask({
+    const resTask = await updateTask({
+      id: task.id,
       title: inputData.title,
       description: inputData.description,
       exp: inputData.exp,
@@ -75,6 +85,12 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
   if (user) {
     return (
       <Box>
+        <EditIcon
+          onClick={handleClick}
+          css={css`
+            color: #e29090;
+          `}
+        />
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -105,6 +121,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   name="title"
                   control={control}
                   rules={{ required: "タスク名を入力してください" }}
+                  defaultValue={task.title}
                   render={({ field, fieldState }) => (
                     <TextField
                       inputProps={{ style: { backgroundColor: "#fff" } }}
@@ -121,6 +138,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   name="description"
                   control={control}
                   rules={{ required: "説明を入力してください" }}
+                  defaultValue={task.description}
                   render={({ field, fieldState }) => (
                     <TextField
                       inputProps={{ style: { backgroundColor: "#fff" } }}
@@ -139,7 +157,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   name="time_limit"
                   control={control}
                   rules={{ required: "期限を選択してください" }}
-                  defaultValue={new Date()}
+                  defaultValue={task.time_limit}
                   render={({ field, fieldState }) => (
                     <LocalizationProvider
                       dateAdapter={AdapterDayjs}
@@ -165,7 +183,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   name="severity"
                   control={control}
                   rules={{ required: "優先度を入力してください" }}
-                  defaultValue={1}
+                  defaultValue={task.severity}
                   render={({ field, fieldState }) => (
                     <Slider
                       aria-label="Temperature"
@@ -186,7 +204,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                 <Controller
                   name="exp"
                   control={control}
-                  defaultValue={100}
+                  defaultValue={task.exp}
                   rules={{ required: "報酬を入力してください" }}
                   render={({ field, fieldState }) => (
                     <TextField
@@ -203,7 +221,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                 <Controller
                   name="user_id"
                   control={control}
-                  defaultValue={user.email}
+                  defaultValue={task.user.email}
                   rules={{
                     required:
                       "割当先ユーザー (メールアドレス)を入力してください",

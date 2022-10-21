@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -30,7 +30,7 @@ const closeButtonStyle = {
   textAlign: "right",
 };
 
-export const DeleteTask = ({ setTasks, tasks, id }) => {
+export const DeleteTask = ({ setTasks, id }) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
