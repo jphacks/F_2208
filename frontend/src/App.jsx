@@ -6,6 +6,7 @@ import { fetchUser } from "./api/user";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Tasks from "./pages/Tasks";
+import Friends from "./pages/Friends";
 import Top from "./pages/Top";
 import UserSettings from "./pages/UserSettings";
 import "./App.css";
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/users/:userId" element={<Profile />} />
             <Route path="/users/settings" element={<UserSettings />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/friends" element={<Friends />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </HashRouter>
