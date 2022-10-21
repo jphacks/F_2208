@@ -20,6 +20,7 @@ import { css } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
 import { userContext } from "../../contexts/userContext";
 import { Controller } from "react-hook-form";
+import { getTimestamp } from "../../libs/getTimestamp";
 
 const style = {
   position: "absolute",
@@ -54,27 +55,11 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
   };
 
   const onSubmit = async (inputData) => {
-    console.log(inputData);
-    let date = inputData.time_limit;
-    if (date) {
-      inputData.time_limit =
-        date.getFullYear() +
-        "/" +
-        ("0" + (date.getMonth() + 1)).slice(-2) +
-        "/" +
-        ("0" + date.getDate()).slice(-2) +
-        " " +
-        ("0" + date.getHours()).slice(-2) +
-        ":" +
-        ("0" + date.getMinutes()).slice(-2) +
-        ":" +
-        ("0" + date.getSeconds()).slice(-2);
-    }
     const resTask = await createTask({
       title: inputData.title,
       description: inputData.description,
       exp: inputData.exp,
-      time_limit: inputData.time_limit,
+      time_limit: getTimestamp(date),
       severity: inputData.severity,
       user_id: user.id, // user_id -> email
     });
