@@ -16,6 +16,7 @@ const Logo = () => {
       `}
     >
       <Link
+        id="logo"
         to={user != undefined ? "/dashboard" : "/"}
         css={css`
           text-decoration: none;

@@ -208,22 +208,53 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
           </Stack>
         </Box>
       </Modal>
-      <Button
-        css={css`
-          color: #fff;
-          background-color: #f67690;
-          &:hover {
+      <Stack spacing={2}>
+        <Button
+          css={css`
             color: #ff0d72;
-            background-color: #dc8ba7;
-            opacity: 0.8;
             border-color: #ff0d72;
-          }
-        `}
-        variant="contained"
-        onClick={handleClick}
-      >
-        Amazon
-      </Button>
+            &:hover {
+              color: #ff0d72;
+              opacity: 0.8;
+            }
+          `}
+          variant="outlined"
+          onClick={handleClick}
+          fullWidth
+        >
+          AMAZON
+        </Button>
+        <Button
+          css={css`
+            color: #ff0d72;
+            border-color: #ff0d72;
+            &:hover {
+              color: #ff0d72;
+              opacity: 0.8;
+            }
+          `}
+          variant="outlined"
+          onClick={handleClick}
+          fullWidth
+        >
+          iTunes
+        </Button>
+        <Button
+          css={css`
+            color: #ff0d72;
+            border-color: #ff0d72;
+            &:hover {
+              color: #ff0d72;
+              opacity: 0.8;
+            }
+          `}
+          variant="outlined"
+          onClick={handleClick}
+          fullWidth
+        >
+          Google Play
+        </Button>
+      </Stack>
     </Box>
   );
 };

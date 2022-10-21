@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { userContext } from "../../contexts/userContext";
 import { css } from "@emotion/react";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ExpBar from "./ExpBar";
 
 const LevelExpBar = () => {
   const { user } = useContext(userContext);
 
   return (
-    <>
+    <Box>
       <div
         css={css`
           display: flex;
@@ -39,7 +39,7 @@ const LevelExpBar = () => {
         </div>
       </div>
       <ExpBar exp={user.total_exp} height="10px"></ExpBar>
-    </>
+    </Box>
   );
 };
 

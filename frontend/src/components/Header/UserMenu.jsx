@@ -28,7 +28,7 @@ const UserMenu = () => {
       icon: <PersonIcon />,
     },
     {
-      title: "フレンド",
+      title: "おともだち",
       link: `/friends`,
       icon: <GroupIcon />,
     },
