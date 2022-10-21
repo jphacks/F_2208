@@ -8,7 +8,7 @@ const ShadowBox = ({ bgColor = "#fff", children }) => {
         background-color: ${bgColor};
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         border-radius: 15px;
-        max-width: 90%;
+        max-width: 100%;
         @media screen and (min-width: 600px) {
           max-width: 600px;
         }

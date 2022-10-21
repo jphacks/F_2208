@@ -157,7 +157,10 @@ const Profile = () => {
             jump={true}
           />
           <SpeechBubbleTop>
-            ぼくの中には{user.point}円入っているっぴ！大事にするっぴ！
+            {user.point > 0
+              ? `ぼくの中には${user.point}
+            円入っているっぴ！大事にするっぴ！`
+              : `１円も入っていないっぴ！お腹すいたっぴ...`}
           </SpeechBubbleTop>
 
           {paypayModalOpen && (

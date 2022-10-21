@@ -133,7 +133,9 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
                         <Alert severity="warning">
                           出金するものがありません。
                           <br />
-                          ギフトコードで入金するか、タスクを完了してEXPを貯めてください。
+                          ・ギフトコードを登録してください。
+                          <br />
+                          ・タスクを完了してEXPをためてください。
                         </Alert>
                       )}
                     </>
