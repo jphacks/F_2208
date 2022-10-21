@@ -1,5 +1,5 @@
 import Checkbox from "@mui/material/Checkbox";
-import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import { css } from "@emotion/react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ControlPointDuplicateIcon from "@mui/icons-material/ControlPointDuplicate";
@@ -7,7 +7,9 @@ import { useContext, useState } from "react";
 import { DeleteTask } from "./DeleteTask";
 import { EditTask } from "./EditTask";
 import { userContext } from "../../contexts/userContext";
-import { ConstructionOutlined } from "@mui/icons-material";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import PigImage from "../../assets/img/pig.png";
 
 const TaskItem = ({
   tasks,
@@ -36,7 +38,7 @@ const TaskItem = ({
     const minute = (`0` + newDate.getMinutes()).slice(-2);
     return `${year}/${month}/${day} (${dayOfWeek}) ${hour}:${minute}`;
   };
-  console.log(task);
+
   return (
     <Grid
       key={task.id}
@@ -61,8 +63,42 @@ const TaskItem = ({
           `}
         />
       </Grid>
-      <Grid item xs={8} onClick={handleClickOpen}>
+      <Grid
+        item
+        xs={!showMyTasks || task.order_user_id === user?.id ? 8 : 10}
+        onClick={handleClickOpen}
+      >
         <Stack spacing={0.5}>
+          <Stack direction="row" spacing={0.5} alignItems="center">
+            {showMyTasks && user && task.order_user.id !== user.id && (
+              <>
+                <Avatar
+                  src={PigImage}
+                  css={css`
+                    width: 18px;
+                    height: 18px;
+                  `}
+                />
+                <Typography variant="caption">
+                  {task.order_user.name} さんがタスクを割り当てました
+                </Typography>
+              </>
+            )}
+            {!showMyTasks && (
+              <>
+                <Avatar
+                  src={PigImage}
+                  css={css`
+                    width: 18px;
+                    height: 18px;
+                  `}
+                />
+                <Typography variant="caption">
+                  {task.user.name} さんへタスクを割り当てました
+                </Typography>
+              </>
+            )}
+          </Stack>
           <Typography
             variant="h6"
             css={css`
@@ -119,15 +155,15 @@ const TaskItem = ({
           </Grid>
         </Stack>
       </Grid>
-      <Grid item xs={2}>
-        <Stack
-          spacing={0.5}
-          css={css`
-            align-items: end;
-            padding-right: 10px;
-          `}
-        >
-          {(!showMyTasks || task.order_user_id === user?.id) && (
+      {(!showMyTasks || task.order_user_id === user?.id) && (
+        <Grid item xs={2}>
+          <Stack
+            spacing={0.5}
+            css={css`
+              align-items: end;
+              padding-right: 10px;
+            `}
+          >
             <>
               <EditTask
                 setTasks={setTasks}
@@ -142,9 +178,9 @@ const TaskItem = ({
                 showMyTasks={showMyTasks}
               />
             </>
-          )}
-        </Stack>
-      </Grid>
+          </Stack>
+        </Grid>
+      )}
       <Grid
         container
         css={css`
@@ -153,6 +189,7 @@ const TaskItem = ({
           overflow: hidden;
           padding: ${show ? "20px 0 0" : 0};
         `}
+        onClick={handleClickOpen}
       >
         <Grid item xs={2}></Grid>
         <Grid item xs={10}>
@@ -169,9 +206,23 @@ const TaskItem = ({
               <Typography variant="body2" color="text.primary">
                 作成者
               </Typography>
-              <Typography variant="body1" color="text.primary">
-                {task.order_user.name}
-              </Typography>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Avatar
+                  src={PigImage}
+                  css={css`
+                    width: 25px;
+                    height: 25px;
+                  `}
+                />
+                <Stack direction="column" spacing={0} alignItems="start">
+                  <Typography variant="body1" color="text.primary">
+                    {task.order_user.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {task.order_user.email}
+                  </Typography>
+                </Stack>
+              </Stack>
             </Stack>
             <Stack spacing={0.3}>
               <Typography variant="body2" color="text.primary">

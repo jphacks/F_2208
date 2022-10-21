@@ -75,7 +75,6 @@ export const EditTask = ({
   };
 
   const onSubmit = async (inputData) => {
-    console.log(inputData);
     let user_id = user.id; // デフォルトで自身のユーザID
     user_id =
       friends.filter((friend) => assignedEmail === friend.email)[0]?.id ||
@@ -89,7 +88,6 @@ export const EditTask = ({
       severity: inputData.severity,
       user_id: user_id,
     });
-    // console.log(resTask);
     if (resTask.status === 200) {
       const resTasks = showMyTasks
         ? await fetchTasks()
