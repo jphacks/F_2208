@@ -1,4 +1,11 @@
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Layout from "../components/Layout";
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
@@ -27,12 +34,17 @@ const Friends = () => {
       >
         おともだち
       </Typography>
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        {!!friends ? Object.entries(friends).map(([key, friend]) => (
-          <ShowFriend index={Number(key)+1} friend={friend} />
-
-        )) : ""}
-      </List>
+      <Stack spacing={1} divider={<Divider />}>
+        {!!friends
+          ? Object.entries(friends).map(([key, friend]) => (
+              <ShowFriend
+                friend={friend}
+                friends={friends}
+                setFriends={setFriends}
+              />
+            ))
+          : ""}
+      </Stack>
     </Layout>
   );
 };

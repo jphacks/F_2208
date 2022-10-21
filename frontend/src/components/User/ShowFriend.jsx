@@ -1,56 +1,52 @@
-import { Avatar, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { Avatar, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import PigImage from "../../assets/img/pig.png";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import { updateFriend } from "../../api/friend";
+import { fetchFriends, updateFriend } from "../../api/friend";
+import { css } from "@emotion/react";
 
-export const ShowFriend = ({ index, friend }) => {
-  const [favo, setFavo] = useState(false);
+export const ShowFriend = ({ friend, setFriends }) => {
+  const [favorite, setFavorite] = useState(false);
   useEffect(() => {
-    setFavo(friend.favorite);
-  },[]); 
+    setFavorite(friend.favorite);
+  });
 
-  useEffect(() => {
-    (async () => {
-      const user_id = friend.user_id;
-      const intimacy = friend.intimacy;
-      const sent_exp = friend.sent_exp;
-      const received_exp = friend.received_exp;
-      const favorite = favo;
-      const res = await updateFriend({user_id, intimacy, favorite, sent_exp, received_exp});
+  const handleClick = async () => {
+    setFavorite(!favorite);
+
+    const res = await updateFriend({
+      friend_id: friend.user.id,
+      favorite: !favorite,
     });
-
-  }, [favo]);
-
-  const handleClick = () => {
-    if (favo === false) {
-      setFavo(true);
-    } else {
-      setFavo(false);
+    if (res.status === 200) {
+      const newFriends = await fetchFriends();
+      setFriends(newFriends.data);
     }
-    console.log(favo);
   };
 
   return (
-    <>
-      <ListItem
-        secondaryAction={
-          <IconButton
-            onClick={handleClick}
-          >
-            {favo ? <Favorite color={"secondary"} /> : <FavoriteBorder />}
-          </IconButton>
-        }
-      />
-      <ListItemAvatar>
-        <Avatar
-          src={PigImage}
-        />
-      </ListItemAvatar>
-      <ListItemText primary={`おともだち${index}: ${friend.user.name}`} secondary={`email: ${friend.user.email}`} />
-      <ListItem />
-      <Divider />
-      {console.log(friend)}
-    </>
+    <Grid
+      container
+      css={css`
+        padding: 1em;
+        border-radius: 1em;
+      `}
+      key={friend.user.email}
+    >
+      <Grid item xs={2}>
+        <Avatar src={PigImage} />
+      </Grid>
+      <Grid item xs={8}>
+        <Stack spacing={0.5}>
+          <Typography>{friend.user.name}</Typography>
+          <Typography variant="">{friend.user.email}</Typography>
+        </Stack>
+      </Grid>
+      <Grid item xs={2}>
+        <IconButton onClick={handleClick}>
+          {favorite ? <Favorite color={"error"} /> : <FavoriteBorder />}
+        </IconButton>
+      </Grid>
+    </Grid>
   );
 };
