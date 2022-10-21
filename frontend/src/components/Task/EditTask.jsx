@@ -264,8 +264,6 @@ export const EditTask = ({ setTasks, task }) => {
                 <Controller
                   name="email"
                   control={control}
-                  // defaultValue={task.user.email}
-                  defaultValue={user.email}
                   rules={{
                     required:
                       "割当先ユーザー (メールアドレス)を入力してください",
@@ -277,6 +275,7 @@ export const EditTask = ({ setTasks, task }) => {
                   render={({ field, fieldState }) => (
                     <Autocomplete
                       {...field}
+                      defaultValue={task.user.email}
                       type="email"
                       value={assignedEmail}
                       inputValue={assignedEmail}
