@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
 import { css } from "@emotion/react";
+import { useContext } from "react";
+import { userContext } from "../../contexts/userContext";
 
 const Pig = ({
   pigImage,
@@ -7,6 +9,7 @@ const Pig = ({
   jump = false,
   onClick = () => {},
 }) => {
+  const { user } = useContext(userContext);
   return (
     <Box
       css={css`
@@ -36,8 +39,11 @@ const Pig = ({
             height: 300px;
             border-radius: 99999px;
             object-fit: cover;
-
             ${jump &&
+            `animation: poyooon 1s linear 0s 1 ;
+              animation-iteration-count: infinite;`}
+
+            /* ${jump &&
             `// 子豚ジャンプアニメーション
             animation-name: jump;
             animation-duration: 0.3s;
@@ -52,7 +58,42 @@ const Pig = ({
               100% {
                 transform: translate(0%, 0%);
               }
-            }`}
+            }`} */
+            @keyframes poyooon {
+              0% {
+                transform: scale(1, 1) translate(0%, 0%);
+              }
+              10% {
+                transform: scale(1.1, 0.9) translate(0%, 5%);
+              }
+              40% {
+                transform: scale(1.2, 0.8) translate(0%, 15%);
+              }
+              50% {
+                transform: scale(1, 1) translate(0%, 0%);
+              }
+              60% {
+                transform: scale(0.9, 1.2)
+                  translate(
+                    0%,
+                    ${(user.point < 500 && "-25%") ||
+                    (user.point < 1000 && "-20%") ||
+                    (user.point < 1500 && "-15%") ||
+                    (user.point < 3000 && "-10%") ||
+                    (user.point < 5000 && "-5%")}
+                  );
+              }
+
+              75% {
+                transform: scale(0.9, 1.2) translate(0%, -5%);
+              }
+              85% {
+                transform: scale(1.2, 0.8) translate(0%, 10%);
+              }
+              100% {
+                transform: scale(1, 1) translate(0%, 0%);
+              }
+            }
           `}
           onClick={onClick}
         />

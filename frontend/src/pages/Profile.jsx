@@ -157,10 +157,24 @@ const Profile = () => {
             jump={true}
           />
           <SpeechBubbleTop>
-            {user.point > 0
-              ? `ぼくの中には${user.point}
-            円入っているっぴ！大事にするっぴ！`
-              : `１円も入っていないっぴ！お腹すいたっぴ...`}
+            {(user.point <= 0 &&
+              `ぼくの中には${user.point}
+            円入っているっぴ！お腹すいたっぴ...`) ||
+              (user.point < 500 &&
+                `ぼくの中には${user.point}
+            円入っているっぴ！大事にするっぴ！`) ||
+              (user.point < 1000 &&
+                `ぼくの中には${user.point}
+            円入っているっぴ！${user.name}の努力の結晶だっぴね...！`) ||
+              (user.point < 1500 &&
+                `ぼくの中には${user.point}
+            円入っているっぴ！まだまだ入るっぴ！`) ||
+              (user.point < 3000 &&
+                `ぼくの中には${user.point}
+            円入っているっぴ！焼肉行くっぴ！`) ||
+              (user.point < 10000 &&
+                `ぼくの中には${user.point}
+            円入っているっぴ！と、飛べないっぴ...！`)}
           </SpeechBubbleTop>
 
           {paypayModalOpen && (
