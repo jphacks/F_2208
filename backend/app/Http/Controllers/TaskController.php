@@ -39,7 +39,7 @@ class TaskController extends Controller {
         $request->input('title') && $task->title = $request->input('title');
         $request->input('description') && $task->description = $request->input('description');
         $request->input('exp') && $task->exp = $request->input('exp');
-        $request->input('time_limit') && $task->time_limit = $request->input('time_limit');
+        $request->input('time_limit') && $task->time_limit = date('Y-m-d H:i:s', $request->input('time_limit'));
         $request->input('severity') && $task->severity = $request->input('severity');
         $request->input('status') && $task->status = $request->input('status');
         $request->input('user_id') && $task->user_id = $request->input('user_id');
