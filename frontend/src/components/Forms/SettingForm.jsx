@@ -89,14 +89,23 @@ const SettingForm = () => {
           <div>
             <Button
               css={css`
-                width: 40%;
-                margin: 10px auto 20px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              `}
+              width: 40%;
+              margin: 10px auto 20px;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: #fff;
+              background-color: #f67690;
+              &:hover {
+                color:color: #ff0d72;;
+                background-color: #dc8ba7;
+                opacity:0.8;
+                border-color: #ff0d72;
+              }
+
+            `}
               variant="contained"
               type="submit"
             >

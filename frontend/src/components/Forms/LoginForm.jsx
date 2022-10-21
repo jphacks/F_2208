@@ -40,6 +40,7 @@ export const LoginForm = ({
                 type="text"
                 label="メールアドレス"
                 variant="outlined"
+                sx={"background-color:transparent;outline:red;"}
                 error={fieldState.error}
                 helperText={fieldState.error?.message}
               />
@@ -79,6 +80,15 @@ export const LoginForm = ({
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #ff0d72;
+            opacity:0.8;
+                  border-color: #ff0d72;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }
           `}
           variant="contained"
           type="submit"
