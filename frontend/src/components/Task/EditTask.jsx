@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -8,6 +8,7 @@ import {
   Slider,
   IconButton,
   Typography,
+  Autocomplete,
 } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -22,6 +23,7 @@ import { Controller } from "react-hook-form";
 import EditIcon from "@mui/icons-material/Edit";
 import Tasks from "../../pages/Tasks";
 import { getTimestamp } from "../../libs/getTimestamp";
+import { fetchFriendUsers } from "../../api/friend";
 
 const style = {
   position: "absolute",
@@ -43,13 +45,8 @@ const closeButtonStyle = {
 
 export const EditTask = ({ setTasks, task }) => {
   const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [friends, setFriends] = useState([]);
+  const [assignedEmail, setAssignedEmail] = useState(); // 割り当て先ユーザーメールアドレス
 
   const { user } = useContext(userContext);
   // Task記録
@@ -64,7 +61,28 @@ export const EditTask = ({ setTasks, task }) => {
     return `${priority}`;
   };
 
+  useEffect(() => {
+    (async () => {
+      const res = await fetchFriendUsers();
+      if (res.status === 200) {
+        setFriends([...res.data, user]);
+      }
+    })();
+    console.log(friends);
+  }, [user]);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const onSubmit = async (inputData) => {
+    console.log("inputData");
+    let user_id = user.email; // デフォルトで自身のユーザID
+    user_id = friends.filter((friend) => assignedEmail === friend.email)[0].id;
+    console.log(user_id);
     const resTask = await updateTask({
       id: task.id,
       title: inputData.title,
@@ -72,7 +90,7 @@ export const EditTask = ({ setTasks, task }) => {
       exp: inputData.exp,
       time_limit: getTimestamp(date),
       severity: inputData.severity,
-      user_id: user.id, // user_id -> email
+      user_id: user_id,
     });
     // console.log(resTask);
     if (resTask.status === 200) {
@@ -159,7 +177,7 @@ export const EditTask = ({ setTasks, task }) => {
                   name="time_limit"
                   control={control}
                   rules={{ required: "期限を選択してください" }}
-                  defaultValue={task.time_limit}
+                  defaultValue={new Date(task.time_limit)}
                   render={({ field, fieldState }) => (
                     <LocalizationProvider
                       dateAdapter={AdapterDayjs}
@@ -244,9 +262,10 @@ export const EditTask = ({ setTasks, task }) => {
                   )}
                 />
                 <Controller
-                  name="user_id"
+                  name="email"
                   control={control}
-                  defaultValue={task.user.email}
+                  // defaultValue={task.user.email}
+                  defaultValue={user.email}
                   rules={{
                     required:
                       "割当先ユーザー (メールアドレス)を入力してください",
@@ -256,14 +275,27 @@ export const EditTask = ({ setTasks, task }) => {
                     },
                   }}
                   render={({ field, fieldState }) => (
-                    <TextField
-                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                    <Autocomplete
                       {...field}
                       type="email"
-                      label="割当先ユーザー (メールアドレス)"
-                      variant="outlined"
+                      value={assignedEmail}
+                      inputValue={assignedEmail}
+                      onChange={(event, newValue) => {
+                        setAssignedEmail(newValue);
+                      }}
+                      // inputValue={inputValue}
+                      // onInputChange={(event, newInputValue) => {
+                      //   setInputValue(newInputValue);
+                      // }}
                       error={fieldState.error}
                       helperText={fieldState.error?.message}
+                      options={friends.map((friend) => friend?.email)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="割当先ユーザー (メールアドレス)"
+                        />
+                      )}
                     />
                   )}
                 />

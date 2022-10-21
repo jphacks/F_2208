@@ -123,4 +123,41 @@ class FriendController extends Controller {
             })
             ->firstOrFail();
     }
+
+    // メールアドレスで検索する
+    public function search($request) {
+        $email = $request->email;
+        $user = $request->user();
+
+        // フレンドを全て取得する
+        $friends = Friend::with("user")->with("friend")->where('id', $user->id)->orWhere('friend_id', $user->id)->get();
+
+        foreach ($friends as $friend) {
+            if ($friend->user->email === $email) {
+                return response()->json($friend->user);
+            } elseif ($friend->friend->email === $email) {
+                return response()->json($friend->friend);
+            }
+        }
+    }
+
+    // 自身のフレンドのみを取得する
+    // indexがフレンドテーブルを返すのに対し、これはフレンドのユーザテーブルの情報を返す
+    public function friends(Request $request) {
+        $user = $request->user();
+        // フレンドを全て取得する
+        $friends = Friend::with("user")->with("friend")->where('id', $user->id)->orWhere('friend_id', $user->id)->get();
+
+        $friendUsers = [];
+
+        foreach ($friends as $friend) {
+            if ($friend->user->id === $user->id) {
+                $friendUsers[] = $friend->friend;
+            } elseif ($friend->friend->id === $user->id) {
+                $friendUsers[] = $friend->user;
+            }
+        }
+
+        return response()->json($friendUsers);
+    }
 }
