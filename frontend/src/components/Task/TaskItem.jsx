@@ -94,7 +94,9 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
                 `}
               >
                 <AccessTimeIcon fontSize="small" />
-                {task.time_limit.slice(0, -3)}:00
+                {task.time_limit
+                  ? `${task.time_limit.slice(0, -3)}:00`
+                  : "なし"}
               </Typography>
             </Grid>
           </Grid>

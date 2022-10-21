@@ -118,7 +118,6 @@ const Profile = () => {
             </Grid>
             <Grid item xs={2} />
           </Grid>
-
           <Pig
             pigImage={pigImage}
             grassImage={grassImage}
