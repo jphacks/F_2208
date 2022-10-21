@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->integer('level')->default(1);
             $table->bigInteger('total_exp')->default(0);
             $table->bigInteger('balance_exp')->default(0);
+            $table->bigInteger('point')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

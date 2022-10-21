@@ -25,6 +25,7 @@ class User extends Authenticatable {
         'level',
         'total_exp',
         'balance_exp',
+        'point',
     ];
 
     /**
