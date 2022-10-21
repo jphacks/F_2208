@@ -17,7 +17,7 @@ const SettingForm = () => {
       name: inputData.name,
       email: inputData.email,
     });
-    console.log(res);
+    // console.log(res);
 
     if (res.status === 200) {
       const res = await fetchUser();

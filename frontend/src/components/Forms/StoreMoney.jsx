@@ -50,7 +50,7 @@ export const StoreMoney = ({ codes, setCodes }) => {
     const newCodes = JSON.parse(localStorage.getItem("codes")) || [];
     newCodes.push(newCode);
     localStorage.setItem("codes", JSON.stringify(newCodes));
-    console.log(newCodes);
+    // console.log(newCodes);
     setCodes(newCodes);
 
     // ユーザ保有EXPに反映する

@@ -74,7 +74,7 @@ export const EditTask = ({ setTasks, task }) => {
       severity: inputData.severity,
       user_id: user.id, // user_id -> email
     });
-    console.log(resTask);
+    // console.log(resTask);
     if (resTask.status === 200) {
       const resUser = await fetchTasks();
       if (resUser.status === 200) {

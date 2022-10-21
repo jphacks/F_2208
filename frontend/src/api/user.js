@@ -4,12 +4,12 @@ export const fetchUser = async () => {
   return await axios
     .get("/api/user")
     .then((res) => {
-      console.log("[user]ログイン済");
+      // console.log("[user]ログイン済");
       return res;
     })
     .catch((error) => {
-      console.log("[user]ログインしていません");
-      console.log(error);
+      // console.log("[user]ログインしていません");
+      // console.log(error);
       return error;
     });
 }
@@ -26,12 +26,12 @@ export const updateUser = async ({ name, email, avatar, level, total_exp, balanc
       point
     })
     .then((res) => {
-      console.log("[user]更新成功")
+      // console.log("[user]更新成功")
       return res;
     })
     .catch((error) => {
-      console.log("[user]更新失敗")
-      console.log(error);
+      // console.log("[user]更新失敗")
+      // console.log(error);
       return error;
     })
 }
@@ -44,12 +44,12 @@ export const updateUserPassword = async ({ current_password, password, password_
       password_confirmation
     })
     .then((res) => {
-      console.log("[userPassword]更新成功")
+      // console.log("[userPassword]更新成功")
       return res;
     })
     .catch((error) => {
-      console.log("[userPassword]更新失敗")
-      console.log(error);
+      // console.log("[userPassword]更新失敗")
+      // console.log(error);
       return error;
     })
 }
@@ -58,12 +58,12 @@ export const deleteUser = async () => {
   return await axios
     .delete("/api/user")
     .then((res) => {
-      console.log("[user]削除成功")
+      // console.log("[user]削除成功")
       return res;
     })
     .catch((error) => {
-      console.log("[user]削除失敗")
-      console.log(error);
+      // console.log("[user]削除失敗")
+      // console.log(error);
       return error;
     })
 }

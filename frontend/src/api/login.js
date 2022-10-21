@@ -8,13 +8,13 @@ const login = async (email, password) => {
         password,
       })
       .then((res) => {
-        console.log("ログイン成功");
-        console.log(res);
+        // console.log("ログイン成功");
+        // console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log("ログイン失敗");
-        console.log(err.response);
+        // console.log("ログイン失敗");
+        // console.log(err.response);
       });
   });
 };

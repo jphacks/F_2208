@@ -46,8 +46,8 @@ export const WithdrawMoney = ({ codes, setCodes }) => {
   const [withdrawableCodes, setWithdrawableCodes] = useState([]);
   const { user, setUser } = useContext(userContext);
   const [withdrawnCode, setWithdrawnCode] = useState({});
-  console.log("withdrawnCode");
-  console.log(withdrawnCode);
+  // console.log("withdrawnCode");
+  // console.log(withdrawnCode);
 
   useEffect(() => {
     if (codes) {
