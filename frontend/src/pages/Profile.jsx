@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Grid,
   IconButton,
   Modal,
@@ -44,7 +45,6 @@ const closeButtonStyle = {
 };
 
 const Profile = () => {
-  const [reload, setReload] = useState(false);
   const { userId } = useParams();
   const { user, setUser } = useContext(userContext);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -113,9 +113,6 @@ const Profile = () => {
   if (!!user && user.id != userId) {
     navigate("/dashboard");
   }
-  const handleReload = () => {
-    setReload(!reload);
-  };
 
   // ローカルストレージ内のコードを取り出し、ステートで管理する
   useEffect(() => {
@@ -153,19 +150,12 @@ const Profile = () => {
           <Pig
             pigImage={pigImage}
             grassImage={grassImage}
-            jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
+            jump={!paypayModalOpen && !openWithdraw && !openStore} // Safariで豚がモーダルに重なる不具合への対策
           />
           <SpeechBubbleTop>
-            ぼくの中には{user.point}円入っているっぴ！
+            ぼくの中には{user.point}円入っているっぴ！大事にするっぴ！
           </SpeechBubbleTop>
-          <Box
-            css={css`
-              margin-top: 30px;
-            `}
-          >
-            <UserStatus />
 
-          </Box>
           {paypayModalOpen && (
             <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
               <Box
@@ -224,56 +214,43 @@ const Profile = () => {
             open={openStore}
             onClose={handleCloseStore}
           >
-            <Box sx={style}
+            <Box
+              sx={style}
               css={css`
-            background-color: #fff;
-            border: none;
-          `}>
+                background-color: #fff;
+                border: none;
+              `}
+            >
               <Box sx={closeButtonStyle}>
                 <IconButton onClick={handleCloseStore}>
                   <CloseIcon />
                 </IconButton>
               </Box>
-              <Stack spacing={3}>
+              <Stack spacing={2}>
                 <Typography variant="h6">入金</Typography>
-                <StoreMoney
-                  codes={codes}
-                  setCodes={setCodes}
-                />
-                <Button
-                  css={css`
-                  color: #fff;
-                  background-color: #f67690;
-                  &:hover {
-                    color: #ff0d72;
-                    background-color: #dc8ba7;
-                    opacity: 0.8;
-                    border-color: #ff0d72;
-                  }
-                `}
-                  onClick={() => handleClickPayPay(1)}
-                >
-                  PayPayで支払う
-                </Button>
-
+                <Stack spacing={3}>
+                  <StoreMoney codes={codes} setCodes={setCodes} />
+                  <Divider />
+                  <Button
+                    css={css`
+                      color: #fff;
+                      background-color: #f67690;
+                      &:hover {
+                        color: #ff0d72;
+                        background-color: #dc8ba7;
+                        opacity: 0.8;
+                        border-color: #ff0d72;
+                      }
+                    `}
+                    variant="contained"
+                    onClick={() => handleClickPayPay(1)}
+                  >
+                    PayPayで入金する
+                  </Button>
+                </Stack>
               </Stack>
             </Box>
           </Modal>
-          <Button
-            css={css`
-          color: #fff;
-          background-color: #f67690;
-          &:hover {
-            color: #ff0d72;
-            background-color: #dc8ba7;
-            opacity: 0.8;
-            border-color: #ff0d72;
-          }
-        `}
-            onClick={handleClickStore}
-          >
-            入金
-          </Button>
         </Box>
 
         <Box>
@@ -283,11 +260,13 @@ const Profile = () => {
             open={openWithdraw}
             onClose={handleCloseWithdraw}
           >
-            <Box sx={style}
+            <Box
+              sx={style}
               css={css`
-            background-color: #fff;
-            border: none;
-          `}>
+                background-color: #fff;
+                border: none;
+              `}
+            >
               <Box sx={closeButtonStyle}>
                 <IconButton onClick={handleCloseWithdraw}>
                   <CloseIcon />
@@ -295,28 +274,82 @@ const Profile = () => {
               </Box>
               <Stack spacing={3}>
                 <Typography variant="h6">出金</Typography>
-                <WithdrawMoney
-                  codes={codes}
-                  setCodes={setCodes}
-                />
+                <WithdrawMoney codes={codes} setCodes={setCodes} />
               </Stack>
             </Box>
           </Modal>
-          <Button
+          <Box
             css={css`
-          color: #fff;
-          background-color: #f67690;
-          &:hover {
-            color: #ff0d72;
-            background-color: #dc8ba7;
-            opacity: 0.8;
-            border-color: #ff0d72;
-          }
-        `}
-            onClick={handleClickWithdraw}
+              margin-top: 30px;
+            `}
           >
-            出金
-          </Button>
+            <Grid container justifyContent="center">
+              <Grid
+                item
+                xs={4}
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                `}
+              >
+                <Button
+                  css={css`
+                    color: #fff;
+                    background-color: #f67690;
+                    padding: 2em;
+                    @media screen and (min-width: 768px) {
+                      padding: 3em;
+                    }
+                    &:hover {
+                      background-color: #dc8ba7;
+                      opacity: 0.8;
+                      border-color: #ff0d72;
+                    }
+                  `}
+                  onClick={handleClickStore}
+                  variant="contained"
+                >
+                  <Typography variant="h5">入金</Typography>
+                </Button>
+              </Grid>
+              <Grid
+                item
+                xs={4}
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                `}
+              >
+                <Button
+                  css={css`
+                    color: #fff;
+                    background-color: #76b9f6;
+                    padding: 2em;
+                    @media screen and (min-width: 768px) {
+                      padding: 3em;
+                    }
+                    &:hover {
+                      color: #fff;
+                      background-color: #76b9f6;
+                      opacity: 0.8;
+                      border-color: #378fe0;
+                    }
+                  `}
+                  onClick={handleClickWithdraw}
+                  variant="contained"
+                >
+                  <Typography variant="h5">出金</Typography>
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+          <Box
+            css={css`
+              margin-top: 1em;
+            `}
+          >
+            <UserStatus />
+          </Box>
         </Box>
       </Layout>
     );

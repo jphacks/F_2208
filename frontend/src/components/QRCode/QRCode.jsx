@@ -86,7 +86,15 @@ const QRCode = ({ fontSize = 60, color = "#444" }) => {
 
   return (
     <>
-      <QrCodeScannerIcon sx={{ fontSize, color }} onClick={handleClick} />
+      <QrCodeScannerIcon
+        sx={{ fontSize, color }}
+        onClick={handleClick}
+        css={css`
+          &:hover {
+            cursor: pointer;
+          }
+        `}
+      />
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={style}
