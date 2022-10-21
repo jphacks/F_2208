@@ -4,18 +4,14 @@ import { css } from "@emotion/react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ControlPointDuplicateIcon from "@mui/icons-material/ControlPointDuplicate";
 import { useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import { DeleteTask } from "./DeleteTask";
+import { EditTask } from "./EditTask";
 
 const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
   const [show, setShow] = useState(false);
 
   const handleClickOpen = () => {
     setShow(!show);
-  };
-
-  const handleClickEdit = (task) => {
-    alert("edit");
   };
 
   return (
@@ -110,13 +106,8 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
             padding-right: 10px;
           `}
         >
-          <EditIcon
-            onClick={() => handleClickEdit(task)}
-            css={css`
-              color: #e29090;
-            `}
-          />
-          <DeleteTask setTasks={setTasks} tasks={tasks} id={task.id} />
+          <EditTask setTasks={setTasks} task={task} />
+          <DeleteTask setTasks={setTasks} id={task.id} />
         </Stack>
       </Grid>
       <Grid
