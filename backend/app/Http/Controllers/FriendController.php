@@ -40,8 +40,8 @@ class FriendController extends Controller {
         $user = $request->user();
         $friend->id = $user->id;
         $friend->user_id = $request->input('user_id');
-        $request->input('intimacy') && $friend->intimacy =  $request->input('intimacy');
-        $request->input('favorite') && $friend->favorite =  $request->input('favorite');
+        $request->input('intimacy') && $friend->intimacy = $request->input('intimacy');
+        $request->input('favorite') && $friend->favorite = $request->input('favorite');
         $request->input('sent_exp') && $friend->sent_exp = $request->input('sent_exp');
         $request->input('received_exp') && $friend->received_exp = $request->input('received_exp');
         $friend->created_at = now();
