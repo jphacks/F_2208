@@ -16,6 +16,7 @@ const Layout = ({ children }) => {
         align-items: center;
         flex-direction: column;
         padding-top: 30px;
+        padding-bottom: 50px;
       `}
     >
       <Container
