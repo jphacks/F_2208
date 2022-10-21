@@ -138,15 +138,15 @@ const Profile = () => {
           `}
         >
           <Grid container alignItems="center">
-            <Grid item xs={2}>
-              <QRCode open={openQRCode} setOpen={setOpenQRCode} />
-            </Grid>
+            <Grid item xs={2}></Grid>
             <Grid item xs={8}>
               <Typography variant="h5" component="h2" align="center">
                 {user.name}
               </Typography>
             </Grid>
-            <Grid item xs={2} />
+            <Grid item xs={2}>
+              <QRCode open={openQRCode} setOpen={setOpenQRCode} />
+            </Grid>
           </Grid>
           <Pig
             pigImage={pigImage}

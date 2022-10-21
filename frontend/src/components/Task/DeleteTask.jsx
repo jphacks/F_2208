@@ -10,7 +10,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { css } from "@emotion/react";
-import { deleteTask, fetchTasks } from "../../api/task";
+import { deleteTask, fetchOrderedTasks, fetchTasks } from "../../api/task";
 
 const style = {
   position: "absolute",
@@ -30,7 +30,7 @@ const closeButtonStyle = {
   textAlign: "right",
 };
 
-export const DeleteTask = ({ setTasks, id }) => {
+export const DeleteTask = ({ setTasks, id, showMyTasks }) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -42,7 +42,9 @@ export const DeleteTask = ({ setTasks, id }) => {
   const handleClickDelete = async () => {
     const res = await deleteTask({ id });
     if (res.status === 200) {
-      const resTasks = await fetchTasks();
+      const resTasks = showMyTasks
+        ? await fetchTasks()
+        : await fetchOrderedTasks();
       setTasks(resTasks.data);
     }
     handleClose();

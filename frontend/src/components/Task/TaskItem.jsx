@@ -3,12 +3,24 @@ import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import { css } from "@emotion/react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ControlPointDuplicateIcon from "@mui/icons-material/ControlPointDuplicate";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DeleteTask } from "./DeleteTask";
 import { EditTask } from "./EditTask";
+import { userContext } from "../../contexts/userContext";
+import { ConstructionOutlined } from "@mui/icons-material";
 
-const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
+const TaskItem = ({
+  tasks,
+  setTasks,
+  task,
+  handleToggleCheckbox,
+  checked,
+  friends,
+  setFriends,
+  showMyTasks,
+}) => {
   const [show, setShow] = useState(false);
+  const { user } = useContext(userContext);
 
   const handleClickOpen = () => {
     setShow(!show);
@@ -24,7 +36,7 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
     const minute = (`0` + newDate.getMinutes()).slice(-2);
     return `${year}/${month}/${day} (${dayOfWeek}) ${hour}:${minute}`;
   };
-
+  console.log(task);
   return (
     <Grid
       key={task.id}
@@ -115,8 +127,22 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
             padding-right: 10px;
           `}
         >
-          <EditTask setTasks={setTasks} task={task} />
-          <DeleteTask setTasks={setTasks} id={task.id} />
+          {(!showMyTasks || task.order_user_id === user?.id) && (
+            <>
+              <EditTask
+                setTasks={setTasks}
+                task={task}
+                friends={friends}
+                setFriends={setFriends}
+                showMyTasks={showMyTasks}
+              />
+              <DeleteTask
+                setTasks={setTasks}
+                id={task.id}
+                showMyTasks={showMyTasks}
+              />
+            </>
+          )}
         </Stack>
       </Grid>
       <Grid

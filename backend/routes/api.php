@@ -26,9 +26,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('tasks', TaskController::class);
     Route::put("/tasks/{task}/do", [TaskController::class, 'do'])->name("tasks.update.done");
     Route::put("/tasks/{task}/undo", [TaskController::class, 'undo'])->name("tasks.update.undo");
+    Route::get("/task/ordered", [TaskController::class, 'orderedTasks'])->name("tasks.ordered");
     Route::apiResource('friends', FriendController::class);
     Route::get('/friends/search', [FriendController::class, 'search'])->name("friends.search");
-    Route::get('/friendss/users', [FriendController::class, 'friends'])->name("friends.users");
+    Route::get('/friend/users', [FriendController::class, 'friends'])->name("friends.users"); // friendsたと動作しない
     Route::get('/paypay', [PayPayController::class, 'createQRCode'])->name("paypay.qr.create");
     Route::get('/paypay/payment', [PayPayController::class, 'getPaymentDetails'])->name("paypay.payment");
 });
