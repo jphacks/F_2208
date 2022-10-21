@@ -162,6 +162,7 @@ export const ShowTasks = ({
                     count++;
                     return (
                       <TaskItem
+                        key={task.id}
                         task={task}
                         handleToggleCheckbox={handleToggleCheckbox}
                         checked={checked}
