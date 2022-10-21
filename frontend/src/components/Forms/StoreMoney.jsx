@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
   Modal,
   TextField,
   IconButton,
+  Stack,
+  Typography,
 } from "@mui/material";
 
 import { useForm, Controller } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 import { css } from "@emotion/react";
-
+import { v4 as uuidv4 } from "uuid";
+import { fetchUser, updateUser } from "../../api/user";
+import { userContext } from "../../contexts/userContext";
 
 const style = {
   position: "absolute",
@@ -30,23 +34,47 @@ const closeButtonStyle = {
   textAlign: "right",
 };
 
-export const StoreMoney = ({ handleReload }) => {
+export const StoreMoney = ({ codes, setCodes }) => {
   // Task記録
   const { handleSubmit, control } = useForm();
   const [open, setOpen] = useState(false);
+  const { user, setUser } = useContext(userContext);
 
-  // ローカルストレージに保存
-  const onSubmit = (inputData) =>
-    localStorage.setItem(
-      inputData.code,
-      inputData.value,
-    );
+  const onSubmit = (inputData) => {
+    // ローカルストレージに保存
+    const newCode = {
+      id: uuidv4(),
+      code: inputData.code,
+      value: inputData.value,
+    };
+    const newCodes = JSON.parse(localStorage.getItem("codes")) || [];
+    newCodes.push(newCode);
+    localStorage.setItem("codes", JSON.stringify(newCodes));
+    console.log(newCodes);
+    setCodes(newCodes);
+
+    // ユーザ保有EXPに反映する
+    (async () => {
+      const resCurrentUser = await fetchUser();
+      if (resCurrentUser.status === 200) {
+        const resUpdateUser = await updateUser({
+          point: Number(resCurrentUser.data.point) + Number(inputData.value),
+        });
+        if (resUpdateUser.status === 200) {
+          setUser(resUpdateUser.data);
+          setCodes(updateUser.data);
+        }
+      }
+    })();
+
+    handleClose();
+  };
+
   const handleClick = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
-    handleReload();
   };
 
   return (
@@ -63,76 +91,86 @@ export const StoreMoney = ({ handleReload }) => {
               <CloseIcon />
             </IconButton>
           </Box>
-          <div>入金</div>
-          <br />
-          <form onSubmit={handleSubmit(onSubmit)}>
-              <br />
-              <Controller
-                name="code"
-                control={control}
-                rules={{ required: "コードを入力してください" }}
-                render={({ field, fieldState }) => (
-                  <TextField
-                    inputProps={{ style: { backgroundColor: "#fff" } }}
-                    {...field}
-                    id="newReward"
-                    label="ギフトコード"
-                    variant="outlined"
-                    fullWidth
-                    name="code"
-                    error={fieldState.error}
-                    helperText={fieldState.error?.message}
-                  />)}
-              />
-              <br />
-              <Controller
-                name="value"
-                control={control}
-                rules={{ required: "価格を入力してください" }}
-                render={({ field, fieldState }) => (
-                  <TextField
-                    inputProps={{ style: { backgroundColor: "#fff" } }}
-                    {...field}
-                    id="newAssign"
-                    label="価格"
-                    variant="outlined"
-                    defaultValue="3000"
-                    fullWidth
-                    name="value"
-                    type="number"
-                    error={fieldState.error}
-                    helperText={fieldState.error?.message}
-                  />)}
-              />
-              <br />
-              <Button css={css`
-                  color: #fff;
-                  background-color: #f67690;
-                  &:hover {
-                    color:color: #ff0d72;;
-                    background-color: #dc8ba7;
-                    opacity:0.8;
-                    border-color: #ff0d72;
-                  }`}  
-                  variant="contained" 
-                  color="primary" 
-                  type="submit">
-                入金する
-              </Button>
-          </form>
+          <Stack spacing={3}>
+            <Typography variant="h6">入金</Typography>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Stack spacing={3}>
+                <Controller
+                  name="code"
+                  control={control}
+                  rules={{ required: "コードを入力してください" }}
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                      {...field}
+                      id="newReward"
+                      label="ギフトコード"
+                      variant="outlined"
+                      fullWidth
+                      name="code"
+                      error={fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="value"
+                  control={control}
+                  defaultValue="100"
+                  rules={{ required: "価格を入力してください" }}
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      inputProps={{ style: { backgroundColor: "#fff" } }}
+                      {...field}
+                      id="newAssign"
+                      label="金額"
+                      variant="outlined"
+                      fullWidth
+                      name="value"
+                      type="number"
+                      error={fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
+                />
+                <Button
+                  css={css`
+                    color: #fff;
+                    background-color: #f67690;
+                    &:hover {
+                      color: #ff0d72;
+                      background-color: #dc8ba7;
+                      opacity: 0.8;
+                      border-color: #ff0d72;
+                    }
+                  `}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  入金する
+                </Button>
+              </Stack>
+            </form>
+          </Stack>
         </Box>
       </Modal>
-      <Button css={css`
-                  color: #fff;
-                  background-color: #f67690;
-                  &:hover {
-                    color:color: #ff0d72;;
-                    background-color: #dc8ba7;
-                    opacity:0.8;
-                    border-color: #ff0d72;
-                  }`} 
-                  variant="contained" 
-                  onClick={handleClick}>入金</Button>
+      <Button
+        css={css`
+          color: #fff;
+          background-color: #f67690;
+          &:hover {
+            color: #ff0d72;
+            background-color: #dc8ba7;
+            opacity: 0.8;
+            border-color: #ff0d72;
+          }
+        `}
+        variant="contained"
+        onClick={handleClick}
+      >
+        入金
+      </Button>
     </Box>
   );
 };
