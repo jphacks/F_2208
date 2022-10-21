@@ -94,10 +94,10 @@ const Profile = () => {
       }
     })();
   }, []);
-  console.log(user);
+  // console.log(user);
   const handleClickPayPay = async (amount) => {
     const res = await paypayPay(amount);
-    console.log(res);
+    // console.log(res);
     // PayPayアプリを起動
     window.location.href = res.data.deeplink;
     // PayPayアプリを起動できない場合
@@ -118,14 +118,14 @@ const Profile = () => {
   // ローカルストレージ内のコードを取り出し、ステートで管理する
   useEffect(() => {
     fetchCodes();
-    console.log(codes);
+    // console.log(codes);
   }, []);
 
   const fetchCodes = () => {
     const localStorageCodes = JSON.parse(
       localStorage.getItem("codes") || "[{}]"
     );
-    console.log("localStorageCodes");
+    // console.log("localStorageCodes");
     setCodes([...localStorageCodes]);
   };
 

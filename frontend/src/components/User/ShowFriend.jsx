@@ -12,14 +12,14 @@ export const ShowFriend = ({ friend, setFriends }) => {
   const [favorite, setFavorite] = useState(false);
   useEffect(() => {
     setFavorite(friend.favorite);
-    console.log(friend);
+    // console.log(friend);
     if (friend?.user?.email && friend.user.email === user?.email) {
       setFriendUser(friend.friend);
     } else if (friend?.friend?.email && friend.friend.email === user?.email) {
       setFriendUser(friend.user);
     }
 
-    console.log(friendUser);
+    // console.log(friendUser);
   }, [user]);
 
   const handleClick = async () => {

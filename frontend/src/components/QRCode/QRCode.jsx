@@ -75,7 +75,7 @@ const QRCode = ({ fontSize = 60, color = "#444", open, setOpen }) => {
 
   const handleClickAddFriend = async () => {
     const res = await createFriend({ friend_id: friend.user_id });
-    console.log(res);
+    // console.log(res);
     if (res.status === 200) {
       alert("フレンドを追加しました");
     } else {

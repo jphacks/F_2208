@@ -4,12 +4,12 @@ export const fetchFriends = async () => {
   return await axios
     .get("/api/friends")
     .then((res) => {
-      console.log("[friends]取得成功");
+      // console.log("[friends]取得成功");
       return res;
     })
     .catch((error) => {
-      console.log("[friends]取得失敗");
-      console.log(error);
+      // console.log("[friends]取得失敗");
+      // console.log(error);
       return error;
     });
 }
@@ -18,12 +18,12 @@ export const fetchFriend = async ({ friend_id }) => {
   return await axios
     .get(`/api/friends/${friend_id}`)
     .then((res) => {
-      console.log("[friend]取得成功");
+      // console.log("[friend]取得成功");
       return res;
     })
     .catch((error) => {
-      console.log("[friend]取得失敗");
-      console.log(error);
+      // console.log("[friend]取得失敗");
+      // console.log(error);
       return error;
     });
 }
@@ -38,12 +38,12 @@ export const createFriend = async ({ friend_id, intimacy, favorite, sent_exp, re
       received_exp,
     })
     .then((res) => {
-      console.log("[friend]作成成功");
+      // console.log("[friend]作成成功");
       return res;
     })
     .catch((error) => {
-      console.log("[friend]作成失敗");
-      console.log(error);
+      // console.log("[friend]作成失敗");
+      // console.log(error);
       return error;
     });
 }
@@ -57,12 +57,12 @@ export const updateFriend = async ({ friend_id, intimacy, favorite, sent_exp, re
       received_exp,
     })
     .then((res) => {
-      console.log("[friend]更新成功");
+      // console.log("[friend]更新成功");
       return res;
     })
     .catch((error) => {
-      console.log("[friend]更新失敗");
-      console.log(error);
+      // console.log("[friend]更新失敗");
+      // console.log(error);
       return error;
     });
 }
@@ -71,12 +71,12 @@ export const deleteFriend = async ({ friend_id }) => {
   return await axios
     .delete(`/api/friends/${user_id}`)
     .then((res) => {
-      console.log("[friend]削除成功")
+      // console.log("[friend]削除成功")
       return res;
     })
     .catch((error) => {
-      console.log("[friend]削除失敗")
-      console.log(error);
+      // console.log("[friend]削除失敗")
+      // console.log(error);
       return error;
     })
 }

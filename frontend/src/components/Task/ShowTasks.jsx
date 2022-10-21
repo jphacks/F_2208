@@ -60,7 +60,7 @@ export const ShowTasks = ({
           setTasks(resTasks.data);
           const resUser = await fetchUser();
           setUser(resUser.data);
-          console.log(user);
+          // console.log(user);
           newChecked.splice(currentIndex, 1);
         }
     }
@@ -87,8 +87,10 @@ export const ShowTasks = ({
               onClick={handleClick}
               css={css`
                 background-color: #f67690;
-                opacity:0.8;
-                &:hover {background-color: #dc8ba7;}
+                opacity: 0.8;
+                &:hover {
+                  background-color: #dc8ba7;
+                }
               `}
             >
               タスクを追加する
@@ -122,7 +124,7 @@ export const ShowTasks = ({
                   &:hover {
                     color: #ff0d72;
                     border-color: #ff0d72;
-                    opacity:0.6;
+                    opacity: 0.6;
                     border-color: #ff0d72;
                   }
                 `}

@@ -16,7 +16,7 @@ const UpdatePasswordForm = () => {
   };
 
   const onSubmit = async (inputData) => {
-    console.log(inputData["new-password-confirmation"]);
+    // console.log(inputData["new-password-confirmation"]);
     const res = await updateUserPassword({
       current_password: inputData["current-password"],
       password: inputData["new-password"],
