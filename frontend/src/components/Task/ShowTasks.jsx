@@ -86,7 +86,9 @@ export const ShowTasks = ({
               variant="contained"
               onClick={handleClick}
               css={css`
-                background-color: #ff0d72;
+                background-color: #f67690;
+                opacity:0.8;
+                &:hover {background-color: #dc8ba7;}
               `}
             >
               タスクを追加する
@@ -117,6 +119,12 @@ export const ShowTasks = ({
                 css={css`
                   color: #ff0d72;
                   border-color: #ff0d72;
+                  &:hover {
+                    color: #ff0d72;
+                    border-color: #ff0d72;
+                    opacity:0.6;
+                    border-color: #ff0d72;
+                  }
                 `}
               >
                 もっとみる

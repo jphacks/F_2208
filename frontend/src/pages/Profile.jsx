@@ -119,7 +119,15 @@ const Profile = () => {
             `}
           >
             <UserStatus />
-            <Button onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
+            <Button css={css`
+                  color: #ff0d72;
+                  border-color: #ff0d72;
+                  &:hover {
+                    background-color:transparent;
+                    color:color: #ff0d72;;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} onClick={() => handleClickPayPay(1)}>PayPayで支払う</Button>
           </Box>
           <StoreMoney handleReload={handleReload} />
           <WithdrawMoney handleReload={handleReload} reload={reload} />

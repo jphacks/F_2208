@@ -9,6 +9,7 @@ import {
 
 import { useForm, Controller } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
+import { css } from "@emotion/react";
 
 
 const style = {
@@ -104,13 +105,34 @@ export const StoreMoney = ({ handleReload }) => {
                   />)}
               />
               <br />
-              <Button variant="contained" color="primary" type="submit">
+              <Button css={css`
+                  color: #fff;
+                  background-color: #f67690;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`}  
+                  variant="contained" 
+                  color="primary" 
+                  type="submit">
                 入金する
               </Button>
           </form>
         </Box>
       </Modal>
-      <Button variant="contained" onClick={handleClick}>入金</Button>
+      <Button css={css`
+                  color: #fff;
+                  background-color: #f67690;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} 
+                  variant="contained" 
+                  onClick={handleClick}>入金</Button>
     </Box>
   );
 };

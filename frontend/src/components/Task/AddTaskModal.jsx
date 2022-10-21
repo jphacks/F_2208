@@ -130,6 +130,7 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   defaultValue={1}
                   getAriaValueText={valuePriority}
                   valueLabelDisplay="auto"
+                  sx={"color:#ff0d72;"}
                   step={1}
                   marks
                   min={1}
@@ -158,7 +159,19 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                   {...register("user_id")}
                 />
                 <br />
-                <Button variant="contained" color="primary" type="submit">
+                <Button css={css`
+                color: #fff;
+                  background-color: #ff0d72;
+                  opacity:0.8;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} 
+                  variant="contained" 
+                  color="primary" 
+                  type="submit">
                   追加する
                 </Button>
               </FormGroup>
