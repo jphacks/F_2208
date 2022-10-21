@@ -51,6 +51,23 @@ const Profile = () => {
   const [paypay, setPaypay] = useState({});
   const [paypayModalOpen, setPaypayModalOpen] = useState(false);
   const [codes, setCodes] = useState([]);
+  const [openWithdraw, setOpenWithdraw] = useState(false);
+  const [openStore, setOpenStore] = useState(false);
+
+  const handleClickStore = () => {
+    setOpenStore(true);
+  };
+  const handleCloseStore = () => {
+    setOpenStore(false);
+  };
+
+  //モーダルの操作
+  const handleClickWithdraw = () => {
+    setOpenWithdraw(true);
+  };
+  const handleCloseWithdraw = () => {
+    setOpenWithdraw(false);
+  };
 
   useEffect(() => {
     const payment = searchParams.get("payment");
@@ -139,7 +156,7 @@ const Profile = () => {
             jump={!paypayModalOpen} // Safariで豚がモーダルに重なる不具合への対策
           />
           <SpeechBubbleTop>
-            ぼくの中には{user.point}ポイント入っているっぴ！
+            ぼくの中には{user.point}円入っているっぴ！
           </SpeechBubbleTop>
           <Box
             css={css`
@@ -147,33 +164,8 @@ const Profile = () => {
             `}
           >
             <UserStatus />
-            <Button
-              css={css`
-                color: #ff0d72;
-                border-color: #ff0d72;
-                &:hover {
-                  background-color: transparent;
-                  color: #ff0d72;
-                  opacity: 0.8;
-                  border-color: #ff0d72;
-                }
-              `}
-              onClick={() => handleClickPayPay(1)}
-            >
-              PayPayで支払う
-            </Button>
+
           </Box>
-          <StoreMoney
-            handleReload={handleReload}
-            codes={codes}
-            setCodes={setCodes}
-          />
-          <WithdrawMoney
-            handleReload={handleReload}
-            reload={reload}
-            codes={codes}
-            setCodes={setCodes}
-          />
           {paypayModalOpen && (
             <Modal open={paypayModalOpen} onClose={handleClosePayPayModal}>
               <Box
@@ -223,6 +215,108 @@ const Profile = () => {
               </Box>
             </Modal>
           )}
+        </Box>
+
+        <Box>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={openStore}
+            onClose={handleCloseStore}
+          >
+            <Box sx={style}
+              css={css`
+            background-color: #fff;
+            border: none;
+          `}>
+              <Box sx={closeButtonStyle}>
+                <IconButton onClick={handleCloseStore}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+              <Stack spacing={3}>
+                <Typography variant="h6">入金</Typography>
+                <StoreMoney
+                  codes={codes}
+                  setCodes={setCodes}
+                />
+                <Button
+                  css={css`
+                  color: #fff;
+                  background-color: #f67690;
+                  &:hover {
+                    color: #ff0d72;
+                    background-color: #dc8ba7;
+                    opacity: 0.8;
+                    border-color: #ff0d72;
+                  }
+                `}
+                  onClick={() => handleClickPayPay(1)}
+                >
+                  PayPayで支払う
+                </Button>
+
+              </Stack>
+            </Box>
+          </Modal>
+          <Button
+            css={css`
+          color: #fff;
+          background-color: #f67690;
+          &:hover {
+            color: #ff0d72;
+            background-color: #dc8ba7;
+            opacity: 0.8;
+            border-color: #ff0d72;
+          }
+        `}
+            onClick={handleClickStore}
+          >
+            入金
+          </Button>
+        </Box>
+
+        <Box>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={openWithdraw}
+            onClose={handleCloseWithdraw}
+          >
+            <Box sx={style}
+              css={css`
+            background-color: #fff;
+            border: none;
+          `}>
+              <Box sx={closeButtonStyle}>
+                <IconButton onClick={handleCloseWithdraw}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+              <Stack spacing={3}>
+                <Typography variant="h6">出金</Typography>
+                <WithdrawMoney
+                  codes={codes}
+                  setCodes={setCodes}
+                />
+              </Stack>
+            </Box>
+          </Modal>
+          <Button
+            css={css`
+          color: #fff;
+          background-color: #f67690;
+          &:hover {
+            color: #ff0d72;
+            background-color: #dc8ba7;
+            opacity: 0.8;
+            border-color: #ff0d72;
+          }
+        `}
+            onClick={handleClickWithdraw}
+          >
+            出金
+          </Button>
         </Box>
       </Layout>
     );

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -169,7 +169,7 @@ export const StoreMoney = ({ codes, setCodes }) => {
         variant="contained"
         onClick={handleClick}
       >
-        入金
+        Amazon
       </Button>
     </Box>
   );
