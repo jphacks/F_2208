@@ -50,20 +50,20 @@ class CreateNewUser implements CreatesNewUsers {
         // サンプルタスク登録
         $sampleTasks = [
             [
-                "title" => "タスクをクリックしよう！",
-                "description" => "このように、説明やタスクの作成者、作成日時を確認することができます。",
+                "title" => "タスクをクリックするっぴ！",
+                "description" => "このように、説明やタスクの作成者、作成日時を確認することができるっぴ！",
                 "exp" => 100,
                 "time_limit" => null,
             ],
             [
-                "title" => "タスクを完了しよう！",
-                "description" => "左側のチェックボックスをクリックすると、タスクを完了することができます。もう一度押して、完了を取り消すこともできます。",
+                "title" => "タスクを完了するっぴ！",
+                "description" => "左側のチェックボックスをクリックすると、タスクを完了することができるっぴ。もう一度押して、完了を取り消すこともできるっぴ！",
                 "exp" => 100,
                 "time_limit" => null,
             ],
             [
-                "title" => "タスクを追加しよう！",
-                "description" => "上の「タスクを追加する」ボタンをクリックし、必要な情報を入力しましょう！",
+                "title" => "タスクを追加するっぴ！",
+                "description" => "上の「タスクを追加する」ボタンをクリックして、必要な情報を入力するっぴ！",
                 "exp" => 100,
                 "time_limit" => null,
             ],
@@ -76,7 +76,7 @@ class CreateNewUser implements CreatesNewUsers {
             $task->exp = $sampleTask["exp"];
             $task->time_limit = $sampleTask["time_limit"];
             $task->user_id = $user->id;
-            $task->order_user_id = $user->id;
+            $task->order_user_id = 1;
             $task->created_at = now();
             $task->updated_at = now();
             $task->save();
