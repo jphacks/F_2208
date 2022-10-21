@@ -16,7 +16,7 @@ class FriendController extends Controller {
      */
     public function index(Request $request) {
         $user = $request->user();
-        $friends = Friend::with("user")->where('id', $user->id)->orWhere('user_id', $user->id)->get();
+        $friends = Friend::with("user")->with("friend")->where('id', $user->id)->orWhere('friend_id', $user->id)->get();
         return response()->json($friends);
     }
 
@@ -39,7 +39,7 @@ class FriendController extends Controller {
         $friend = new Friend();
         $user = $request->user();
         $friend->id = $user->id;
-        $friend->user_id = $request->input('user_id');
+        $friend->friend_id = $request->input('friend_id');
         $request->input('intimacy') && $friend->intimacy = $request->input('intimacy');
         $request->input('favorite') && $friend->favorite = $request->input('favorite');
         $request->input('sent_exp') && $friend->sent_exp = $request->input('sent_exp');
@@ -110,16 +110,16 @@ class FriendController extends Controller {
         return response('Deletion completed.');
     }
 
-    // id　または user_idに存在するフレンドを取得する
+    // id　または friend_idに存在するフレンドを取得する
     protected function friend($request, $id) {
         $user = $request->user();
 
-        return Friend::with('user')
+        return Friend::with('user')->with('friend')
             ->where(function ($query) use ($user, $id) {
-                $query->where('id', $user->id)->where('user_id', $id);
+                $query->where('id', $user->id)->where('friend_id', $id);
             })
             ->orWhere(function ($query) use ($user, $id) {
-                $query->where('user_id', $user->id)->where('id', $id);
+                $query->where('friend_id', $user->id)->where('id', $id);
             })
             ->firstOrFail();
     }

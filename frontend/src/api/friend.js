@@ -14,9 +14,9 @@ export const fetchFriends = async () => {
     });
 }
 
-export const fetchFriend = async ({ user_id }) => {
+export const fetchFriend = async ({ friend_id }) => {
   return await axios
-    .get(`/api/friends/${user_id}`)
+    .get(`/api/friends/${friend_id}`)
     .then((res) => {
       console.log("[friend]取得成功");
       return res;
@@ -28,10 +28,10 @@ export const fetchFriend = async ({ user_id }) => {
     });
 }
 
-export const createFriend = async ({ user_id, intimacy, favorite, sent_exp, received_exp }) => {
+export const createFriend = async ({ friend_id, intimacy, favorite, sent_exp, received_exp }) => {
   return await axios
     .post(`/api/friends`, {
-      user_id,
+      friend_id,
       intimacy,
       favorite,
       sent_exp,
@@ -67,7 +67,7 @@ export const updateFriend = async ({ friend_id, intimacy, favorite, sent_exp, re
     });
 }
 
-export const deleteFriend = async ({ user_id }) => {
+export const deleteFriend = async ({ friend_id }) => {
   return await axios
     .delete(`/api/friends/${user_id}`)
     .then((res) => {

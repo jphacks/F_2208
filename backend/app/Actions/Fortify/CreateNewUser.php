@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Friend;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -37,6 +38,16 @@ class CreateNewUser implements CreatesNewUsers {
             'password' => Hash::make($input['password']),
         ]);
 
+        // サンプルタスクを登録する
+        $this->storeSampleTasks($user);
+        // ミリッグをフレンドとして登録する
+        $this->storeFriendMillig($user);
+
+        return $user;
+    }
+
+    protected function storeSampleTasks(User $user) {
+        // サンプルタスク登録
         $sampleTasks = [
             [
                 "title" => "タスクをクリックしよう！",
@@ -70,7 +81,15 @@ class CreateNewUser implements CreatesNewUsers {
             $task->updated_at = now();
             $task->save();
         }
+    }
 
-        return $user;
+    protected function storeFriendMillig($user) {
+        $friend = new Friend();
+        $friend->id = 1;
+        $friend->friend_id = $user->id;
+        $friend->created_at = now();
+        $friend->updated_at = now();
+        $friend->save();
+        return $friend;
     }
 }
