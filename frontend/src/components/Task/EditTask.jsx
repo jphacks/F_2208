@@ -13,7 +13,7 @@ import {
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { fetchTasks, updateTask } from "../../api/task";
+import { fetchOrderedTasks, fetchTasks, updateTask } from "../../api/task";
 import { useForm } from "react-hook-form";
 import ja from "date-fns/locale/ja";
 import { css } from "@emotion/react";
@@ -43,9 +43,15 @@ const closeButtonStyle = {
   textAlign: "right",
 };
 
-export const EditTask = ({ setTasks, task }) => {
+export const EditTask = ({
+  setTasks,
+  task,
+  friends,
+  setFriends,
+  showMyTasks,
+}) => {
   const [open, setOpen] = useState(false);
-  const [friends, setFriends] = useState([]);
+
   const [assignedEmail, setAssignedEmail] = useState(); // 割り当て先ユーザーメールアドレス
 
   const { user } = useContext(userContext);
@@ -61,16 +67,6 @@ export const EditTask = ({ setTasks, task }) => {
     return `${priority}`;
   };
 
-  useEffect(() => {
-    (async () => {
-      const res = await fetchFriendUsers();
-      if (res.status === 200) {
-        setFriends([...res.data, user]);
-      }
-    })();
-    console.log(friends);
-  }, [user]);
-
   const handleClick = () => {
     setOpen(true);
   };
@@ -79,10 +75,11 @@ export const EditTask = ({ setTasks, task }) => {
   };
 
   const onSubmit = async (inputData) => {
-    console.log("inputData");
-    let user_id = user.email; // デフォルトで自身のユーザID
-    user_id = friends.filter((friend) => assignedEmail === friend.email)[0].id;
-    console.log(user_id);
+    console.log(inputData);
+    let user_id = user.id; // デフォルトで自身のユーザID
+    user_id =
+      friends.filter((friend) => assignedEmail === friend.email)[0]?.id ||
+      user_id;
     const resTask = await updateTask({
       id: task.id,
       title: inputData.title,
@@ -94,9 +91,11 @@ export const EditTask = ({ setTasks, task }) => {
     });
     // console.log(resTask);
     if (resTask.status === 200) {
-      const resUser = await fetchTasks();
-      if (resUser.status === 200) {
-        setTasks(resUser.data);
+      const resTasks = showMyTasks
+        ? await fetchTasks()
+        : await fetchOrderedTasks();
+      if (resTasks.status === 200) {
+        setTasks(resTasks.data);
       }
     }
     handleClose();
@@ -261,7 +260,7 @@ export const EditTask = ({ setTasks, task }) => {
                     />
                   )}
                 />
-                <Controller
+                {/* <Controller
                   name="email"
                   control={control}
                   rules={{
@@ -275,7 +274,7 @@ export const EditTask = ({ setTasks, task }) => {
                   render={({ field, fieldState }) => (
                     <Autocomplete
                       {...field}
-                      defaultValue={task.user.email}
+                      defaultValue={user.email}
                       type="email"
                       value={assignedEmail}
                       inputValue={assignedEmail}
@@ -297,7 +296,7 @@ export const EditTask = ({ setTasks, task }) => {
                       )}
                     />
                   )}
-                />
+                /> */}
                 <Button
                   css={css`
                     color: #fff;
@@ -314,7 +313,7 @@ export const EditTask = ({ setTasks, task }) => {
                   color="primary"
                   type="submit"
                 >
-                  追加する
+                  更新する
                 </Button>
               </Stack>
             </form>

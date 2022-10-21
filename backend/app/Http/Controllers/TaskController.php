@@ -123,4 +123,11 @@ class TaskController extends Controller {
         $user->save();
         return response()->json($task);
     }
+
+    //　自分が割り当てた他人のタスク
+    public function orderedTasks(Request $request) {
+        $user = $request->user();
+        $tasks = Task::with('orderUser')->with('user')->where('order_user_id', $user->id)->where('user_id', '<>', $user->id)->orderBy('created_at', 'desc')->get();
+        return response()->json($tasks);
+    }
 }

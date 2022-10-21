@@ -96,7 +96,7 @@ export const searchFriend = async ({ email }) => {
 }
 export const fetchFriendUsers = async () => {
   return await axios
-    .get(`/api/friendss/users`)
+    .get(`/api/friend/users`)
     .then((res) => {
       // console.log("[friend]取得成功");
       return res;

@@ -113,3 +113,17 @@ export const updateUndoTask = async ({ id }) => {
       return error;
     });
 }
+
+export const fetchOrderedTasks = async () => {
+  return await axios
+    .get("/api/task/ordered")
+    .then((res) => {
+      // console.log("[tasks]取得成功");
+      return res;
+    })
+    .catch((error) => {
+      // console.log("[tasks]取得失敗");
+      // console.log(error);
+      return error;
+    });
+}

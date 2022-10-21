@@ -71,8 +71,10 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
   };
 
   const onSubmit = async (inputData) => {
-    let user_id = user.email; // デフォルトで自身のユーザID
-    user_id = friends.filter((friend) => assignedEmail === friend.email)[0].id;
+    let user_id = user.id; // デフォルトで自身のユーザID
+    user_id =
+      friends.filter((friend) => assignedEmail === friend.email)[0]?.id ||
+      user_id;
 
     const resTask = await createTask({
       title: inputData.title,
