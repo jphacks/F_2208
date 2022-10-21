@@ -1,4 +1,11 @@
-import { Button, IconButton, Modal, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  IconButton,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -16,6 +23,7 @@ import UserStatus from "../components/User/UserStatus";
 import { StoreMoney } from "../components/Forms/StoreMoney";
 import { WithdrawMoney } from "../components/Forms/WithdrawMoney";
 import { fetchUser, updateUser } from "../api/user";
+import QRCode from "../components/QRCode/QRCode";
 
 const style = {
   position: "absolute",
@@ -99,9 +107,18 @@ const Profile = () => {
             min-width: 80%;
           `}
         >
-          <Typography variant="h5" component="h2" align="center">
-            {user.name}
-          </Typography>
+          <Grid container alignItems="center">
+            <Grid item xs={2}>
+              <QRCode />
+            </Grid>
+            <Grid item xs={8}>
+              <Typography variant="h5" component="h2" align="center">
+                {user.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={2} />
+          </Grid>
+
           <Pig
             pigImage={pigImage}
             grassImage={grassImage}

@@ -94,9 +94,7 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
                 `}
               >
                 <AccessTimeIcon fontSize="small" />
-                {task.time_limit
-                  ? `${task.time_limit.slice(0, -3)}:00`
-                  : "なし"}
+                {task.time_limit.slice(0, -3)}:00
               </Typography>
             </Grid>
           </Grid>
@@ -141,7 +139,7 @@ const TaskItem = ({ tasks, setTasks, task, handleToggleCheckbox, checked }) => {
             </Stack>
             <Stack spacing={0.3}>
               <Typography variant="body2" color="text.primary">
-                割り当て元ユーザ
+                作成者
               </Typography>
               <Typography variant="body1" color="text.primary">
                 {task.order_user.name}
