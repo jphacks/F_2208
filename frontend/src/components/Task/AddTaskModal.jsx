@@ -191,7 +191,8 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                       step={1}
                       marks
                       min={1}
-                      max={3}
+                      max={3} 
+                      sx={"color:#ff0d72;"}
                       error={fieldState.error}
                       helperText={fieldState.error?.message}
                     />
@@ -238,7 +239,19 @@ export const AddTaskModal = ({ open, handleClose, setTasks }) => {
                     />
                   )}
                 />
-                <Button variant="contained" color="primary" type="submit">
+                <Button css={css`
+                color: #fff;
+                  background-color: #ff0d72;
+                  opacity:0.8;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} 
+                  variant="contained" 
+                  color="primary" 
+                  type="submit">
                   追加する
                 </Button>
               </Stack>

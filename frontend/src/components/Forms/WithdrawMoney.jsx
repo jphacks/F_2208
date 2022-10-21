@@ -10,6 +10,7 @@ import {
 
 import { useForm, Controller } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
+import { css } from "@emotion/react";
 
 
 const style = {
@@ -97,6 +98,7 @@ export const WithdrawMoney = ({ handleReload, reload }) => {
                   id="newReward"
                   label="ギフトコード番号"
                   variant="outlined"
+                  sx={"background-color:transparent; border-color:red;"}
                   fullWidth
                   defaultValue="1"
                   name="codesNum"
@@ -106,13 +108,33 @@ export const WithdrawMoney = ({ handleReload, reload }) => {
                 />)}
             />
             <br />
-            <Button variant="contained" color="primary" type="submit" >
+            <Button css={css`
+                  color: #fff;
+                  background-color: #f67690;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} 
+                  variant="contained"  
+                  type="submit" >
               出金する
             </Button>
           </form>
         </Box>
       </Modal>
-      <Button variant="contained" onClick={handleClick}>出金</Button>
+      <Button css={css`
+                  color: #fff;
+                  background-color: #f67690;
+                  &:hover {
+                    color:color: #ff0d72;;
+                    background-color: #dc8ba7;
+                    opacity:0.8;
+                    border-color: #ff0d72;
+                  }`} 
+                  variant="contained" 
+                  onClick={handleClick}>出金</Button>
       {!!code ? <Typography variant="h1" component="h2" align="center">
         最後に取り出したコード{code}
       </Typography> : ""}
