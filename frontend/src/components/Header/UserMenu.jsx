@@ -132,8 +132,9 @@ const UserMenu = () => {
                     text-decoration: none;
                     color: inherit;
                   `}
+                  key={title}
                 >
-                  <MenuItem key={title}>
+                  <MenuItem>
                     <div
                       css={css`
                         display: flex;
