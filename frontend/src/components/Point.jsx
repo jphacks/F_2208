@@ -4,7 +4,14 @@ import { css } from "@emotion/react";
 import { Box, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 import { userContext } from "../contexts/userContext";
-
+import ReactCanvasConfetti from "react-canvas-confetti";
+import CoinRain from "./CoinRain";
+const style = {
+  position: "fixed",
+  width: "100%",
+  height: "100%",
+  zIndex: -1,
+};
 const Point = () => {
   const { user, setUser } = useContext(userContext);
 
@@ -14,6 +21,7 @@ const Point = () => {
         css={css`
           height: 350px;
           margin-top: 30px;
+          position: relative;
           background-image: url(${RewardBg});
           background-position: 50% 50%;
           background-color: rgba(255, 255, 255, 0.2);
@@ -29,6 +37,7 @@ const Point = () => {
           }
         `}
       >
+        <CoinRain />
         <Stack
           spacing={2}
           css={css`
@@ -68,6 +77,11 @@ const Point = () => {
               </>
             )}
           </Typography>
+
+          <ReactCanvasConfetti
+            style={style}
+            className={"yourClassName"}
+          ></ReactCanvasConfetti>
         </Stack>
       </Box>
     </ShadowBox>
