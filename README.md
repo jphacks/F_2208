@@ -38,12 +38,12 @@ https://f2208.miravy.com/
 <h2>主な機能について</h2>
 
 
-<h3>②タスクの追加</h3>
+<h3>タスクの追加</h3>
 
 ![Slide3](https://user-images.githubusercontent.com/103715845/197318223-7df3b9b6-8835-49e2-9c2a-0a59d8eac1ed.jpg)
 
 
-<h3>③QRコードによるフレンド追加</h3>
+<h3>QRコードによるフレンド追加</h3>
 
 ![Slide4](https://user-images.githubusercontent.com/103715845/197311238-ad4c3426-b628-46e7-8a0e-27d0cf7171d7.jpg)
 
@@ -52,7 +52,7 @@ https://f2208.miravy.com/
 ![Slide6](https://user-images.githubusercontent.com/103715845/197318828-cd4e2909-b586-43d3-b489-e0820d4abc3d.jpg)
 
 
-<h3>④出金</h3>
+<h3>出金</h3>
 
 ![Slide5](https://user-images.githubusercontent.com/103715845/197311267-ce9ca67c-a86e-4310-9b57-1ed350c43f61.jpg)
 
