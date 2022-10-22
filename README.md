@@ -1,8 +1,14 @@
 # 貯Pay箱
 
-![ピッグピングgif](https://user-images.githubusercontent.com/103715845/197315090-b6d32f46-e84a-4fa0-8eba-5a7c41d865d8.gif)
+
+![ピッグピングgif](https://user-images.githubusercontent.com/103715845/197315090-b6d32f46-e84a-4fa0-8eba-5a7c41d865d8.gif | width=100)
 
 ## 製品概要
+
+### アプリURL
+
+https://f2208.miravy.com/
+
 ### 背景(製品開発のきっかけ、課題等）
 #### 　“これが令和の貯金箱”
 
