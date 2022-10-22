@@ -1,7 +1,6 @@
 # 貯Pay箱
 
-
-![ピッグピングgif](https://user-images.githubusercontent.com/103715845/197315090-b6d32f46-e84a-4fa0-8eba-5a7c41d865d8.gif)
+![ピッグピングgif](https://user-images.githubusercontent.com/73621966/197318588-40b5eba0-01ab-45e2-b9e1-18bbb04415fd.gif)
 
 ## 製品概要
 
