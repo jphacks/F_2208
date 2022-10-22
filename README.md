@@ -33,7 +33,7 @@ https://f2208.miravy.com/
 ### 製品説明（具体的な製品の説明）
 <h1>全体概要</h1>
 
-<img width="750" alt="197308529-c2523dcc-0d7d-4ec8-ba83-60c8397cee37 (1)" src="https://user-images.githubusercontent.com/73621966/197318774-f436d6a6-ead7-44d1-9992-d3400bf7d670.png">
+<img width="950" alt="197308529-c2523dcc-0d7d-4ec8-ba83-60c8397cee37 (1) (1)" src="https://user-images.githubusercontent.com/73621966/197318913-6a1f2fbf-45bb-401b-b378-ff9c8e720b71.png">
 
 <h2>主な機能について</h2>
 
