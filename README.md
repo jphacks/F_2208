@@ -37,7 +37,8 @@ https://f2208.miravy.com/
 
 <h3>②タスクの追加</h3>
 
-![タスク画面](https://user-images.githubusercontent.com/103715845/197309763-ce2b5171-ce2b-4b4a-b07a-bf88cb37527d.jpg)
+![Slide3](https://user-images.githubusercontent.com/103715845/197318223-7df3b9b6-8835-49e2-9c2a-0a59d8eac1ed.jpg)
+
 
 <h3>③QRコードによるフレンド追加</h3>
 
