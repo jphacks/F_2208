@@ -28,7 +28,9 @@
 <img width="598" alt="スクリーンショット 2022-10-22 4 08 17" src="https://user-images.githubusercontent.com/103715845/197308529-c2523dcc-0d7d-4ec8-ba83-60c8397cee37.png">
 <h2>各機能について</h2>
 
-<h3>①ログイン・新規登録</h3>
+<h3>①ログイン・新規登録</h3>!
+![タスク画面](https://user-images.githubusercontent.com/103715845/197309763-ce2b5171-ce2b-4b4a-b07a-bf88cb37527d.jpg)
+
 
 <h3>②タスクの追加</h3>
 
