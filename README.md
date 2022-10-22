@@ -28,17 +28,29 @@
 <img width="598" alt="スクリーンショット 2022-10-22 4 08 17" src="https://user-images.githubusercontent.com/103715845/197308529-c2523dcc-0d7d-4ec8-ba83-60c8397cee37.png">
 <h2>各機能について</h2>
 
-<h3>①ログイン・新規登録</h3>!
-![タスク画面](https://user-images.githubusercontent.com/103715845/197309763-ce2b5171-ce2b-4b4a-b07a-bf88cb37527d.jpg)
+<h3>①ログイン・新規登録</h3>
 
+![ログイン・新規登録](https://user-images.githubusercontent.com/103715845/197311223-e7c31f99-3b7b-4a23-8c4e-d82bae278194.jpg)
 
 <h3>②タスクの追加</h3>
 
+![タスク画面](https://user-images.githubusercontent.com/103715845/197309763-ce2b5171-ce2b-4b4a-b07a-bf88cb37527d.jpg)
+
+
 <h3>③QRコードによるフレンド追加</h3>
+
+![Slide4](https://user-images.githubusercontent.com/103715845/197311238-ad4c3426-b628-46e7-8a0e-27d0cf7171d7.jpg)
 
 <h3>④入金・出金</h3>
 
+![Slide5](https://user-images.githubusercontent.com/103715845/197311267-ce9ca67c-a86e-4310-9b57-1ed350c43f61.jpg)
+
+![Slide6](https://user-images.githubusercontent.com/103715845/197311270-fe7b33b5-828d-41ad-9874-251d89dee158.jpg)
+
 <h3>⑤設定</h3>
+
+![Slide7](https://user-images.githubusercontent.com/103715845/197311273-0c376dcc-6334-4100-a395-03c02f3720fc.jpg)
+
 
 
 
