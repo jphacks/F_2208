@@ -33,12 +33,15 @@
 
 ![タスク画面](https://user-images.githubusercontent.com/103715845/197309763-ce2b5171-ce2b-4b4a-b07a-bf88cb37527d.jpg)
 
-
 <h3>③QRコードによるフレンド追加</h3>
 
 ![Slide4](https://user-images.githubusercontent.com/103715845/197311238-ad4c3426-b628-46e7-8a0e-27d0cf7171d7.jpg)
 
-<h3>④入金・出金</h3>
+<h3>PayPayによる出金</h3>
+
+
+
+<h3>④出金</h3>
 
 ![Slide5](https://user-images.githubusercontent.com/103715845/197311267-ce9ca67c-a86e-4310-9b57-1ed350c43f61.jpg)
 
@@ -72,10 +75,4 @@
 
 
 ### 独自技術
-#### ハッカソンで開発した独自機能・技術
-* 独自で開発したものの内容をこちらに記載してください
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
-
-#### 製品に取り入れた研究内容（データ・ソフトウェアなど）（※アカデミック部門の場合のみ提出必須）
-* 
-* 
+なし
