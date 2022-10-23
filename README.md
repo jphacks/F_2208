@@ -4,7 +4,7 @@
 
 ## <br><br>🐽製品概要
 
-###紹介動画
+### 紹介動画
 https://user-images.githubusercontent.com/73621966/197318258-446c7eec-97a1-466f-85b0-f5a715fe631e.mp4
 
 ### <br><br>アプリURL
