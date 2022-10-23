@@ -11,6 +11,8 @@ https://user-images.githubusercontent.com/73621966/197318258-446c7eec-97a1-466f-
 
 https://f2208.miravy.com/
 
+※PayPayによる入金は、専用のテストアカウントでのみ動作します。動作確認の場合は、Slack等にてご連絡ください。
+
 # <br><br>⛩背景(製品開発のきっかけ、課題等）
 ## <br>これが令和の貯金箱
 
